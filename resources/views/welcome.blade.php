@@ -1,0 +1,6 @@
+@include('header')
+@include('nav')
+@include('banner')
+@include('homeproduct')
+@include('bannerbottom')
+@include('footer')
