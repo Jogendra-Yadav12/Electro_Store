@@ -18,14 +18,20 @@ class checkoutController extends Controller
      */
     public function index()
     {
-        if(session()->get('mail')){
-            $user_id= session()->get('id');
-            $add = address::where('user_id',$user_id)->exists();
-            $product = cart::where('user_id',$user_id)->get();
-            $count = cart::where('user_id',$user_id)->get()->count();
-            return view('checkout',compact('product','count','add'));
-        }else{
-            return redirect('/')->with('status','Please login!!');
+        try{
+            if(session()->get('mail')){
+                $user_id= session()->get('id');
+                $add = address::where('user_id',$user_id)->exists();
+                $product = cart::where('user_id',$user_id)->get();
+                $count = cart::where('user_id',$user_id)->get()->count();
+                return view('checkout',compact('product','count','add'));
+            }else{
+                return redirect('/')->with('status','Please login!!');
+            }
+        } catch (QueryException $e) {
+            return redirect()->back()->with('status', 'Database error: ' . $e->getMessage());
+        } catch (\Exception $e) {
+            return redirect('/')->with('status', 'An error occurred: ' . $e->getMessage());
         }
     }
 
@@ -39,26 +45,33 @@ class checkoutController extends Controller
      */
     public function wishlist($id)
     {
-        $user_id= session()->get('id');
-        if(session()->get('mail')){
-            
-            $item = product::find($id);
-            
-            $double = wishlist::where('p_id',$id)->exists();
-            if($double){
+        try{
+            $user_id = session()->get('id');
+            if(session()->get('mail')){
+                
+                $item = product::find($id);
+                
+                $double = wishlist::where('p_id',$id)->exists();
+                if($double){
+                    $item = wishlist::where('p_id',$id)->delete();
+                    return redirect()->back();
+                }
+                $wish = new wishlist;
+                $wish->name = $item['name'];
+                $wish->img = $item['img'];
+                $wish->price = $item['price'];
+                $wish->user_id = $user_id;
+                $wish->p_id = $item['id'];
+                $wish->save();
                 return redirect()->back();
+        
+            }else{
+                return redirect('/')->with('status','Please login!!');
             }
-            $wish = new wishlist;
-            $wish->name = $item['name'];
-            $wish->img = $item['img'];
-            $wish->price = $item['price'];
-            $wish->user_id = $user_id;
-            $wish->p_id = $item['id'];
-            $wish->save();
-            return redirect('wishlist');
-     
-        }else{
-            return redirect('/')->with('status','Please login!!');
+        } catch (QueryException $e) {
+            return redirect()->back()->with('status', 'Database error: ' . $e->getMessage());
+        } catch (\Exception $e) {
+            return redirect('/')->with('status', 'An error occurred: ' . $e->getMessage());
         }
     }
 
@@ -70,10 +83,16 @@ class checkoutController extends Controller
      */
     public function wish()
     {
-        $user_id= session()->get('id');
-       $data = wishlist::all();
-       $count = wishlist::where('user_id',$user_id)->get()->count();
-       return view('wishlist',compact('data','count'));
+        try{
+            $user_id= session()->get('id');
+            $data = wishlist::where('user_id',$user_id)->get();
+            $count = wishlist::where('user_id',$user_id)->get()->count();
+            return view('wishlist',compact('data','count'));
+        } catch (QueryException $e) {
+            return redirect()->back()->with('status', 'Database error: ' . $e->getMessage());
+        } catch (\Exception $e) {
+            return redirect('/')->with('status', 'An error occurred: ' . $e->getMessage());
+        }
     }
 
     /**
@@ -84,42 +103,44 @@ class checkoutController extends Controller
      */
     public function show(product $id)
     {
-        $user_id= session()->get('id');
-        if(session()->get('mail')){
-            $cart = new cart;
-            $item = product::find($id);
-            $wish = wishlist::where('p_id',$id['id'])->exists();
-            $d = cart::where('p_id',$id['id'])->where('user_id',$user_id)->get();
-            $double = cart::where('p_id',$id['id'])->where('user_id',$user_id)->exists();
-            if($double){
-                $p = $d[0]['price']/$d[0]['quantity'];
-                $c = $d[0]['quantity']+1;
-                $rep=cart::find($d[0]['id']);
-                $rep->quantity = $c;
-                $rep->price = $p * $c;
-                // dd($rep);
-                $rep->save();
-                $item = wishlist::where('p_id',$id['id'])->delete();
-                return redirect('checkout');
-            }
+        try{
+            $user_id= session()->get('id');
+            if(session()->get('mail')){
+                $cart = new cart;
+                $item = product::find($id);
                 
-            foreach($item as $key=>$value){
-                $cart->name = $value['name'];
-                $cart->img = $value['img'];
-                $cart->price = $value['price'];
-                $cart->quantity = 1;
-                $cart->user_id = $user_id;
-                $cart->p_id = $id['id'];
-                $cart->save();
-            }
-            
-            if($wish){
-                $item = wishlist::where('p_id',$id['id'])->delete();
-            }
-            return redirect('checkout');
+                $d = cart::where('p_id',$id['id'])->where('user_id',$user_id)->get();
+                $double = cart::where('p_id',$id['id'])->where('user_id',$user_id)->exists();
+                if($double){
+                    $p = $d[0]['price']/$d[0]['quantity'];
+                    $c = $d[0]['quantity']+1;
+                    $rep=cart::find($d[0]['id']);
+                    $rep->quantity = $c;
+                    $rep->price = $p * $c;
+                    // dd($rep);
+                    $rep->save();
+                    return redirect('checkout');
+                }
+                    
+                foreach($item as $key=>$value){
+                    $cart->name = $value['name'];
+                    $cart->img = $value['img'];
+                    $cart->price = $value['price'];
+                    $cart->quantity = 1;
+                    $cart->user_id = $user_id;
+                    $cart->p_id = $id['id'];
+                    $cart->save();
+                }
+                
+                return redirect('checkout');
 
-        }else{
-            return redirect('/')->with('status','Please login!!');
+            }else{
+                return redirect('/')->with('status','Please login!!');
+            }
+        } catch (QueryException $e) {
+            return redirect()->back()->with('status', 'Database error: ' . $e->getMessage());
+        } catch (\Exception $e) {
+            return redirect('/')->with('status', 'An error occurred: ' . $e->getMessage());
         }
     }
 
@@ -134,10 +155,28 @@ class checkoutController extends Controller
      */
     public function remove($id)
     {
-        $item = cart::where('id',$id)->delete();
-        return redirect('checkout')->with('status','Remove product successfully!!');
+        try{
+            $item = cart::where('id',$id)->delete();
+            return redirect('checkout')->with('status','Remove product successfully!!');
+        } catch (QueryException $e) {
+            return redirect()->back()->with('status', 'Database error: ' . $e->getMessage());
+        } catch (\Exception $e) {
+            return redirect('/')->with('status', 'An error occurred: ' . $e->getMessage());
+        }
     }
 
+
+    public function wishremove($id)
+    {
+        try{
+            $item = wishlist::where('id',$id)->delete();
+            return redirect('wishlist')->with('status','Remove product successfully!!');
+        } catch (QueryException $e) {
+            return redirect()->back()->with('status', 'Database error: ' . $e->getMessage());
+        } catch (\Exception $e) {
+            return redirect('/')->with('status', 'An error occurred: ' . $e->getMessage());
+        }
+    }
     /**
      * Update the specified resource in storage.
      *

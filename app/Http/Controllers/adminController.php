@@ -12,7 +12,7 @@ class adminController extends Controller
 {
     public function addproduct()
     {
-        try {
+        try{
             if (session()->get('mail') && session()->get('mail') === 'fireboyaj12@gmail.com') {
                 return view('Admin.addproduct');
             } elseif (session()->get('mail')) {
@@ -25,16 +25,17 @@ class adminController extends Controller
         }
 
     }
+
     public function adduser(){
         try{
-        if(session()->get('mail') and session()->get('mail')=='fireboyaj12@gmail.com'){
-            return view('Admin.adduser');
-        }elseif(session()->get('mail')){
-            return redirect('/')->with('status','Unautherized User !!');
-        }
-        else{
-            return redirect('/')->with('status','Please login !!');
-        }
+            if(session()->get('mail') and session()->get('mail')=='fireboyaj12@gmail.com'){
+                return view('Admin.adduser');
+            }elseif(session()->get('mail')){
+                return redirect('/')->with('status','Unautherized User !!');
+            }
+            else{
+                return redirect('/')->with('status','Please login !!');
+            }
         } catch (\Exception $e) {
             return redirect('/')->with('status', 'An error occurred: ' . $e->getMessage());
         }
@@ -44,13 +45,15 @@ class adminController extends Controller
     public function store(Request $request)
     {
         try {
-            if (session()->get('mail') && session()->get('mail') === 'fireboyaj12@gmail.com') {
+            if(session()->get('mail') && session()->get('mail') === 'fireboyaj12@gmail.com') {
                 $user = new Customer;
                 $user->name = $request->name;
                 $user->email = $request->email;
                 $user->password = $request->password;
+                $user->type = $request->type;
+                $user->status = 1;
                 $user->save();
-                return redirect('adduser')->with('status', 'Product added successfully!!');
+                return redirect('user')->with('status', 'Product added successfully!!');
             } else {
                 return redirect('/')->with('status', 'Please login !!');
             }
@@ -132,35 +135,67 @@ class adminController extends Controller
     }
 
     public function updated(Request $request, $id){
-        $address = customer::where('id',$id)->get();
-        $address[0]['name'] = $request->name;
-        $address[0]['email'] = $request->email;
-        $address[0]['password'] = $request->password;
-        $address[0]['type'] = $request->type;
-        $address[0]->save();
-        return redirect()->back()->with('status','Data updated successfully');
+        try{
+            $address = customer::where('id',$id)->get();
+            $address[0]['name'] = $request->name;
+            $address[0]['email'] = $request->email;
+            $address[0]['password'] = $request->password;
+            $address[0]['type'] = $request->type;
+            $address[0]->save();
+            return redirect()->back()->with('status','Data updated successfully');
+        } catch (QueryException $e) {
+            return redirect()->back()->with('status', 'Database error: ' . $e->getMessage());
+        } catch (\Exception $e) {
+            return redirect('/')->with('status', 'An error occurred: ' . $e->getMessage());
+        }
     }
 
     public function updproduct($id){
-        $product = product::where('id',$id)->get();
-        return view('Admin.editproduct',compact('product'));
+        try{
+            $product = product::where('id',$id)->get();
+            return view('Admin.editproduct',compact('product'));
+        } catch (QueryException $e) {
+            return redirect()->back()->with('status', 'Database error: ' . $e->getMessage());
+        } catch (\Exception $e) {
+            return redirect('/')->with('status', 'An error occurred: ' . $e->getMessage());
+        }
     }
 
     public function updatedproduct(Request $request, $id){
-        $product = product::where('id',$id)->get();
-        $product[0]['name'] = $request->name;
-        $product[0]['category'] = $request->category;
-        $product[0]['brand'] = $request->brand;
-        $imageName = $request->img->getClientOriginalName();
-        $product[0]['img'] = $request->img->move(('images'), $imageName);
-        $product[0]->save();
-        return redirect()->back()->with('status','Data updated successfully');
+        try{
+            $product = product::where('id',$id)->get();
+            $product[0]['name'] = $request->name;
+            $product[0]['category'] = $request->category;
+            $product[0]['brand'] = $request->brand;
+            $imageName = $request->img->getClientOriginalName();
+            $product[0]['img'] = $request->img->move(('images'), $imageName);
+            $product[0]->save();
+            return redirect()->back()->with('status','Data updated successfully');
+        } catch (QueryException $e) {
+            return redirect()->back()->with('status', 'Database error: ' . $e->getMessage());
+        } catch (\Exception $e) {
+            return redirect('/')->with('status', 'An error occurred: ' . $e->getMessage());
+        }
     }
 
     
     public function details($id){
-        $product = product::find($id);
-        return view('Admin.product-details',compact('product'));
+        try{
+            $product = product::find($id);
+            return view('Admin.product-details',compact('product'));
+        } catch (QueryException $e) {
+            return redirect()->back()->with('status', 'Database error: ' . $e->getMessage());
+        } catch (\Exception $e) {
+            return redirect('/')->with('status', 'An error occurred: ' . $e->getMessage());
+        }
     }
 
+    public function active($id){
+        $user = customer::find($id);
+       
+        $user->status = $user->status === 1 ? 0 : 1;
+
+        $user->save();
+        return redirect()->back();
+    }
 }
