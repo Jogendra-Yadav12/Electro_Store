@@ -1,5 +1,6 @@
-@include('header')
-@include('nav')
+@extends('layouts.app')
+
+@section('content')
 
 @if (Session::has('status'))
 
@@ -212,14 +213,6 @@
 </div>
 <!-- //checkout page -->
 
-<script type="text/javascript">
-    $(document).ready(function () {
-        
-    
-
-    });
-</script>
-
     <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
       <script>
 
@@ -275,7 +268,7 @@
                     total = sub_total * value;
 
                     $(this).parents('.quantity').find('.qty-input').val(value);
-                    $(this).parents('.quantity').find('.price-sub').val(value);
+                    $(this).parents('.quantity').find('.price-sub').val(total);
                     $('#abc').val(amount);
                     $('.amount').text(amount);
                     $(this).parents('.quantity').find('.xyz').val(sub_total);
@@ -320,4 +313,4 @@
          });
       </script>
 
-@include('footer')
+@endsection

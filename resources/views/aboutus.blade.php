@@ -1,5 +1,6 @@
-@include('header')
-@include('nav')
+@extends('layouts.app')
+
+@section('content')
 
 <!-- banner-2 -->
 <div class="page-head_agile_info_w3l">
@@ -121,4 +122,4 @@
     </div>
 </div>
 <!-- //testimonials -->
-@include('footer')
+@endsection

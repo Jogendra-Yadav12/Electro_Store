@@ -1,5 +1,5 @@
-@include('header')
-@include('nav')
+@extends('layouts.app')
+@section('content')
 
 
 <!-- banner-2 -->
@@ -16,7 +16,7 @@
                     <a href="/">Home</a>
                     <i>|</i>
                 </li>
-                <li>Product Page</li>
+                <li>Product Details</li>
             </ul>
         </div>
     </div>
@@ -28,22 +28,21 @@
 			<!-- tittle heading -->
 			<h3 class="tittle-w3l text-center mb-lg-5 mb-sm-4 mb-3">
 				<span>P</span>oduct
-				<span>P</span>age</h3>
+				<span>D</span>etails</h3>
 			<!-- //tittle heading -->
 			@foreach($product as $value)
 			<div class="row">
-				
 				<div class="col-lg-5 col-md-8 single-right-left ">
 					<div class="grid images_3_of_2">
 						<div class="flexslider">
 							<ul class="slides">
-								<img src="{{asset($value->img)}}" style="height: 450px;width: 250px;">
+								<img src="{{asset($value->img)}}" style="height: 400px; width:300px;">
 							</ul>
 							<div class="clearfix"></div>
 						</div>
 					</div>
 				</div>
-
+				
 				<div class="col-lg-7 single-right-left simpleCart_shelfItem">
 					<h3 class="mb-3">{{$value->name}}</h3>
 					<p class="mb-3">
@@ -85,4 +84,4 @@
 		</div>
 	</div>
 	<!-- //Single Page -->
-    @include('footer')
+@endsection

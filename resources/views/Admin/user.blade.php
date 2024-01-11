@@ -6,7 +6,7 @@
 <div class="container px-5">
 	<div class="alert alert-success alert-dismissible">
 		<strong>{{ Session::get('status') }}</strong>
-		<svg class="float-right" data-bs-dismiss="alert" xmlns="http://www.w3.org/2000/svg" width="40" height="30" cursor="pointer" fill="currentColor" class="bi bi-file-excel btn-close" viewBox="0 0 16 16">
+		<svg class="float-end" data-bs-dismiss="alert" xmlns="http://www.w3.org/2000/svg" width="40" height="30" cursor="pointer" fill="currentColor" class="bi bi-file-excel btn-close" viewBox="0 0 16 16">
 		<path d="M5.18 4.616a.5.5 0 0 1 .704.064L8 7.219l2.116-2.54a.5.5 0 1 1 .768.641L8.651 8l2.233 2.68a.5.5 0 0 1-.768.64L8 8.781l-2.116 2.54a.5.5 0 0 1-.768-.641L7.349 8 5.116 5.32a.5.5 0 0 1 .064-.704z"/>
 		<path d="M4 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zm0 1h8a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1"/>
 		</svg>
@@ -50,6 +50,7 @@
 														<th>Email</th>
 														<th>Password</th>
 														<th>Type</th>
+														<th>status</th>
 														<th>methods</th>
 													</tr>
 												</thead>
@@ -61,6 +62,17 @@
 														<td>{{$value->email}}</td>
 														<td>{{$value->password}}</td>
 														<td>{{$value->type}}</td>
+														<td>
+															@if($value->status === 1)
+															<a href="/active/{{$value->id}}"><span class="alert alert-success py-1" role="alert">
+																Activate
+															</span></a>
+															@else
+															<a href="/active/{{$value->id}}"><span class="alert alert-danger py-1" role="alert">
+																Blocked
+															</span></a>
+															@endif
+														</td>
 														<td>
 															<div class="button-list">
 															<a href="/update/{{$value->id}}"><i class="ti ti-pencil"></i></a>

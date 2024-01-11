@@ -1,26 +1,21 @@
 <div class="search-hotel border-bottom py-2">
-<h3 class="agileits-sear-head mb-3">Category</h3>
-<form action="/brand" method="get">		
-<div class="left-side py-2">
-<ul>
-@foreach($brand as $key=>$value)
-	<li>
-		<input type="checkbox" class="checked" name="filter[]" value="{{$value['brand']}}" id="{{$value['brand']}}" onchange="filter"/>
-		
-		<label class="span" for="{{$value['brand']}}" >{{$value['brand']}}</label>
-	</li>
-@endforeach
-</ul>
-</div>
-</form>
-</div>
-						<!-- price -->
+	<h3 class="agileits-sear-head mb-3">Category</h3>
+		<form action="/brand" method="get">		
+			<div class="left-side py-2">
+				<ul>
+					@foreach($brand as $key=>$value)
+						<li>
+							<input type="checkbox" class="checked" name="filter[]" value="{{$value['brand']}}" id="{{$value['brand']}}" />
+							<label class="span" for="{{$value['brand']}}" >{{$value['brand']}}</label>
+						</li>
+					@endforeach
+				</ul>
+			</div>
+		</form>
+	</div>
+					<!-- price -->
 						<div class="range border-bottom py-2">
 							<h3 class="agileits-sear-head mb-3">Price</h3>
-
-
-
-
 							<div class="w3l-range">
 								<ul>
 								<li>

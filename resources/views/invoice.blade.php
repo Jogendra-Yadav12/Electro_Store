@@ -1,5 +1,7 @@
-@include('header')
-@include('nav')
+@extends('layouts.app')
+
+@section('content')
+
     <div class="container">
         <h1 class="m-3">Payment Bill</h1>
         <div class="card">
@@ -60,6 +62,4 @@
     </div>
     
 
-
-
-@include('footer')
+@endsection

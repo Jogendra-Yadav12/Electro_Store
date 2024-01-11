@@ -1,4 +1,6 @@
-@include('header')
+@extends('layouts.app')
+@section('content')
+
 <article class="bg-secondary mb-3 p-5">  
 <div class="card-body text-center">
 <h4 class="text-white">Thank you for Purchase !!<br></h4>
@@ -10,4 +12,4 @@
 </article>
 
 @include('bannerbottom')
-@include('footer')
+@endsection

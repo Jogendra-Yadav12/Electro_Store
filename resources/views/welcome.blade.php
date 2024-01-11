@@ -1,6 +1,8 @@
-@include('header')
-@include('nav')
+@extends('layouts.app')
+@section('content')
+
 @include('banner')
 @include('homeproduct')
 @include('bannerbottom')
-@include('footer')
+
+@endsection

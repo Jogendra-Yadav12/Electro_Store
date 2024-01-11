@@ -1,5 +1,5 @@
-@include('header')
-@include('nav')
+@extends('layouts.app')
+@section('content')
 
 @if (Session::has('status'))
 <div class="container p-2">
@@ -45,6 +45,9 @@
         </h3>
         <!-- //tittle heading -->
         <div class="checkout-right">
+        <h4 class="mb-sm-4 mb-3">Your wishlist contains:
+                <span> {{$count}} Products</span>
+            </h4>
             <div class="table-responsive">
                 <table class="timetable_sub">
                     <thead>
@@ -64,7 +67,7 @@
                     @else
                     @foreach($data as $key=>$value)
                             @php
-                            $i = $value['p_id'];
+                            $i = $value['id'];
                             @endphp
                         <tr class="rem1">
                         <td class="invert">
@@ -84,7 +87,7 @@
                             </td>
                             <td>
                             <div class="rem">
-                                    <a href='{{url("/remove/$i")}}'>
+                                    <a href='{{url("/wishremove/$i")}}'>
                                     <!-- Button trigger modal -->
                                     <svg xmlns="http://www.w3.org/2000/svg" width="40" height="30" cursor="pointer" fill="currentColor" class="bi bi-file-excel btn-close" viewBox="0 0 16 16">
                                     <path d="M5.18 4.616a.5.5 0 0 1 .704.064L8 7.219l2.116-2.54a.5.5 0 1 1 .768.641L8.651 8l2.233 2.68a.5.5 0 0 1-.768.64L8 8.781l-2.116 2.54a.5.5 0 0 1-.768-.641L7.349 8 5.116 5.32a.5.5 0 0 1 .064-.704z"/>
@@ -104,4 +107,4 @@
     </div>
     <!-- //checkout page -->
 
-@include('footer')
+@endsection

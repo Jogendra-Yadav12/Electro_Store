@@ -80,7 +80,6 @@
 										<div class="p-4 border rounded-6 mb-0 form-group">
 											<div>
 												<input id="demo" type="file" name="img" value="{{$product[0]['img']}}" />
-                                                <img src="{{asset($product[0]['img'])}}" width="150px" height="100px">
 											</div>
 										</div>
 									</div>

@@ -1,5 +1,6 @@
-@include('header')
-@include('nav')
+@extends('layouts.app')
+
+@section('content')
 
 <div class="container mt-5">
     <div class="row">
@@ -25,9 +26,8 @@
            <h4>Name : {{session()->get('name')}}</h4>
            <p>Email : {{session()->get('mail')}}</p>
            <hr>
-            <h5>Addresses:</h5>
+            <h5>Address:</h5>
             <ul class="list-group">
-              
                 <li class="list-group-item mt-3">
                 @if($double)
                 <form method="post" action="{{url('user-address')}}">
@@ -117,5 +117,4 @@
       </div>
     </div>
   </div>
-
-@include('footer')
+@endsection

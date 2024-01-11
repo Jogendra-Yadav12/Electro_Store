@@ -45,13 +45,6 @@
 														<div class="product-content">
 															<h3 class="title">{{$value->name}}</h3>
 															<div class="price"><span class="old-price"></span><span class="text-danger">Rs {{$value->price}}</span></div>
-															<ul class="rating">
-																<li class="fas fa-star"></li>
-																<li class="fas fa-star"></li>
-																<li class="fas fa-star"></li>
-																<li class="fas fa-star"></li>
-																<li class="far fa-star"></li>
-															</ul>
 														</div>
 													</div>
 												</div>

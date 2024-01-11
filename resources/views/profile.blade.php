@@ -1,5 +1,6 @@
-@include('header')
-@include('nav')
+@extends('layouts.app')
+
+@section('content')
 
 <div class="container mt-5">
     <div class="row">
@@ -66,4 +67,4 @@
     </div>
   </div>
 
-@include('footer')
+@endsection
