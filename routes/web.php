@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 //Admin
+Route::get('/active/{id}',[App\Http\Controllers\adminController::class,'active']);
 Route::get('/user',[App\Http\Controllers\adminController::class,'user']);
 Route::get('/update/{id}',[App\Http\Controllers\adminController::class,'upduser']);
 Route::post('/upduser/{id}',[App\Http\Controllers\adminController::class,'updated']);
@@ -27,8 +28,12 @@ Route::get('/add',[App\Http\Controllers\adminController::class,'addproduct']);
 Route::get('/adduser',[App\Http\Controllers\adminController::class,'adduser']);
 Route::post('/add_user',[App\Http\Controllers\adminController::class,'store']);
 Route::post('/addproduct',[App\Http\Controllers\productController::class,'store']);
-Route::post('/mail',[App\Http\Controllers\contactController::class,'store']);
 
+// Contact Page
+Route::get('/contact',function(){
+    return view('contact');
+});
+Route::post('/mail', [App\Http\Controllers\contactController::class,'sendEmail']);
 
 
 // Customer Home Page
@@ -44,8 +49,6 @@ Route::get('/profile',[App\Http\Controllers\customerController::class,'profile']
 Route::post('/user-detail',[App\Http\Controllers\customerController::class,'address']);
 Route::get('/user-address',[App\Http\Controllers\customerController::class,'useraddress']); //addAddress
 Route::post('/user-address',[App\Http\Controllers\customerController::class,'addAddress']);
-
-
 Route::get('/order',[App\Http\Controllers\customerController::class,'order']);
 
 
@@ -65,6 +68,7 @@ Route::get('/cc',[App\Http\Controllers\productController::class,'cc']);
 // Checkout page
 Route::get('/wishlist/{id}',[App\Http\Controllers\checkoutController::class,'wishlist']);
 Route::get('/wishlist',[App\Http\Controllers\checkoutController::class,'wish']);
+Route::get('/wishremove/{id}',[App\Http\Controllers\checkoutController::class,'wishremove']);
 Route::get('/checkout',[App\Http\Controllers\checkoutController::class,'index']);
 Route::get('/checkout/{id}',[App\Http\Controllers\checkoutController::class,'show']);
 Route::post('/checkout/{id}',[App\Http\Controllers\checkoutController::class,'show']);
@@ -79,14 +83,15 @@ Route::get('/paysuccess', [App\Http\Controllers\paymentController::class, 'razor
 // Product Details page
 Route::get('/singlepage/{id}',[App\Http\Controllers\productController::class,'create']);
 
+// order controllers
+Route::get('/adminOrder',[App\Http\Controllers\orderController::class, 'index']);
+Route::get('/customerOrder',[App\Http\Controllers\orderController::class, 'customerOrder']);
+Route::get('/orderview/{id}',[App\Http\Controllers\orderController::class, 'invoice']);
+Route::get('/adminorderview/{id}',[App\Http\Controllers\orderController::class, 'Admininvoice']);
+
 // About Page
 Route::get('/about',function(){
     return view('aboutus');
-});
-
-// Contact Page
-Route::get('/contact',function(){
-    return view('contact');
 });
 
 // Faqs Page
@@ -118,9 +123,3 @@ Route::get('*',function(){
     return '404';
 });
 
-// order controllers
-Route::get('/adminOrder',[App\Http\Controllers\orderController::class, 'index']);
-Route::get('/customerOrder',[App\Http\Controllers\orderController::class, 'customerOrder']);
-
-Route::get('/orderview/{id}',[App\Http\Controllers\orderController::class, 'invoice']);
-Route::get('/adminorderview/{id}',[App\Http\Controllers\orderController::class, 'Admininvoice']);
