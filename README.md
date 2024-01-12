@@ -30,3 +30,12 @@
 
 # Admin Panel
 
+<img src="/Project-Images/User.png" style="height:200px;width:40%;"> <img src="/Project-Images/adduser.png" style="height:200px;width:40%;">
+
+## Product
+
+<img src="/Project-Images/product.png" style="height:200px;width:40%;"> <img src="/Project-Images/addproduct.png" style="height:200px;width:40%;">
+
+## Orders & Bill
+
+<img src="/Project-Images/order.png" style="height:200px;width:40%;"> <img src="/Project-Images/bill.png" style="height:200px;width:40%;">
