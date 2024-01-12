@@ -31,6 +31,7 @@
 
 # Admin Panel
 
+## Users 
 
 <img src="/Project-Images/User.png" style="height:200px;width:40%;"> <img src="/Project-Images/adduser.png" style="height:200px;width:40%;">
 
