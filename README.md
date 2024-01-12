@@ -2,7 +2,7 @@
 
 ## Header
 
-<img src="/Project-Images/Home.png" style="height:200px;width:40%;margin-right:100px"> <img src="/Project-Images/Home-2.png" style="height:200px;width:40%">
+<img src="/Project-Images/Home.png" style="height:200px;width:40%;">    <img src="/Project-Images/Home-2.png" style="height:200px;width:40%">
 
 ## Footer
 
