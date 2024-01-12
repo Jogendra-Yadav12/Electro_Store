@@ -1,24 +1,20 @@
 # Home Page Images
 
-## Header
+## Header & Footer
 
 <img src="/Project-Images/Home.png" style="height:200px;width:40%;">    <img src="/Project-Images/Home-2.png" style="height:200px;width:40%">
 
-## Footer
-
-
-
 #  Shop Category
 
-<img src="/Project-Images/Mobile.png">
+<img src="/Project-Images/Mobile.png" style="height:200px;width:40%;">
 
-<img src="/Project-Images/Laptop.png">
+<img src="/Project-Images/Laptop.png" style="height:200px;width:40%;">
 
-<img src="/Project-Images/Tab.png">
+<img src="/Project-Images/Tab.png" style="height:200px;width:40%;">
 
-<img src="/Project-Images/Case-cover.png">
+<img src="/Project-Images/Case-cover.png" style="height:200px;width:40%;">
 
-<img src="/Project-Images/Tv-audio.png">
+<img src="/Project-Images/Tv-audio.png" style="height:200px;width:40%;">
 
 # Contact Page 
 
