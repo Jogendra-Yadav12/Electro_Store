@@ -1,1 +1,1 @@
-<img src="/project-Images/Home">
+<img src="/project-Images/Home.png">
