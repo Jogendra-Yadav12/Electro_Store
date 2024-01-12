@@ -2,11 +2,11 @@
 
 ## Header
 
-<img src="/Project-Images/Home.png" style="height:200px;width:400px">
+<img src="/Project-Images/Home.png" style="height:200px;width:50%"><img src="/Project-Images/Home-2.png" style="height:200px;width:50%">
 
 ## Footer
 
-<img src="/Project-Images/Home-2.png">
+
 
 #  Shop Category
 
