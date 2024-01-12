@@ -44,4 +44,4 @@
 
 # Order List
 
-<img src="/Project-Images/oredrlist.png">
+<img src="/Project-Images/orderlist.png">
