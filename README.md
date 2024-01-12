@@ -16,9 +16,9 @@
 
 <img src="/Project-Images/contactus.png" style="height:200px;width:60%;">
 
-# Cart
+# Cart & Payment
 
-<img src="/Project-Images/cart.png" style="height:200px;width:60%;">
+<img src="/Project-Images/cart.png" style="height:200px;width:40%;"> <img src="/Project-Images/payment.png" style="height:200px;width:40%;">
 
 # Login & Register
 
@@ -26,12 +26,7 @@
 
 # User Profile
 
-<img src="/Project-Images/profile.png" style="height:200px;width:60%;">
+<img src="/Project-Images/profile.png" style="height:200px;width:40%;"> <img src="/Project-Images/orderlist.png" style="height:200px;width:40%;">
 
-# Payment
 
-<img src="/Project-Images/payment.png" style="height:200px;width:60%;">
 
-# Order List
-
-<img src="/Project-Images/orderlist.png" style="height:200px;width:60%;">
