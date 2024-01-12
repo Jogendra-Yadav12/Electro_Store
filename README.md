@@ -14,11 +14,11 @@
 
 # Contact Page 
 
-<img src="/Project-Images/contactus.png" style="height:200px;width:80%;">
+<img src="/Project-Images/contactus.png" style="height:200px;width:60%;">
 
 # Cart
 
-<img src="/Project-Images/cart.png" style="height:200px;width:80%;">
+<img src="/Project-Images/cart.png" style="height:200px;width:60%;">
 
 # Login & Register
 
@@ -26,12 +26,12 @@
 
 # User Profile
 
-<img src="/Project-Images/profile.png" style="height:200px;width:80%;">
+<img src="/Project-Images/profile.png" style="height:200px;width:60%;">
 
 # Payment
 
-<img src="/Project-Images/payment.png" style="height:200px;width:80%;">
+<img src="/Project-Images/payment.png" style="height:200px;width:60%;">
 
 # Order List
 
-<img src="/Project-Images/orderlist.png" style="height:200px;width:80%;">
+<img src="/Project-Images/orderlist.png" style="height:200px;width:60%;">
