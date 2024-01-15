@@ -47,8 +47,17 @@
 											<input type="email" class="form-control" placeholder="Email" name="email" required>
 										</div>
 										<div class="form-group">
-											<label class="tx-medium">Type</label>
-											<input type="text" class="form-control" placeholder="Type" name="type" required>
+											<label class="tx-medium">Category</label>
+											<select class="form-control select2" name="type" required>
+												<option label="Choose one">
+												</option>
+												<option value="admin">
+													admin
+												</option>
+												<option value="customer">
+													customer
+												</option>
+											</select>
 										</div>
 									</div>
 									<div class="card-footer mb-1">

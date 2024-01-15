@@ -18,7 +18,7 @@
 									<ul class="nav-sub">
 									 <li class="nav-sub-item"><a class="nav-sub-link" href="/user">Users</a></li>
 									<li class="nav-sub-item"><a class="nav-sub-link" href="/product">Products</a></li>
-									<li class="nav-sub-item"><a class="nav-sub-link" href="/adduser">Add User</a></li>
+									<!-- <li class="nav-sub-item"><a class="nav-sub-link" href="/adduser">Add User</a></li> -->
 									<li class="nav-sub-item"><a class="nav-sub-link" href="/add">Add Product</a></li>
 									<li class="nav-sub-item"><a class="nav-sub-link" href="/adminOrder">Orders</a></li>
 									</ul>

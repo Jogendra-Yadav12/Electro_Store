@@ -48,8 +48,18 @@
 											<input type="password" class="form-control" placeholder="password" name="password" value="{{$address[0]['password']}}" required>
 										</div>
                                         <div class="form-group">
-											<label class="tx-medium">Type</label><span> (Must write in lower letter)</span>
-											<input type="text" class="form-control" placeholder="type" name="type" value="{{$address[0]['type']}}" required>
+											<label class="tx-medium">Category</label>
+											<select class="form-control " name="type" required>
+												<option label="{{$address[0]['type']}}">
+													
+												</option>
+												<option value="admin">
+													admin
+												</option>
+												<option value="customer">
+													customer
+												</option>
+											</select>
 										</div>
 									</div>
 									<div class="card-footer mb-1">

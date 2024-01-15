@@ -54,6 +54,32 @@
 								</div>
 							</div>
 						<!-- End Row -->
+
+						<!-- Navigation -->
+						<nav aria-label="Page navigation">
+							<ul class="pagination justify-content-center">
+								@if ($product->onFirstPage())
+									<li class="page-item disabled"><span class="page-link">Previous</span></li>
+								@else
+									<li class="page-item"><a class="page-link" href="{{ $product->previousPageUrl() }}" rel="prev">Previous</a></li>
+								@endif
+
+								@foreach ($product->getUrlRange($product->currentPage(), $product->currentPage() + 2) as $page => $url)
+									@if ($page == $product->currentPage())
+										<li class="page-item active"><span class="page-link">{{ $page }}</span></li>
+									@else
+										<li class="page-item"><a class="page-link" href="{{ $url }}">{{ $page }}</a></li>
+									@endif
+								@endforeach
+
+								@if ($product->hasMorePages())
+									<li class="page-item"><a class="page-link" href="{{ $product->nextPageUrl() }}" rel="next">Next</a></li>
+								@else
+									<li class="page-item disabled"><span class="page-link">Next</span></li>
+								@endif
+							</ul>
+						</nav>
+						<!-- End Navigation -->
                     </div>
                 </div>
             </div>

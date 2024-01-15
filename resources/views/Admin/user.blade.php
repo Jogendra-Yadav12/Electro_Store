@@ -31,7 +31,7 @@
 
 						<!-- Row -->
 						<div class="row row-sm">
-							<div class="col-md-12 col-lg-12">
+							<div class="col-md-12 col-lg-9">
 								<div class="card custom-card">
 									<div class="card-header  border-bottom-0 pb-0">
 										<div>
@@ -88,16 +88,73 @@
 									</div>
 								</div>
 							</div>
+							<div class="col-lg-3 col-md-12 col-md-12">
+								<form class="card custom-card" action="{{url('add_user')}}" method="POST" enctype="multipart/form-data">
+                                    @csrf
+									<div class="card-body">
+										<div class="form-group">
+											<label class="tx-medium">User Name</label>
+											<input type="text" class="form-control" placeholder="Name" name="name" required>
+										</div>
+										<div class="form-group">
+											<label class="tx-medium">Password</label>
+											<input type="password" class="form-control" placeholder="Password" name="password" required>
+										</div>
+										<div class="form-group">
+											<label class="tx-medium">Email</label>
+											<input type="email" class="form-control" placeholder="Email" name="email" required>
+										</div>
+										<div class="form-group">
+											<label class="tx-medium">Category</label>
+											<select class="form-control select2" name="type" required>
+												<option label="Choose one">
+												</option>
+												<option value="admin">
+													admin
+												</option>
+												<option value="customer">
+													customer
+												</option>
+											</select>
+										</div>
+									</div>
+									<div class="card-footer mb-1">
+										<button class="btn btn-primary">Add Product</button>
+										<button class="btn btn-danger">Cancel</button>
+									</div>
+								</form>
+							</div>
+						</div>
 						</div>
 						<!-- End Row -->
+						<!-- Navigation -->
+						<nav aria-label="Page navigation">
+							<ul class="pagination justify-content-center">
+								@if ($user->onFirstPage())
+									<li class="page-item disabled"><span class="page-link">Previous</span></li>
+								@else
+									<li class="page-item"><a class="page-link" href="{{ $user->previousPageUrl() }}" rel="prev">Previous</a></li>
+								@endif
 
+								@foreach ($user->getUrlRange($user->currentPage(), $user->currentPage() + 2) as $page => $url)
+									@if ($page == $user->currentPage())
+										<li class="page-item active"><span class="page-link">{{ $page }}</span></li>
+									@else
+										<li class="page-item"><a class="page-link" href="{{ $url }}">{{ $page }}</a></li>
+									@endif
+								@endforeach
 
+								@if ($user->hasMorePages())
+									<li class="page-item"><a class="page-link" href="{{ $user->nextPageUrl() }}" rel="next">Next</a></li>
+								@else
+									<li class="page-item disabled"><span class="page-link">Next</span></li>
+								@endif
+							</ul>
+						</nav>
+						<!-- End Navigation -->
                     </div>
                 </div>
             </div>
             <!-- END MAIN-CONTENT -->
             <!-- END MAIN-CONTENT -->
 	@include('Admin/footer')
-
-
-			<!-- accept="image/jpg, image/jpeg, image/png, text/html, application/zip, text/css, text/js" multiple -->
