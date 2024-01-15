@@ -28,7 +28,9 @@
            <hr>
             <h5>Addresses:</h5>
             <ul class="list-group">
-              @if($detail)
+              @if($detail == null)
+                    <li class="list-group-item mt-3">Please add address</li>
+                @else
                 <li class="list-group-item mt-3">
                     <div class="creditly-wrapper wthree, w3_agileits_wrapper">
                         <div class="information-wrapper">
@@ -40,20 +42,20 @@
                                 </div>
                                 <input type="hidden" class="form-control"  name="email" value="{{session()->get('mail')}}">
                                         <div class="controls">
-                                            <h5>Mobile No. : {{$detail[0]['number']}}</h5>
+                                            <h5>Mobile No. : {{$detail['number']}}</h5>
                                         </div>
                                     </div>
                                     <div class="w3_agileits_card_number_grid_right form-group">
                                         <div class="controls">
-                                        <h5>Landmark : {{$detail[0]['landmark']}}</h5>
+                                        <h5>Landmark : {{$detail['landmark']}}</h5>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="controls form-group">
-                                <h5>City : {{$detail[0]['city']}}</h5>
+                                <h5>City : {{$detail['city']}}</h5>
                                 </div>
                                 <div class="controls form-group">
-                                    <h5>Residance : {{$detail[0]['address']}}</h5>
+                                    <h5>Residance : {{$detail['address']}}</h5>
                                 </div>
                             </div>
                         </div>

@@ -4,7 +4,7 @@
 
 @if (Session::has('status'))
 
-<div class="container p-2">
+<div class="container p-2 slide-in">
 	<div class="alert alert-success alert-dismissible">
 		<strong>{{ Session::get('status') }}</strong>
 		<svg class="float-right" data-bs-dismiss="alert" xmlns="http://www.w3.org/2000/svg" width="40" height="30" cursor="pointer" fill="currentColor" class="bi bi-file-excel btn-close" viewBox="0 0 16 16">
@@ -13,7 +13,23 @@
 		</svg>
 	</div>
 </div>
+
+<style>
+    .slide-in {
+        animation: slideIn 2s ease-in-out;
+    }
+
+    @keyframes slideIn {
+        from {
+            transform: translateY(-100%);
+        }
+        to {
+            transform: translateY(0);
+        }
+    }
+</style>
 @endif
+
 <!-- banner-2 -->
 <div class="page-head_agile_info_w3l">
 
@@ -100,6 +116,7 @@
                             </td>
                             @php
                             $i = $value['p_id'];
+                            $id = $value['id'];
                             @endphp
                             <!-- <td>
                             <input type="text" style="width:100px;border:none;"  class="container total-{{ $x }} form-control" value="{{$value['price']}}" readonly>
@@ -108,7 +125,7 @@
                             <td class="invert">
                                 <div class="rem">
                                    
-                                    <a href='{{url("/remove/$i")}}'>
+                                    <a href='{{url("/remove/$id")}}'>
                                     <!-- Button trigger modal -->
                                     <svg xmlns="http://www.w3.org/2000/svg" width="40" height="30" cursor="pointer" fill="currentColor" class="bi bi-file-excel btn-close" viewBox="0 0 16 16">
                                     <path d="M5.18 4.616a.5.5 0 0 1 .704.064L8 7.219l2.116-2.54a.5.5 0 1 1 .768.641L8.651 8l2.233 2.68a.5.5 0 0 1-.768.64L8 8.781l-2.116 2.54a.5.5 0 0 1-.768-.641L7.349 8 5.116 5.32a.5.5 0 0 1 .064-.704z"/>

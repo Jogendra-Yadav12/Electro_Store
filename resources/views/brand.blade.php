@@ -14,7 +14,7 @@
 		</form>
 	</div>
 					<!-- price -->
-						<div class="range border-bottom py-2">
+						<div class="range py-2">
 							<h3 class="agileits-sear-head mb-3">Price</h3>
 							<div class="w3l-range">
 								<ul>
@@ -53,6 +53,7 @@
 		</div>
 	</div>
 	<!-- //top products -->
+	
 
 
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>

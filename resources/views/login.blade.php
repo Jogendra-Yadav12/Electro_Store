@@ -9,15 +9,17 @@
 					</button>
 				</div>
 				<div class="modal-body">
-					<form action="{{url('login')}}" method="post" >
+					<form action="{{url('login')}}" method="post">
 					@csrf
 						<div class="form-group">
 							<label class="col-form-label">Email</label>
-							<input type="email" class="form-control" placeholder=" " name="email" required="">
+							<input type="email" class="form-control" placeholder=" " name="email" id="email" required="" onchange="validateEmail()">
+							<div id="emailError" class="btn-warning mt-3"></div>
 						</div>
 						<div class="form-group">
 							<label class="col-form-label">Password</label>
-							<input type="password" class="form-control" placeholder=" " name="password" required="">
+							<input type="password" class="form-control" placeholder=" " name="password" id="password" required="" onchange="validatePassword()">
+							<div class="btn-warning mt-2"><span id="passwordError"></span></div>
 						</div>
 						<div class="right-w3l">
 							<input type="submit" class="form-control" value="Log in">
@@ -31,3 +33,31 @@
 			</div>
 		</div>
 	</div>
+	<script>
+	function validateEmail() {
+        var emailInput = document.getElementById('email');
+        var emailError = document.getElementById('emailError');
+        var email = emailInput.value;
+
+        // Basic email validation using a regular expression
+        var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(email)) {
+            emailError.innerHTML = 'Invalid email address.';
+        } else {
+            emailError.innerHTML = '';
+        }
+    }
+	function validatePassword() {
+        var passwordInput = document.getElementById('password');
+        var passwordError = document.getElementById('passwordError');
+        var password = passwordInput.value;
+
+       
+        if (password.length < 8) {
+            passwordError.innerHTML = ' Password must be at least 8 characters long.';
+        } else {
+            
+            passwordError.innerHTML = '';
+        }
+    }
+</script>

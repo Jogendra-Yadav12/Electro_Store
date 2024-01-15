@@ -21,7 +21,14 @@
 						</div>
 						<div class="form-group">
 							<label class="col-form-label">Password</label>
-							<input type="password" class="form-control" placeholder=" " name="password" id="password1" required="">
+							<input type="password" class="form-control" placeholder=" " name="password" id="pass" required="" onchange="validatePassword()">
+							<div class="btn-warning mt-2" id="passError"></div>
+						</div>
+
+						<div class="form-group">
+							<label class="col-form-label">Re-enter Password</label>
+							<input type="password" class="form-control" placeholder=" " name="" id="password1" required="" onchange="validatePasswordMatch()">
+							<div id="passwordMatchError" class="btn-warning mt-3"></div>
 						</div>
 						<div class="right-w3l">
 							<button class="form-control btn-primary">Register</button>
@@ -35,3 +42,31 @@
 			</div>
 		</div>
 	</div>
+
+<script>
+	
+	function validatePassword() {
+        var passwordInput = document.getElementById('pass');
+        var passwordError = document.getElementById('passwordError');
+        var password = passwordInput.value;
+        if (password.length < 8) {
+            passError.innerHTML = ' Password must be at least 8 characters long.';
+        }
+    }
+
+	function validatePasswordMatch() {
+        var passwordInput = document.getElementById('pass');
+        var password1Input = document.getElementById('password1');
+        var passwordMatchError = document.getElementById('passwordMatchError');
+
+        var password = passwordInput.value;
+        var password1 = password1Input.value;
+
+	
+			if (password !== password1) {
+            	passwordMatchError.innerHTML = 'Passwords do not match.';
+			}
+        
+    }
+
+</script>

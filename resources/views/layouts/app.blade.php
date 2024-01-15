@@ -44,7 +44,7 @@
 	
 </head>
 <body>
-<script src="{{asset('asset/js/monetization.js')}}" type="text/javascript"></script>
+
 <script>
 (function(){
 	if(typeof _bsa !== 'undefined' && _bsa) {
@@ -104,7 +104,7 @@ if(typeof _bsa !== 'undefined' && _bsa) {
 					<!-- header lists -->
 					<ul>
 						<li class="text-center border-right text-white">
-							<a href="#" data-toggle="modal" data-target="#exampleModal" class="text-white">
+							<a href="#" class="text-white">
 								<i class="fas fa-truck mr-2"></i>Track Order</a>
 						</li>
 						<li class="text-center border-right text-white">

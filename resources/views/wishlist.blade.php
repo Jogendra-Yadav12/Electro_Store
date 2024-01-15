@@ -2,7 +2,8 @@
 @section('content')
 
 @if (Session::has('status'))
-<div class="container p-2">
+
+<div class="container p-2 slide-in">
 	<div class="alert alert-success alert-dismissible">
 		<strong>{{ Session::get('status') }}</strong>
 		<svg class="float-right" data-bs-dismiss="alert" xmlns="http://www.w3.org/2000/svg" width="40" height="30" cursor="pointer" fill="currentColor" class="bi bi-file-excel btn-close" viewBox="0 0 16 16">
@@ -11,6 +12,21 @@
 		</svg>
 	</div>
 </div>
+
+<style>
+    .slide-in {
+        animation: slideIn 2s ease-in-out;
+    }
+
+    @keyframes slideIn {
+        from {
+            transform: translateY(-100%);
+        }
+        to {
+            transform: translateY(0);
+        }
+    }
+</style>
 @endif
 
 <!-- banner-2 -->

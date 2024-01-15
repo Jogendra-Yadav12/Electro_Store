@@ -4,7 +4,22 @@
 
     <div class="container">
         <h1 class="m-3">Payment Bill</h1>
-        <div class="card">
+        <div class="mt-5">
+    <div class="row">
+        <div class="col-md-3 mb-2">
+            <ul class="list-group">
+                <li class="list-group-item">
+                    <a href="profile">Profile</a>
+                </li>
+                <li class="list-group-item">
+                    <a href="user-address">Address</a>
+                </li>
+                <li class="list-group-item">
+                    <a href="/customerOrder">Orders</a>
+                </li>
+            </ul>
+        </div>
+        <div class="card col-md-9">
             <div class="card-body">
                 <h5 class="card-title">Invoice Details</h5>
                 <div class="row mb-3 text-center float-right">
