@@ -52,13 +52,12 @@ class productController extends Controller
             $product->price = $request->price;
             $product->brand = $request->brand;
             $product->description = $request->des;
-            // $product->img = $request->img->move(('images'), $imageName);
+            
             if ($request->hasFile('img')) {
                 $product->img = $request->img->move(('images'), $imageName);
             } else {
                 return redirect()->back()->with('status', 'Your image must be in this format: jpeg, png, jpg, gif and not exceed 2MB');
             }
-            // dd($request->file('images'));
             
             foreach ($request->file('images') as $imagefile) {
                 $photo = new image;
@@ -106,13 +105,12 @@ class productController extends Controller
         try{
             $user_id = session()->get('id');
             $brand = product::select('brand')->where('category','Mobile')->distinct()->get();
-            $mobile = product::where('category','Mobile')->get();
+            $mobile = product::where('category','Mobile')->paginate(9);
             $wish = wishlist::where('user_id',$user_id)->get();
-            
             $count = wishlist::where('user_id',$user_id)->count();
-         
-            
+
             return view('mobile',compact('mobile','brand','wish','count'));
+
         } catch (QueryException $e) {
             return redirect()->back()->with('status', 'Database error: ' . $e->getMessage());
         } catch (\Exception $e) {
@@ -125,7 +123,7 @@ class productController extends Controller
         try{
             $user_id = session()->get('id');
             $brand = product::select('brand')->where('category','Laptop')->distinct()->get();
-            $laptop = product::where('category','Laptop')->get();
+            $laptop = product::where('category','Laptop')->paginate(9);
             $wish = wishlist::where('user_id',$user_id)->get();
             $count = wishlist::where('user_id',$user_id)->count();
             return view('laptop',compact('laptop','brand','wish','count'));
@@ -141,7 +139,7 @@ class productController extends Controller
         try{
             $user_id = session()->get('id');
             $brand = product::select('brand')->where('category','Television & Audio')->distinct()->get();
-            $tv = product::where('category','Television & Audio')->get();
+            $tv = product::where('category','Television & Audio')->paginate(9);
             $wish = wishlist::where('user_id',$user_id)->get();
             $count = wishlist::where('user_id',$user_id)->count();
             return view('tv',compact('tv','brand','wish','count'));
@@ -157,7 +155,7 @@ class productController extends Controller
         try{
             $user_id = session()->get('id');
             $brand = product::select('brand')->where('category','Case & Cover')->distinct()->get();
-            $cc = product::where('category','Case & Cover')->get();
+            $cc = product::where('category','Case & Cover')->paginate(9);
             $wish = wishlist::where('user_id',$user_id)->get();
             $count = wishlist::where('user_id',$user_id)->count();
             return view('cover',compact('cc','brand','wish','count'));
@@ -173,7 +171,7 @@ class productController extends Controller
         try{
             $user_id = session()->get('id');
             $brand = product::select('brand')->where('category','Tablet')->distinct()->get();
-            $tab = product::where('category','Tablet')->get();
+            $tab = product::where('category','Tablet')->paginate(9);
             $wish = wishlist::where('user_id',$user_id)->get();
             $count = wishlist::where('user_id',$user_id)->count();
             return view('tablet',compact('tab','brand','wish','count'));
@@ -189,7 +187,7 @@ class productController extends Controller
         try{
             $user_id = session()->get('id');
             $brand = product::select('brand')->where('category','Computer Accessories')->distinct()->get();
-            $ca = product::where('category','Computer Accessories')->get();
+            $ca = product::where('category','Computer Accessories')->paginate(9);
             $wish = wishlist::where('user_id',$user_id)->get();
             $count = wishlist::where('user_id',$user_id)->count();
             

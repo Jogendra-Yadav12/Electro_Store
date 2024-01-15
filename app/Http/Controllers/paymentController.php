@@ -91,8 +91,6 @@ class paymentController extends Controller
     {
     try{
         $priceArray = $request->input('price');
-
-        dd($priceArray);
         return redirect()->back()->with('success', 'Form submitted successfully!');
     } catch (QueryException $e) {
         return redirect()->back()->with('status', 'Database error: ' . $e->getMessage());

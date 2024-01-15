@@ -69,7 +69,7 @@ class adminController extends Controller
     {
         try {
             if (session()->get('mail') && session()->get('mail') === 'fireboyaj12@gmail.com') {
-                $user = customer::all();
+                $user = customer::paginate(8);
                 static $x = 1;
                 return view('Admin.user', compact('user', 'x'));
             } else {
@@ -85,7 +85,7 @@ class adminController extends Controller
     public function product(){
         try{
             if(session()->get('mail') and session()->get('mail')=='fireboyaj12@gmail.com'){
-                $product = product::all();
+                $product = product::paginate(6);
                 return view('Admin.product',compact('product'));
             }
             else{
@@ -167,8 +167,10 @@ class adminController extends Controller
             $product[0]['name'] = $request->name;
             $product[0]['category'] = $request->category;
             $product[0]['brand'] = $request->brand;
-            $imageName = $request->img->getClientOriginalName();
-            $product[0]['img'] = $request->img->move(('images'), $imageName);
+            if(!empty($request->img)){
+                $imageName = $request->img->getClientOriginalName();
+                $product[0]['img'] = $request->img->move(('images'), $imageName);
+            }
             $product[0]->save();
             return redirect()->back()->with('status','Data updated successfully');
         } catch (QueryException $e) {

@@ -13,17 +13,15 @@ class orderController extends Controller
 {
     public function index(){
         try{
-            $order = payment::select('product_id','id','quantity','r_payment_id','price','user_id','amount')->get();
+            $order = payment::paginate(5);
             $data = [];
                 for($i=0;$i<count($order);$i++){
                     $id = intval($order[$i]['product_id']);
                     if(!empty($id)){
                         $img = product::select('name','img')->where('id',$id)->get();
-                        
                         array_push($data,$img[0]['img']);
                     }
                 }
-                // dd($data);
                 static $x = 0;
                 static $y = 1;
             return view('Admin.orders',compact('order','x','y','data'));

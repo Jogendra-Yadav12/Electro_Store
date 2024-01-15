@@ -102,6 +102,7 @@ class customerController extends Controller
             foreach($user as $key=>$value){
                 $userid = $value['id'];
                 $name = $value['name'];
+                if($value['status'] === 1){
                 if($email==$value['email'] and $password==$value['password'] and $value['type']=='admin'){
                     session()->put('mail',$email);
                     session()->put('name',$name);
@@ -114,8 +115,11 @@ class customerController extends Controller
                     session()->put('id',$userid);
                     return redirect('/');
                 }
+                return redirect('/')->with('status','Please enter correct email & password');
             }
-            return redirect('/')->with('status','Please enter correct email & password');
+                return redirect('/')->with('status','Your account has blocked !!');
+            }
+            
         } catch (QueryException $e) {
             return redirect()->back()->with('status', 'Database error: ' . $e->getMessage());
         } catch (\Exception $e) {
@@ -158,7 +162,7 @@ class customerController extends Controller
             if(session()->get('id')){
                 $user_id= session()->get('id');
                 $user = customer::where('id',$user_id)->get();
-                $detail = address::where('user_id',$user_id)->get();
+                $detail = address::find($user_id);
             
             return view('profile',compact('user','detail'));
             }
