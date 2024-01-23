@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Models\cart;
+use App\Models\wishlist;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,7 +15,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-//Admin
+// Admin
 Route::get('/active/{id}',[App\Http\Controllers\adminController::class,'active']);
 Route::get('/user',[App\Http\Controllers\adminController::class,'user']);
 Route::get('/update/{id}',[App\Http\Controllers\adminController::class,'upduser']);
@@ -29,20 +31,23 @@ Route::get('/adduser',[App\Http\Controllers\adminController::class,'adduser']);
 Route::post('/add_user',[App\Http\Controllers\adminController::class,'store']);
 Route::post('/addproduct',[App\Http\Controllers\productController::class,'store']);
 
+
 // Contact Page
 Route::get('/contact',function(){
-    return view('contact');
+    $user_id = session()->get('id');
+    $countCart = cart::where('user_id',$user_id)->get()->count();
+    $countWish = wishlist::where('user_id',$user_id)->get()->count();
+
+    return view('contact',compact('countCart','countWish'));
 });
 Route::post('/mail', [App\Http\Controllers\contactController::class,'sendEmail']);
 
 
 // Customer Home Page
 Route::get('/', [App\Http\Controllers\homeController::class,'index']);
-Route::get('/',[App\Http\Controllers\homeController::class,'mobile']);
 
 
-
-// registration 
+// Registration 
 Route::post('/customer',[App\Http\Controllers\customerController::class,'store']);
 Route::post('/login',[App\Http\Controllers\customerController::class,'login']);
 Route::get('/profile',[App\Http\Controllers\customerController::class,'profile']);
@@ -50,9 +55,19 @@ Route::post('/user-detail',[App\Http\Controllers\customerController::class,'addr
 Route::get('/user-address',[App\Http\Controllers\customerController::class,'useraddress']); //addAddress
 Route::post('/user-address',[App\Http\Controllers\customerController::class,'addAddress']);
 Route::get('/order',[App\Http\Controllers\customerController::class,'order']);
+Route::get('/updpass',[App\Http\Controllers\customerController::class,'updpass']);
+Route::post('/updatepass',[App\Http\Controllers\customerController::class,'updatepass']);
+Route::get('/forget',[App\Http\Controllers\customerController::class,'forgetpass']);
+Route::post('/otp', [App\Http\Controllers\contactController::class,'sendOtp']);
+Route::get('/verifyotp', [App\Http\Controllers\customerController::class,'verifyotp']);
+Route::get('/otp',[App\Http\Controllers\customerController::class,'otp']);
+Route::get('/reset',[App\Http\Controllers\customerController::class,'resetpass']);
+Route::post('/reset',[App\Http\Controllers\customerController::class,'updatepassword']);
+Route::post('/rotp', [App\Http\Controllers\contactController::class,'rotp']);
 
 
-// search route
+
+// Search route
 Route::get('/search',[App\Http\Controllers\customerController::class,'autocomplete']);
 Route::get('/brand',[App\Http\Controllers\productController::class,'brand'])->name('filter_by_brand');
 
@@ -65,6 +80,7 @@ Route::get('/tablet',[App\Http\Controllers\productController::class,'tablet']);
 Route::get('/computer',[App\Http\Controllers\productController::class,'computer']);
 Route::get('/cc',[App\Http\Controllers\productController::class,'cc']);
 
+
 // Checkout page
 Route::get('/wishlist/{id}',[App\Http\Controllers\checkoutController::class,'wishlist']);
 Route::get('/wishlist',[App\Http\Controllers\checkoutController::class,'wish']);
@@ -74,52 +90,79 @@ Route::get('/checkout/{id}',[App\Http\Controllers\checkoutController::class,'sho
 Route::post('/checkout/{id}',[App\Http\Controllers\checkoutController::class,'show']);
 Route::get('/remove/{id}',[App\Http\Controllers\checkoutController::class,'remove']);
 
-// payment Route
+
+// Payment Route
+Route::get('/payment/{id}',[App\Http\Controllers\paymentController::class,'index']);
 Route::get('/thanku',[App\Http\Controllers\paymentController::class,'thanku']);
 Route::get('/address',[App\Http\Controllers\paymentController::class,'address']);
 Route::post('/addAddress',[App\Http\Controllers\paymentController::class,'addAddress']);
 Route::get('/paysuccess', [App\Http\Controllers\paymentController::class, 'razorPaySuccess']);
 
+
 // Product Details page
 Route::get('/singlepage/{id}',[App\Http\Controllers\productController::class,'create']);
 
-// order controllers
+
+// Order controllers
 Route::get('/adminOrder',[App\Http\Controllers\orderController::class, 'index']);
 Route::get('/customerOrder',[App\Http\Controllers\orderController::class, 'customerOrder']);
 Route::get('/orderview/{id}',[App\Http\Controllers\orderController::class, 'invoice']);
 Route::get('/adminorderview/{id}',[App\Http\Controllers\orderController::class, 'Admininvoice']);
+Route::get('/pdf/{id}',[App\Http\Controllers\orderController::class, 'pdf']);
+
 
 // About Page
 Route::get('/about',function(){
-    return view('aboutus');
+    $user_id = session()->get('id');
+    $countCart = cart::where('user_id',$user_id)->get()->count();
+    $countWish = wishlist::where('user_id',$user_id)->get()->count();
+
+    return view('aboutus',compact('countCart','countWish'));
 });
+
 
 // Faqs Page
 Route::get('/faqs',function(){
-    return view('faqs');
+    $user_id = session()->get('id');
+    $countCart = cart::where('user_id',$user_id)->get()->count();
+    $countWish = wishlist::where('user_id',$user_id)->get()->count();
+
+    return view('faqs',compact('countCart','countWish'));
 });
+
 
 // Help
 Route::get('/help',function(){
-    return view('help');
+    $user_id = session()->get('id');
+    $countCart = cart::where('user_id',$user_id)->get()->count();
+    $countWish = wishlist::where('user_id',$user_id)->get()->count();
+
+    return view('help',compact('countCart','countWish'));
 });
 
-//Privacy Page
+
+// Privacy Page
 Route::get('/privacy',function(){
-    return view('privacy');
+    $user_id = session()->get('id');
+    $countCart = cart::where('user_id',$user_id)->get()->count();
+    $countWish = wishlist::where('user_id',$user_id)->get()->count();
+
+    return view('privacy',compact('countCart','countWish'));
 });
+
 
 // Terms & Condition
 Route::get('/terms',function(){
-    return view('terms');
+    $user_id = session()->get('id');
+    $countCart = cart::where('user_id',$user_id)->get()->count();
+    $countWish = wishlist::where('user_id',$user_id)->get()->count();
+
+    return view('terms',compact('countCart','countWish'));
 });
 
+
+// Logout
 Route::get('/logout',function(){
     Session::flush();
     return redirect('/')->with('status','Logout successfully !!');
 });
-
-Route::get('*',function(){
-    return '404';
-});
-
