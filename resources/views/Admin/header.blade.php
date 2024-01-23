@@ -12,10 +12,10 @@
         <meta name="keywords" content="php dashboard, php template, admin dashboard bootstrap, bootstrap admin theme, admin, php admin panel, bootstrap admin template, admin dashboard template, admin template bootstrap, php admin dashboard, dashboard template, dashboard template bootstrap, bootstrap admin, admin panel template, dashboard">
         
         <!-- TITLE -->
-        <title> Admin Dhashboard </title>
+        <title> Electro Store </title>
 
         <!-- FAVICON -->
-        <link rel="icon" href="https://php.spruko.com/spruha/spruha/assets/img/brand/favicon.ico">
+    
 
         
 		<!-- BOOTSTRAP CSS -->
@@ -28,7 +28,6 @@
 
 		<!-- STYLE CSS -->
 		<link href="{{ asset('admin/css/style.css') }}" rel="stylesheet">
-
 		<link href="{{('admin/css/plugins.css')}}" rel="stylesheet">
 
 		<!-- SWITCHER CSS -->

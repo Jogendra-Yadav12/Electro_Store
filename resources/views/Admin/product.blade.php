@@ -1,12 +1,41 @@
 @include('Admin.header')
 @include('Admin.nav')
 @include('Admin.sidebar')
+
+@if (Session::has('status'))
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            Swal.fire({
+                icon: 'success',
+                title: 'Success !!',
+                text: '{{ Session::get('status') }}',
+                showConfirmButton: false,
+                timer: 3000  // Auto-close after 3 seconds
+            });
+        });
+    </script>
+@endif
+
+@if (Session::has('warning'))
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            Swal.fire({
+                icon: 'warning',
+                title: 'Warning!',
+                text: '{{ Session::get('warning') }}',
+                showConfirmButton: false,
+                timer: 3000  // Auto-close after 3 seconds
+            });
+        });
+    </script>
+@endif
+
  <!-- MAIN-CONTENT -->
  <div class="main-content side-content pt-0">
                 <div class="main-container container-fluid">
                     <div class="inner-body">
-
-                        
+						
 						<!-- Page Header -->
 						<div class="page-header">
 							<div>
@@ -30,7 +59,7 @@
 													<div class="product-grid">
 														<div class="product-image">
 															<a href="pdetails/{{$value->id}}" class="image">
-																<img class="pic-1 p-3" style="height:300px;border-radius:2vw;" alt="product-image-1" src="{{asset($value->img)}}">
+																<img class="pic-1 p-3" style="height:300px;border-radius:2vw;object-fit:contain" alt="product-image-1" src="{{asset($value->img)}}">
 															</a>
 															<a class="product-like-icon" href="pdetails/{{$value->id}}"><i class="bi bi-ticket-detailed"></i></i></a>
 															<div class="product-link">
@@ -58,13 +87,14 @@
 						<!-- Navigation -->
 						<nav aria-label="Page navigation">
 							<ul class="pagination justify-content-center">
+							
 								@if ($product->onFirstPage())
 									<li class="page-item disabled"><span class="page-link">Previous</span></li>
 								@else
 									<li class="page-item"><a class="page-link" href="{{ $product->previousPageUrl() }}" rel="prev">Previous</a></li>
 								@endif
 
-								@foreach ($product->getUrlRange($product->currentPage(), $product->currentPage() + 2) as $page => $url)
+								@foreach ($product->getUrlRange($product->currentPage(), $product->currentPage()) as $page => $url)
 									@if ($page == $product->currentPage())
 										<li class="page-item active"><span class="page-link">{{ $page }}</span></li>
 									@else
@@ -77,6 +107,7 @@
 								@else
 									<li class="page-item disabled"><span class="page-link">Next</span></li>
 								@endif
+							
 							</ul>
 						</nav>
 						<!-- End Navigation -->

@@ -2,12 +2,12 @@
 
 @section('content')
 
-
 <!-- banner-2 -->
 <div class="page-head_agile_info_w3l">
 
 </div>
 <!-- //banner-2 -->
+
 <!-- page -->
 <div class="services-breadcrumb">
     <div class="agile_inner_breadcrumb">
@@ -22,10 +22,9 @@
         </div>
     </div>
 </div>
-<!-- //page -->
-<!---728x90--->
+<!-- End Page -->
 
-<!-- payment page-->
+<!-- Payment Page-->
 <div class="privacy py-sm-5 py-4">
     <div class="container py-xl-4 py-lg-2">
         <!-- tittle heading -->
@@ -35,250 +34,182 @@
         <div class="checkout-right">
             <!--Horizontal Tab-->
             <div id="parentHorizontalTab">
-                <ul class="resp-tabs-list hor_1">
-                    <button id="cod" class="btn btn-primary mr-2">Cash on delivery (COD)</button>
-                    <button id="cc" class="btn btn-primary mr-2">Credit/Debit</button>
-                    <button id="nb" class="btn btn-primary mr-2">Net Banking</button>
-                    <button id="ppa" class="btn btn-primary">Paypal Account</button>
-                </ul>
                 <div class="resp-tabs-container hor_1">
-
-                    <div id="codbox" class="p-1" style="height:auto;width:auto;background-color: aliceblue;">
                         <div class="vertical_post check_box_agile m-5">
-                            <h5>COD</h5>
-                            <div class="checkbox">
-                                <div class="check_box_one cashon_delivery">
-                                    <label class="anim">
-                                        <input type="checkbox" class="checkbox">
-                                        <span> We also accept Credit/Debit card on delivery. Please Check with the agent.</span><br>
-                                        <button class="submit mt-3 btn btn-primary">
-                                        <span>Continue</span>
-                                    </button>
-                                    </label>
+                        <div class="card col-md-12">
+                            <div class="card-body">
+                                <h5 class="card-title">Product Detail</h5>
+                                <div class="row mb-3 text-center float-right">
+                                    <div class="col-sm-9">
+                                        <img src="{{asset($product->img)}}" alt="" style="height:150px;width:100px" class="img-responsive mt-5">
+                                    </div>
                                 </div>
-
-                            </div>
-                        </div>
-                    </div>
-                    <div id="ccard" class="p-4" style="display:none;background-color: aliceblue;">
-                        <form action="#" method="post" class="creditly-card-form agileinfo_form">
-                            <div class="creditly-wrapper wthree, w3_agileits_wrapper">
-                                <div class="credit-card-wrapper">
-                                    <div class="first-row form-group">
-                                        <div class="controls">
-                                            <label class="control-label">Name on Card</label>
-                                            <input class="billing-address-name form-control" type="text" name="name" placeholder="John Smith">
-                                        </div>
-                                        <div class="w3_agileits_card_number_grids my-3">
-                                            <div class="w3_agileits_card_number_grid_left">
-                                                <div class="controls">
-                                                    <label class="control-label">Card Number</label>
-                                                    <input class="number credit-card-number form-control" type="text" name="number" inputmode="numeric" autocomplete="cc-number"
-                                                        autocompletetype="cc-number" x-autocompletetype="cc-number" placeholder="&#149;&#149;&#149;&#149; &#149;&#149;&#149;&#149; &#149;&#149;&#149;&#149; &#149;&#149;&#149;&#149;">
-                                                </div>
-                                            </div>
-                                            <div class="w3_agileits_card_number_grid_right mt-2">
-                                                <div class="controls">
-                                                    <label class="control-label">CVV</label>
-                                                    <input class="security-code form-control" Â· inputmode="numeric" type="text" name="security-code" placeholder="&#149;&#149;&#149;">
-                                                </div>
-                                            </div>
-                                            <div class="clear"> </div>
-                                        </div>
-                                        <div class="controls">
-                                            <label class="control-label">Expiration Date</label>
-                                            <input class="expiration-month-and-year form-control" type="text" name="expiration-month-and-year" placeholder="MM / YY">
-                                        </div>
+                                <hr>
+                                <div class="row mb-3 text-center">
+                                    <label class="col-sm-3 col-form-label">Product Name:</label>
+                                    <div class="col-sm-9">
+                                        <p class="form-control-static">{{$product->name}}</p>
+                                        <input type="hidden" name="userName" value="">
                                     </div>
-                                    <button class="submit mt-3 btn btn-primary">
-                                        <span>Make a payment </span>
-                                        
-                                    </button>
                                 </div>
-                            </div>
-                        </form>
-
-                    </div>
-                    <div id="bank" class="p-4" style="display:none;background-color: aliceblue;">
-                        <div class="vertical_post">
-                            <form action="#" method="post">
-                                <h5>Select From Popular Banks</h5>
-                                <div class="swit-radio">
-                                    <div class="check_box_one">
-                                        <div class="radio_one">
-                                            <label>
-                                                <input type="radio" name="radio" checked="">
-                                                <i></i>Syndicate Bank</label>
-                                        </div>
+                                <div class="row mb-3 text-center">
+                                    <label class="col-sm-3 col-form-label">Price:</label>
+                                    <div class="col-sm-9">
+                                        <p class="form-control-static">Rs.{{$product->price}} </p>
+                                        <input type="hidden" name="price" value="">
                                     </div>
-                                    <div class="check_box_one">
-                                        <div class="radio_one">
-                                            <label>
-                                                <input type="radio" name="radio">
-                                                <i></i>Bank of Baroda</label>
-                                        </div>
-                                    </div>
-                                    <div class="check_box_one">
-                                        <div class="radio_one">
-                                            <label>
-                                                <input type="radio" name="radio">
-                                                <i></i>Canara Bank</label>
-                                        </div>
-                                    </div>
-                                    <div class="check_box_one">
-                                        <div class="radio_one">
-                                            <label>
-                                                <input type="radio" name="radio">
-                                                <i></i>ICICI Bank</label>
-                                        </div>
-                                    </div>
-                                    <div class="check_box_one">
-                                        <div class="radio_one">
-                                            <label>
-                                                <input type="radio" name="radio">
-                                                <i></i>State Bank Of India</label>
-                                        </div>
-                                    </div>
-                                    <div class="clearfix"></div>
                                 </div>
-                                <h5>Or Select Other Bank</h5>
-                                <div class="section_room_pay">
-                                    <select class="year">
-                                        <option value="">=== Other Banks ===</option>
-                                        <option value="ALB-NA">Allahabad Bank NetBanking</option>
-                                        <option value="ADB-NA">Andhra Bank</option>
-                                        <option value="BBK-NA">Bank of Bahrain and Kuwait NetBanking</option>
-                                        <option value="BBC-NA">Bank of Baroda Corporate NetBanking</option>
-                                        <option value="BBR-NA">Bank of Baroda Retail NetBanking</option>
-                                        <option value="BOI-NA">Bank of India NetBanking</option>
-                                        <option value="BOM-NA">Bank of Maharashtra NetBanking</option>
-                                        <option value="CSB-NA">Catholic Syrian Bank NetBanking</option>
-                                        <option value="CBI-NA">Central Bank of India</option>
-                                        <option value="CUB-NA">City Union Bank NetBanking</option>
-                                        <option value="CRP-NA">Corporation Bank</option>
-                                        <option value="DBK-NA">Deutsche Bank NetBanking</option>
-                                        <option value="DCB-NA">Development Credit Bank</option>
-                                        <option value="DC2-NA">Development Credit Bank - Corporate</option>
-                                        <option value="DLB-NA">Dhanlaxmi Bank NetBanking</option>
-                                        <option value="FBK-NA">Federal Bank NetBanking</option>
-                                        <option value="IDS-NA">Indusind Bank NetBanking</option>
-                                        <option value="IOB-NA">Indian Overseas Bank</option>
-                                        <option value="ING-NA">ING Vysya Bank (now Kotak)</option>
-                                        <option value="JKB-NA">Jammu and Kashmir NetBanking</option>
-                                        <option value="JSB-NA">Janata Sahakari Bank Limited</option>
-                                        <option value="KBL-NA">Karnataka Bank NetBanking</option>
-                                        <option value="KVB-NA">Karur Vysya Bank NetBanking</option>
-                                        <option value="LVR-NA">Lakshmi Vilas Bank NetBanking</option>
-                                        <option value="OBC-NA">Oriental Bank of Commerce NetBanking</option>
-                                        <option value="CPN-NA">PNB Corporate NetBanking</option>
-                                        <option value="PNB-NA">PNB NetBanking</option>
-                                        <option value="RSD-DIRECT">Rajasthan State Co-operative Bank-Debit Card</option>
-                                        <option value="RBS-NA">RBS (The Royal Bank of Scotland)</option>
-                                        <option value="SWB-NA">Saraswat Bank NetBanking</option>
-                                        <option value="SBJ-NA">SB Bikaner and Jaipur NetBanking</option>
-                                        <option value="SBH-NA">SB Hyderabad NetBanking</option>
-                                        <option value="SBM-NA">SB Mysore NetBanking</option>
-                                        <option value="SBT-NA">SB Travancore NetBanking</option>
-                                        <option value="SVC-NA">Shamrao Vitthal Co-operative Bank</option>
-                                        <option value="SIB-NA">South Indian Bank NetBanking</option>
-                                        <option value="SBP-NA">State Bank of Patiala NetBanking</option>
-                                        <option value="SYD-NA">Syndicate Bank NetBanking</option>
-                                        <option value="TNC-NA">Tamil Nadu State Co-operative Bank NetBanking</option>
-                                        <option value="UCO-NA">UCO Bank NetBanking</option>
-                                        <option value="UBI-NA">Union Bank NetBanking</option>
-                                        <option value="UNI-NA">United Bank of India NetBanking</option>
-                                        <option value="VJB-NA">Vijaya Bank NetBanking</option>
-                                    </select>
+                                <div class="row mb-3 text-center">
+                                    <label class="col-sm-3 col-form-label">Quantity of Product:</label>
+                                    <div class="col-sm-9">
+                                        <p class="form-control-static">X 1</p>
+                                        <input type="hidden" name="quantity" value="">
+                                    </div>
                                 </div>
-                                <input type="submit" value="PAY NOW">
-                            </form>
-                        </div>
-                    </div>
-                    <div id="ppaccount" class="p-4" style="display:none;background-color: aliceblue;">
-                        <div id="tab4" class="tab-grid" style="display: block;">
-                            <div class="row">
-                                <div class="col-md-6 pay-forms">
-                                    <img class="pp-img" src="{{asset('asset/images/paypal.png')}}" alt="Image Alternative text" title="Image Title">
-                                    <p>Important: You will be redirected to PayPal's website to securely complete your payment.</p>
-                                    <a class="btn btn-primary">Checkout via Paypal</a>
+                                @if($add)
+                                <div class="row mb-3 text-center">
+                                    <label class="col-sm-3 col-form-label">Address:</label>
+                                    <div class="col-sm-9">
+                                        <p class="form-control-static">{{$address[0]['landmark']}},{{$address[0]['city']}}</p>
+                                        <input type="hidden" name="quantity" value="">
+                                    </div>
                                 </div>
-                                <div class="col-md-6 number-paymk">
-                                    <form action="#" method="post" class="creditly-card-form-2 shopf-sear-headinfo_form">
-                                        <section class="creditly-wrapper payf_wrapper">
-                                            <div class="credit-card-wrapper">
-                                                <div class="first-row form-group">
-                                                    <div class="controls">
-                                                        <label class="control-label">Card Holder </label>
-                                                        <input class="billing-address-name form-control" type="text" name="name" placeholder="John Smith">
-                                                    </div>
-                                                    <div class="paymntf_card_number_grids my-2">
-                                                        <div class="fpay_card_number_grid_left">
-                                                            <div class="controls">
-                                                                <label class="control-label">Card Number</label>
-                                                                <input class="number credit-card-number-2 form-control" type="text" name="number" inputmode="numeric" autocomplete="cc-number"
-                                                                    autocompletetype="cc-number" x-autocompletetype="cc-number" placeholder="•••• •••• •••• ••••">
-                                                            </div>
-                                                        </div>
-                                                        <div class="fpay_card_number_grid_right mt-2">
-                                                            <div class="controls">
-                                                                <label class="control-label">CVV</label>
-                                                                <input class="security-code-2 form-control" Â·="" inputmode="numeric" type="text" name="security-code" placeholder="•••">
-                                                            </div>
-                                                        </div>
-                                                        <div class="clear"> </div>
-                                                    </div>
-                                                    <div class="controls">
-                                                        <label class="control-label">Valid Thru</label>
-                                                        <input class="expiration-month-and-year-2 form-control" type="text" name="expiration-month-and-year" placeholder="MM / YY">
-                                                    </div>
-                                                </div>
-                                                <input class="submit" type="submit" value="Proceed Payment">
-                                            </div>
-                                        </section>
-                                    </form>
+                                @endif
+                                </div>
+                                <!-- Add other fields as necessary -->
+                                <hr>
+                                <div class="row mb-3 text-center">
+                                <label class="col-sm-3 col-form-label">Total Amount:</label>
+                                <div class="col-sm-9">
+                                        <p class="form-control-static">Rs.{{$product->price}}</p>
+                                        <input type="hidden" name="price" value="">
                                 </div>
                             </div>
                         </div>
-                    </div>
+                        @if(!$add)
+                        <div class="checkout-right-basket">
+                            <a data-bs-toggle="modal" href="#exampleModalToggle" role="button" class="btn btn-sm btn-primary float-left">Order Now</a>
+                        </div>
+                        @else
+                        <div class="checkout-right-basket">
+                            <a href="#" class="btn btn-sm btn-primary float-left buy_now">Order Now</a>
+                            <input type="hidden" id="abc" value="{{$product->price}}">
+                            <input type="hidden" id="price" value="{{$product->price}}">
+                            <input type="hidden" id="pid" value="{{$product->id}}">
+                        </div>
+                    @endif
+                    
                 </div>
-            </div>
+            </>
             <!--Plug-in Initialisation-->
         </div>
     </div>
 </div>
+
 <!-- //payment page -->
-<!---728x90--->
+
+
+<!-- pop up address -->
+
+<div class="modal fade" id="exampleModalToggle" aria-hidden="true" aria-labelledby="exampleModalToggleLabel" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content" style="border:none;">
+      <div class="p-2">
+      <svg class="float-right" data-bs-dismiss="modal" aria-label="Close" xmlns="http://www.w3.org/2000/svg" width="40" height="30" cursor="pointer" fill="currentColor" class="bi bi-file-excel btn-close" viewBox="0 0 16 16">
+      <path d="M5.18 4.616a.5.5 0 0 1 .704.064L8 7.219l2.116-2.54a.5.5 0 1 1 .768.641L8.651 8l2.233 2.68a.5.5 0 0 1-.768.64L8 8.781l-2.116 2.54a.5.5 0 0 1-.768-.641L7.349 8 5.116 5.32a.5.5 0 0 1 .064-.704z"/>
+      <path d="M4 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zm0 1h8a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1"/>
+    </svg>
+      </div>
+      <div class="modal-body">
+        
+      <div class="checkout-left">
+            <div class="address_form_agile mt-sm-5 mt-4">
+                <h4 class="mb-sm-4 mb-3">Add Address Details</h4>
+                <form method="POST" action="{{url('addAddress')}}">
+                    @csrf
+                    <div class="creditly-wrapper wthree, w3_agileits_wrapper">
+                        <div class="information-wrapper">
+                            <div class="first-row">
+                                <div class="controls form-group">
+                                    <input class="billing-address-name form-control" type="text" name="name" placeholder="Name" value="{{session()->get('name')}}" readonly>
+                                </div>
+                                <input type="hidden" class="form-control"  name="email" value="{{session()->get('mail')}}">
+                                <div class="w3_agileits_card_number_grids">
+                                    <div class="w3_agileits_card_number_grid_left form-group">
+                                        <div class="controls">
+                                            <input type="text" class="form-control" placeholder="Mobile Number" name="number" required="">
+                                        </div>
+                                    </div>
+                                    <div class="w3_agileits_card_number_grid_right form-group">
+                                        <div class="controls">
+                                            <input type="text" class="form-control" placeholder="Landmark" name="landmark" required="">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="controls form-group">
+                                    <input type="text" class="form-control" placeholder="Town/City" name="city" required="">
+                                </div>
+                                <div class="controls form-group">
+                                    <select class="option-w3ls" name="address" required="">
+                                        <option>Select Address type</option>
+                                        <option value="Office">Office</option>
+                                        <option vlaue="Home">Home</option>
+                                        <option value="Commercial">Commercial</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+            </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-primary">Save Address</button>
+      </div>
+    </div>
+  </div>
+</div>
+</form>
+</div>
+</div>
+
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
 
 <script>
-    $(document).ready(function(){
-        $('#cod').click(function(){
-            $('#codbox').css("display","block");
-            $('#ccard').css("display","none");
-            $('#bank').css("display","none");
-            $('#ppaccount').css("display","none");
-        })
+var SITEURL = '{{URL::to(' ')}}';
+         $.ajaxSetup({
+           headers: {
+               'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+           }
+         }); 
+         $('body').on('click', '.buy_now', function(e){
+           var totalAmount = $("#abc").val();
+           var priceData = $('#price').val();
+           var quantityData = 1;
+           var product_id =  $('#pid').val();
 
-        $('#cc').click(function(){
-            $('#codbox').css("display","none");
-            $('#ccard').css("display","block");
-            $('#bank').css("display","none");
-            $('#ppaccount').css("display","none");
-        })
-        $('#nb').click(function(){
-            $('#codbox').css("display","none");
-            $('#ccard').css("display","none");
-            $('#bank').css("display","block");
-            $('#ppaccount').css("display","none");
-        })
-        $('#ppa').click(function(){
-            $('#codbox').css("display","none");
-            $('#ccard').css("display","none");
-            $('#bank').css("display","none");
-            $('#ppaccount').css("display","block");
-        })
-    });
-</script>
-
-@include('bannerbottom')
+           var options = {
+           "key": "rzp_test_nC5kxY1iKaQcLp",
+           "amount": (totalAmount*100), // 2000 paise = INR 20
+           "name": "Tutsmake",
+           "description": "Payment",
+           "image": "//www.tutsmake.com/wp-content/uploads/2018/12/cropped-favicon-1024-1-180x180.png",
+             "handler": function (response){
+             
+               window.location.href = '/paysuccess?payment_id='+response.razorpay_payment_id+'&product_id='+product_id+'&amount='+totalAmount+'&price='+priceData+'&quantity='+quantityData;
+            },
+          "prefill": {
+               "contact": '9988665544',
+               "email":   'tutsmake@gmail.com',
+           },
+           "theme": {
+               "color": "#528FF0"
+           }
+         };
+         var rzp1 = new Razorpay(options);
+         rzp1.open();
+         e.preventDefault();
+         });
+      </script>
 
 @endsection

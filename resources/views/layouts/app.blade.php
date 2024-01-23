@@ -3,7 +3,7 @@
 <!-- Mirrored from p.w3layouts.com/demos_new/template_demo/28-08-2018/electro_store-demo_Free/1204782700/web/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 19 Dec 2023 12:09:42 GMT -->
 <!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
 <head>
-	<title>Electro Store Ecommerce Category Bootstrap Responsive Web Template | Home :: w3layouts</title>
+	<title>Electro Store</title>
 	<!-- Meta tag Keywords -->
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta charset="UTF-8" />
@@ -80,7 +80,8 @@ if(typeof _bsa !== 'undefined' && _bsa) {
 </script>
 
 <meta name="robots" content="noindex">
-<body><link rel="stylesheet" href="{{asset('asset/css/font-awesome.min.css')}}">
+<body>
+	<link rel="stylesheet" href="{{asset('asset/css/font-awesome.min.css')}}">
 <!-- New toolbar-->
 <style>
 * {
@@ -96,16 +97,16 @@ if(typeof _bsa !== 'undefined' && _bsa) {
 		<div class="container-fluid">
 			<div class="row main-top-w3l py-2">
 				<div class="col-lg-4 header-most-top">
-					<p class="text-white text-lg-left text-center">Offer Zone Top Deals & Discounts
-						<i class="fas fa-shopping-cart ml-1"></i>
-					</p>
+					
 				</div>
 				<div class="col-lg-8 header-right mt-lg-0 mt-2">
 					<!-- header lists -->
 					<ul>
-						<li class="text-center border-right text-white">
-							<a href="#" class="text-white">
-								<i class="fas fa-truck mr-2"></i>Track Order</a>
+					<li class="text-center border-right text-white">
+							
+						</li>
+					<li class="text-center border-right text-white">
+							
 						</li>
 						<li class="text-center border-right text-white">
 							<i class="fas fa-phone mr-2"></i> 894 234 5678
@@ -173,6 +174,13 @@ if(typeof _bsa !== 'undefined' && _bsa) {
 							<a href="/checkout">
 									<button class="btn w3view-cart" type="submit" name="submit" value="">
 										<i class="fas fa-cart-arrow-down"></i>
+										<span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+										@if(!$countCart)
+										0
+										@else
+										{{$countCart}}
+										@endif	
+									</span>
 									</button></a>
 							</div>
 						</div>
@@ -296,7 +304,7 @@ if(typeof _bsa !== 'undefined' && _bsa) {
 								<a href="/computer">Computer Accessories</a>
 							</li>
 							<li class="mb-3">
-								<a href="/television">TV, Audio</a>
+								<a href="/tv">TV, Audio</a>
 							</li>
 							<li class="mb-3">
 								<a href="/laptop">Laptops</a>
@@ -396,11 +404,12 @@ if(typeof _bsa !== 'undefined' && _bsa) {
 		<!-- //footer third section -->
 	</footer>
 	<!-- //footer -->
+	
 	<!-- copyright -->
 	<div class="copy-right py-3">
 		<div class="container">
-			<p class="text-center text-white">© 2018 Electro Store. All rights reserved | Design by
-				<a href="https://jogendra-yadav.netlify.app/" target="_blank"> Jogendra Yadav.</a>
+			<p class="text-center text-white">© 2023 Electro Store. All rights reserved | Design by
+				<a href="https://riveyrainfotech.com/" target="_blank">Riveyra Infotech Pvt.</a>
 			</p>
 		</div>
 	</div>

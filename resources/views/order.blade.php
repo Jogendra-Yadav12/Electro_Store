@@ -77,11 +77,36 @@
 							</div>
 						</div>
 						<!-- End Row -->
-              @else
-              <li class="list-group-item">
-                  Nothing ordered !!
-                </li>
-             @endif
+						@else
+						<li class="list-group-item">
+							Nothing ordered !!
+							</li>
+						@endif
+			 <!-- Navigation -->
+			 <nav aria-label="Page navigation" class="mt-3">
+							<ul class="pagination justify-content-center">
+								@if ($order->onFirstPage())
+									<li class="page-item disabled"><span class="page-link">Previous</span></li>
+								@else
+									<li class="page-item"><a class="page-link" href="{{ $order->previousPageUrl() }}" rel="prev">Previous</a></li>
+								@endif
+
+								@foreach ($order->getUrlRange($order->currentPage(), $order->currentPage()) as $page => $url)
+									@if ($page == $order->currentPage())
+										<li class="page-item active"><span class="page-link">{{ $page }}</span></li>
+									@else
+										<li class="page-item"><a class="page-link" href="{{ $url }}">{{ $page }}</a></li>
+									@endif
+								@endforeach
+
+								@if ($order->hasMorePages())
+									<li class="page-item"><a class="page-link" href="{{ $order->nextPageUrl() }}" rel="next">Next</a></li>
+								@else
+									<li class="page-item disabled"><span class="page-link">Next</span></li>
+								@endif
+							</ul>
+						</nav>
+						<!-- End Navigation -->
             </ul>
           </div>
         </div>

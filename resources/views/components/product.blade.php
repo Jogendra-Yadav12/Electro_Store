@@ -18,7 +18,7 @@
 								<div class="col-md-4 product-men mt-5">
 									<div class="men-pro-item simpleCart_shelfItem">
 										<div class="men-thumb-item text-center">
-											<img src="{{asset($value->img)}}" alt="Product-Images" style="height:160px;width:200px;">
+											<img src="{{asset($value->img)}}" alt="Product-Images" style="height:160px;width:200px;object-fit:contain">
 											<div class="men-cart-pro">
 												<div class="inner-men-cart-pro">
 													<a href="/singlepage/{{$value->id}}" class="link-product-add-cart">Quick View</a>

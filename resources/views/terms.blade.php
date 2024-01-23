@@ -90,6 +90,4 @@
     </div>
 </div>
 <!-- //terms -->
-
-@include('bottombanner')
 @endsection

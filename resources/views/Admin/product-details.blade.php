@@ -41,7 +41,7 @@
 														<div class="product-carousel">
 															<div id="carousel" class="carousel slide" data-bs-ride="false">
 																<div class="carousel-inner">
-																	<div class="carousel-item active"><img src="{{asset($product->img)}}" alt="img" class="img-fluid mx-auto d-block" style="height:400px;width:700px;"></div>
+																	<div class="carousel-item active"><img src="{{asset($product->img)}}" alt="img" class="img-fluid mx-auto d-block" style="height:400px;width:700px;object-fit:conatin"></div>
 																</div>
 															</div>
 														</div>
@@ -72,8 +72,7 @@
 							</div>
 						</div>
 						<!-- End Row -->
-
-
+						</div>
                     </div>
                 </div>
             </div>

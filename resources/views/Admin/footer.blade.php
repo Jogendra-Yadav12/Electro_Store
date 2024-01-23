@@ -4,7 +4,7 @@
 				<div class="container">
 					<div class="row row-sm">
 						<div class="col-md-12">
-							<span>Copyright © 2023 <a href="#">Admin Dhashboard</a>. Designed by <a href="https://jogendra-yadav.netlify.app/">Jogendra Yadav</a> All rights reserved.</span>
+							<span>Copyright © 2023 <a href="#">Electo Store</a>. Designed by <a href="https://riveyrainfotech.com/">Riveyra Infotech Pvt.</a> All rights reserved.</span>
 						</div>
 					</div>
 				</div>

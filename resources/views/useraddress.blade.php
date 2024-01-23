@@ -1,6 +1,20 @@
 @extends('layouts.app')
 
 @section('content')
+@if (Session::has('status'))
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            Swal.fire({
+                icon: 'success',
+                title: 'Success !!',
+                text: '{{ Session::get('status') }}',
+                showConfirmButton: false,
+                timer: 2000  // Auto-close after 3 seconds
+            });
+        });
+    </script>
+@endif
 
 <div class="container mt-5">
     <div class="row">
@@ -56,7 +70,7 @@
                                 </div>
                                 <div class="controls form-group">
                                     <select class="option-w3ls" name="address" required="" value="{{$user[0]['address']}}">
-                                        <option value="{{$user[0]['address']}}">Select Address type</option>
+                                        <option value="{{$user[0]['address']}}">{{$user[0]['address']}}</option>
                                         <option value="Office">Office</option>
                                         <option vlaue="Home">Home</option>
                                         <option value="Commercial">Commercial</option>

@@ -2,11 +2,11 @@
 @section('content')
 
 
-<!-- banner-2 -->
+<!-- Banner -->
 <div class="page-head_agile_info_w3l">
-
 </div>
-<!-- //banner-2 -->
+<!-- End Banner -->
+
 <!-- page -->
 <div class="services-breadcrumb">
     <div class="agile_inner_breadcrumb">
@@ -36,18 +36,22 @@
 					<div class="grid images_3_of_2">
 						<div class="flexslider">
 							<ul class="slides">
-								<img src="{{asset($value->img)}}" style="height: 400px; width:300px;">
+							<div class="thumb-image">
+								<img src="{{asset($value->img)}}" data-imagezoom="true" style="height: 400px; width:300px; object-fit:contain">
+							</div>
 							</ul>
 							<div class="clearfix"></div>
 						</div>
 					</div>
+					@foreach($images as $key=>$imgs)
+						<img class="p-2" src="{{asset($imgs['img'])}}" alt="" style="height: 90px; width:100px;  border:2px solid black; object-fit:contain">
+					@endforeach
 				</div>
-				
 				<div class="col-lg-7 single-right-left simpleCart_shelfItem">
 					<h3 class="mb-3">{{$value->name}}</h3>
 					<p class="mb-3">
 						<span class="item_price">Rs. {{$value->price}}</span>
-						<del class="mx-2 font-weight-light"></del>
+						<del class="mx-2 font-weight-light"></del><br>
 						<label>Free delivery</label>
 					</p>
 					<div class="single-infoagile">
@@ -57,12 +61,6 @@
 							</li>
 							<li class="mb-3">
 								Shipping Speed to Delivery.
-							</li>
-							<li class="mb-3">
-								EMIs from $655/month.
-							</li>
-							<li class="mb-3">
-								Bank OfferExtra 5% off* with Axis Bank Buzz Credit CardT&C
 							</li>
 						</ul>
 					</div>
@@ -78,10 +76,13 @@
 						</p>
 					</div>
 					<a href="/checkout/{{$value->id}}"><button name="submit" class="button btn btn-primary">Add to cart</button></a>
+                    <a href="/payment/{{$value->id}}"><button name="submit" class="button btn btn-secondary">Buy now</button></a>
+					
 				</div>
 			</div>
 			@endforeach
 		</div>
 	</div>
 	<!-- //Single Page -->
+
 @endsection

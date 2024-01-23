@@ -1,3 +1,32 @@
+@if (Session::has('status'))
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            Swal.fire({
+                icon: 'success',
+                title: 'Success !!',
+                text: '{{ Session::get('status') }}',
+                showConfirmButton: false,
+                timer: 3000  // Auto-close after 3 seconds
+            });
+        });
+    </script>
+@endif
+@if (Session::has('warning'))
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            Swal.fire({
+                icon: 'warning',
+                title: 'Warning!',
+                text: '{{ Session::get('warning') }}',
+                showConfirmButton: false,
+                timer: 3000  // Auto-close after 3 seconds
+            });
+        });
+    </script>
+@endif
+
 
     <!-- banner-2 -->
 	<div class="page-head_agile_info_w3l">
@@ -46,7 +75,7 @@
 								<div class="col-md-4 product-men product-item" data-brand="{{ $value->brand }}">
 									<div class="men-pro-item simpleCart_shelfItem">
 										<div class="men-thumb-item text-center">
-											<img src="{{asset($value->img)}}" style="height:160px;width:200px;" alt="">
+											<img src="{{asset($value->img)}}" style="height:160px;width:200px;object-fit:contain" alt="">
 											<div class="men-cart-pro">
 												<div class="inner-men-cart-pro">
 													<a href="/singlepage/{{$value->id}}" class="link-product-add-cart">Quick View</a>
@@ -157,7 +186,7 @@
 									<li class="page-item"><a class="page-link" href="{{ $product->previousPageUrl() }}" rel="prev">Previous</a></li>
 								@endif
 
-								@foreach ($product->getUrlRange($product->currentPage(), $product->currentPage() + 2) as $page => $url)
+								@foreach ($product->getUrlRange($product->currentPage(), $product->currentPage()) as $page => $url)
 									@if ($page == $product->currentPage())
 										<li class="page-item active"><span class="page-link">{{ $page }}</span></li>
 									@else

@@ -8,7 +8,6 @@
 							<div class="col-sm-7 offer-name">
 								<h6>Smooth, Rich & Loud Audio</h6>
 								<h4 class="mt-2 mb-3">Branded Headphones</h4>
-								<p>Sale up to 25% off all in store</p>
 							</div>
 							<div class="col-sm-5 offerimg-w3l">
 								<img src="{{asset('asset/images/off1.png')}}" alt="" class="img-fluid">
@@ -22,7 +21,6 @@
 							<div class="col-sm-7 offer-name">
 								<h6>A Bigger Phone</h6>
 								<h4 class="mt-2 mb-3">Smart Phones 5</h4>
-								<p>Free shipping order over $100</p>
 							</div>
 							<div class="col-sm-5 offerimg-w3l">
 								<img src="{{asset('asset/images/off2.png')}}" alt="" class="img-fluid">

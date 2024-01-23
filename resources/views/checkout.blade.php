@@ -3,31 +3,33 @@
 @section('content')
 
 @if (Session::has('status'))
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            Swal.fire({
+                icon: 'success',
+                title: 'Success!',
+                text: '{{ Session::get('status') }}',
+                showConfirmButton: false,
+                timer: 2000  // Auto-close after 3 seconds
+            });
+        });
+    </script>
+@endif
 
-<div class="container p-2 slide-in">
-	<div class="alert alert-success alert-dismissible">
-		<strong>{{ Session::get('status') }}</strong>
-		<svg class="float-right" data-bs-dismiss="alert" xmlns="http://www.w3.org/2000/svg" width="40" height="30" cursor="pointer" fill="currentColor" class="bi bi-file-excel btn-close" viewBox="0 0 16 16">
-		<path d="M5.18 4.616a.5.5 0 0 1 .704.064L8 7.219l2.116-2.54a.5.5 0 1 1 .768.641L8.651 8l2.233 2.68a.5.5 0 0 1-.768.64L8 8.781l-2.116 2.54a.5.5 0 0 1-.768-.641L7.349 8 5.116 5.32a.5.5 0 0 1 .064-.704z"/>
-		<path d="M4 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zm0 1h8a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1"/>
-		</svg>
-	</div>
-</div>
-
-<style>
-    .slide-in {
-        animation: slideIn 2s ease-in-out;
-    }
-
-    @keyframes slideIn {
-        from {
-            transform: translateY(-100%);
-        }
-        to {
-            transform: translateY(0);
-        }
-    }
-</style>
+@if (Session::has('warning'))
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            Swal.fire({
+                icon: 'warning',
+                title: 'Warning!',
+                text: '{{ Session::get('warning') }}',
+                showConfirmButton: false,
+                timer: 2000  // Auto-close after 3 seconds
+            });
+        });
+    </script>
 @endif
 
 <!-- banner-2 -->
@@ -61,9 +63,14 @@
             <span>C</span>heckout
         </h3>
         <!-- //tittle heading -->
-        <div class="checkout-right">
+        <div class="row">
+        @if($check == false)
+            <div class="checkout-right col-lg-12">
+        @else 
+        <div class="checkout-right col-lg-8 col-sm-12">
+        @endif
             <h4 class="mb-sm-4 mb-3">Your shopping cart contains:
-                <span> {{$count}} Products</span>
+                <span> {{$countCart}} Products</span>
             </h4>
             
             <div class="table-responsive">
@@ -72,9 +79,10 @@
                         <tr>
                             <th>SL No.</th>
                             <th>Product</th>
+                            <th>Price</th>
                             <th>Quality</th>
                             <th>Product Name</th>
-                            <!-- <th>Price</th> -->
+                            
                             <th>Remove</th>
                         </tr>
                     </thead>
@@ -84,9 +92,9 @@
                         $amount = 0;
                         $i = [];
                         @endphp
-                    @if($count==0)
-                    <tr>
-                        <td  colspan='6' class="p-5"><h1>Cart is Empty</h1></td>
+                    @if($countCart == 0)
+                    <tr class="rem1">
+                        <td  colspan='6' class="p-5 invert"><h1>Cart is Empty</h1></td>
                     </tr>
                     @else
 
@@ -95,12 +103,13 @@
                             <td class="invert">{{$x}}</td>
                             <td class="invert-image">
                                 <a href="/singlepage">
-                                    <img src="{{asset($value['img'])}}" alt="" style="height:150px;width:150px" class="img-responsive">
+                                    <img src="{{asset($value['img'])}}" alt="" style="height:150px;width:150px;object-fit:contain" class="img-responsive">
                                 </a>
                             </td>
+                            <td>{{$value['price'] / $value['quantity']}}</td>
                             <td class="cart-product-quantity" width="130px">
                                 <div class="input-group quantity">
-                               <strong>Price</strong><input type="text" style="width:100px;border:none;" class="container price-sub form-control" value="{{$value['price']}}" readonly>
+                               <strong>Sub-total</strong><input type="text" style="width:100px;border:none;" class="container price-sub form-control" value="{{$value['price']}}" readonly>
                                <input type="hidden" name="price[]" class="xyz" value="{{$value['price']}}">
                                <input type="hidden" name="quantity[]" class="abc" value="{{$value['quantity']}}">
                                     <div class="input-group-prepend decrement-btn" style="cursor: pointer">
@@ -144,7 +153,12 @@
                     </tbody>
                 </table>
                 <div>
-                @if(!$add)
+                @if($countCart == 0)
+                <div class="checkout-right-basket">
+                    <a href="/" role="button" class="btn btn-sm btn-primary float-left">Continue Shopping</a>
+                </div>
+                </div>
+                @elseif(!$add)
                 <div class="checkout-right-basket">
                     <a data-bs-toggle="modal" href="#exampleModalToggle" role="button" class="btn btn-sm btn-primary float-left">Order Now</a>
                 </div>
@@ -160,14 +174,56 @@
             </div>    
         </div>
         </div>
-        
-        
+        @if($check == true)
+        <div class="col-lg-4 col-sm-12 mt-5">
+        <div class="card">
+          <div class="card-header">
+            <h3 class="card-title text-center">Check Address Details</h3>
+          </div>
+            <ul class="list-group">
+                <li class="list-group-item mt-3">
+                    <div class="creditly-wrapper wthree, w3_agileits_wrapper">
+                        <div class="information-wrapper">
+                            <div class="first-row">
+                                <div class="w3_agileits_card_number_grids">
+                                    <div class="w3_agileits_card_number_grid_left form-group">
+                                    <div class="controls form-group">
+                                    <input class="billing-address-name form-control" type="hidden" name="name" placeholder="Name" value="{{session()->get('name')}}" readonly>
+                                </div>
+                                        <div class="controls">
+                                            <h5><strong>Mobile No :-</strong>  {{$address[0]['number']}}</h5>
+                                        </div>
+                                    </div>
+                                    <div class="w3_agileits_card_number_grid_right form-group">
+                                        <div class="controls">
+                                        <h5><strong>Landmark :-</strong> {{$address[0]['landmark']}}</h5>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="controls form-group">
+                                <h5><strong>City :-</strong> {{$address[0]['city']}}</h5>
+                                </div>
+                                <div class="controls form-group">
+                                    <h5><strong>Residance :-</strong> {{$address[0]['address']}}</h5>
+                                </div>
+                            </div>
+                        </div>
+                        <a href="/user-address"><button class="btn btn-success">Edit Address</button></a>
+                    </div>
+                </li>
+                @endif
+            </ul>
+          </div>
+        </div>
+    </div>
+    </div>
+</div>
 
     <!-- pop up address -->
 
     <div class="modal fade" id="exampleModalToggle" aria-hidden="true" aria-labelledby="exampleModalToggleLabel" tabindex="-1">
     <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content">
+    <div class="modal-content" style="border:none;">
       <div class="p-2">
       <svg class="float-right" data-bs-dismiss="modal" aria-label="Close" xmlns="http://www.w3.org/2000/svg" width="40" height="30" cursor="pointer" fill="currentColor" class="bi bi-file-excel btn-close" viewBox="0 0 16 16">
       <path d="M5.18 4.616a.5.5 0 0 1 .704.064L8 7.219l2.116-2.54a.5.5 0 1 1 .768.641L8.651 8l2.233 2.68a.5.5 0 0 1-.768.64L8 8.781l-2.116 2.54a.5.5 0 0 1-.768-.641L7.349 8 5.116 5.32a.5.5 0 0 1 .064-.704z"/>
@@ -178,7 +234,7 @@
         
       <div class="checkout-left">
             <div class="address_form_agile mt-sm-5 mt-4">
-                <h4 class="mb-sm-4 mb-3">Add a new Details</h4>
+                <h4 class="mb-sm-4 mb-3">Add Address Details</h4>
                 <form method="POST" action="{{url('addAddress')}}">
                     @csrf
                     <div class="creditly-wrapper wthree, w3_agileits_wrapper">
@@ -224,10 +280,9 @@
   </div>
 </div>
 </form>
-
-
-    </div>
 </div>
+</div>
+    </div>
 <!-- //checkout page -->
 
     <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
