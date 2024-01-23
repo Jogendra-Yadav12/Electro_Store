@@ -13,15 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('address',function(Blueprint $table){
+        Schema::create('images',function(Blueprint $table){
             $table->id();
-            $table->string('name');
-            $table->string('email');
-            $table->bigInteger('number');
-            $table->string('landmark');
-            $table->string('city');
-            $table->string('address');
-            $table->bigInteger('user_id');
+            $table->string('img');
+            $table->integer('p_id');
             $table->timestamps();
         });
     }
