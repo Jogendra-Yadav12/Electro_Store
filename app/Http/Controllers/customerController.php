@@ -2,95 +2,82 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
 use App\Models\customer;
 use App\Models\product;
 use App\Models\address;
 use App\Models\cart;
+use App\Models\wishlist;
 
 
 class customerController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function index()
     {
         return view('register');
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
         try{
-            $cus = customer::where("email",$request->email)->exists();
-            if($cus){
-                $status = "Email is already eixsts";
-                return redirect('/')->with('status','Email is already eixsts!!');
+            $rotp = intval($request->rotp);
+
+            if(session()->get('rotp') === $rotp){
+
+                $user = new customer;
+                $user->name = session()->get('rname');
+                $user->email = session()->get('gmail');
+                $user->password = Hash::make(session()->get('rpass'));
+                $user->type = 'customer';
+                $user->status = 1;
+                $user->save();
+
+                $cus = customer::where('email',session()->get('gmail'))->get();
+                $email = session()->get('gmail');
+                $password = session()->get('rpass');
+                
+                foreach($cus as $key=>$value){
+                    if($email==$value['email'] and Hash::check($password,$value['password']) and $value['type']=='customer'){
+                        $user_id = $value->id;
+                        session()->put('mail',$email);
+                        session()->put('name',$value->name);
+                        session()->put('id',$user_id);
+                        return redirect('/');
+                    }else{
+                        return redirect('/')->with('warning','Your Account Has Blocked !!');
+                    }
+                }
+                return redirect('/')->with('status','user register successfully!!');
             }
-            $user = new customer;
-            $user->name = $request->name;
-            $user->email = $request->email;
-            $user->password = $request->password;
-            $user->type = 'customer';
-            $user->status = 1;
-            $user->save();
-            return redirect('/')->with('status','user register successfully!!');
+            return redirect()->back();
         } catch (QueryException $e) {
-            return redirect()->back()->with('status', 'Database error: ' . $e->getMessage());
+            return redirect()->back()->with('error', 'Database error: ' . $e->getMessage());
         } catch (\Exception $e) {
-            return redirect('/')->with('status', 'An error occurred: ' . $e->getMessage());
+            return redirect('/')->with('error', 'An error occurred: ' . $e->getMessage());
         }
     }
-
-    
 
     public function useraddress(){
         try{
             $user_id = session()->get('id');
-            $user = address::where('user_id',$user_id)->get();
-            $double = address::where('user_id',$user_id)->exists();
-            return view('useraddress',compact('user','double'));
+            if($user_id){
+                $user = address::where('user_id',$user_id)->get();
+                $countCart = cart::where('user_id',$user_id)->get()->count();
+                $countWish = wishlist::where('user_id',$user_id)->get()->count();
+                $double = address::where('user_id',$user_id)->exists();
+                return view('useraddress',compact('user','double','countCart','countWish'));
+            }else{
+                return redirect()->back()->with('warning','Please login !!');
+            }
         } catch (QueryException $e){
-            return redirect()->back()->with('status', 'Database error: ' . $e->getMessage());
+            return redirect()->back()->with('error', 'Database error: ' . $e->getMessage());
         } catch (\Exception $e) {
-            return redirect('/')->with('status', 'An error occurred: ' . $e->getMessage());
+            return redirect('/')->with('error', 'An error occurred: ' . $e->getMessage());
         }
     }
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function login(Request $request)
     {
         try{
@@ -98,62 +85,58 @@ class customerController extends Controller
             $password = $request->password;
             
             $user = customer::where('email',$email)->get();
-            
+
             foreach($user as $key=>$value){
                 $userid = $value['id'];
                 $name = $value['name'];
                 if($value['status'] === 1){
-                if($email==$value['email'] and $password==$value['password'] and $value['type']=='admin'){
-                    session()->put('mail',$email);
-                    session()->put('name',$name);
-                    session()->put('id',$userid);
-                    return redirect('/user');
+                    if($email==$value['email'] and Hash::check($password,$value['password']) and $value['type']=='admin'){
+                        session()->put('mail',$email);
+                        session()->put('name',$name);
+                        session()->put('id',$userid);
+                        return redirect('/user');
+                    }
+                    if($email==$value['email'] and Hash::check($password,$value['password']) and $value['type']=='customer'){
+                        session()->put('mail',$email);
+                        session()->put('name',$name);
+                        session()->put('id',$userid);
+                        return redirect('/');
+                    }
+            }else{
+                return redirect('/')->with('warning','Your Account Has Blocked !!');
                 }
-                if($email==$value['email'] and $password==$value['password'] and $value['type']=='customer'){
-                    session()->put('mail',$email);
-                    session()->put('name',$name);
-                    session()->put('id',$userid);
-                    return redirect('/');
-                }
-                return redirect('/')->with('status','Please enter correct email & password');
             }
-                return redirect('/')->with('status','Your account has blocked !!');
-            }
+        return redirect('/')->with('warning','Please Enter Correct Email and Password');
             
         } catch (QueryException $e) {
-            return redirect()->back()->with('status', 'Database error: ' . $e->getMessage());
+            return redirect()->back()->with('error', 'Database error: ' . $e->getMessage());
         } catch (\Exception $e) {
-            return redirect('/')->with('status', 'An error occurred: ' . $e->getMessage());
+            return redirect('/')->with('error', 'An error occurred: ' . $e->getMessage());
         }
     }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-
 
     public function autocomplete(Request $request)
     {   
         try{
+            $user_id = session()->get('id');
             $search = $request->input('search');
+            
             $data = product::select("name", "id","price","img")->where('name', 'LIKE', '%'. $search . '%')->get();
             $count = product::select("name", "id","price","img")->where('name', 'LIKE', '%'. $search . '%')->get()->count();
+            $countWish = wishlist::where('user_id',$user_id)->get()->count();
+            $countCart = cart::where('user_id',$user_id)->get()->count();
             if($search==null){
                 return redirect()->back();
             }
             elseif($data){
-                return view('search',compact('data','count'));
+                return view('search',compact('data','count','countCart','countWish'));
             }else{
                 return redirect('/');
             }
         } catch (QueryException $e) {
-            return redirect()->back()->with('status', 'Database error: ' . $e->getMessage());
+            return redirect()->back()->with('error', 'Database error: ' . $e->getMessage());
         } catch (\Exception $e) {
-            return redirect('/')->with('status', 'An error occurred: ' . $e->getMessage());
+            return redirect('/')->with('error', 'An error occurred: ' . $e->getMessage());
         }
     }
 
@@ -161,25 +144,27 @@ class customerController extends Controller
         try{
             if(session()->get('id')){
                 $user_id= session()->get('id');
+                $countCart = cart::where('user_id',$user_id)->get()->count();
+                $countWish = wishlist::where('user_id',$user_id)->get()->count();
                 $user = customer::where('id',$user_id)->get();
-                $detail = address::find($user_id);
+                $detail = address::where('user_id',$user_id)->get();
+                $check = address::where('user_id',$user_id)->exists();
+                
             
-            return view('profile',compact('user','detail'));
+            return view('profile',compact('user','detail','check','countCart','countWish'));
             }
         } catch (QueryException $e) {
-            return redirect()->back()->with('status', 'Database error: ' . $e->getMessage());
+            return redirect()->back()->with('error', 'Database error: ' . $e->getMessage());
         } catch (\Exception $e) {
-            return redirect('/')->with('status', 'An error occurred: ' . $e->getMessage());
+            return redirect('/')->with('error', 'An error occurred: ' . $e->getMessage());
         }
     }
-    
-    
 
     public function addAddress(Request $request){
         try{
             $user_id = session()->get('id');
             $email = session()->get('mail');
-
+            if($user_id){
             $double = address::where('user_id',$user_id)->exists();
                 if($double){
                     $rep=address::where('user_id',$user_id)->get();
@@ -188,10 +173,9 @@ class customerController extends Controller
                     $rep[0]['city'] = $request->city;
                     $rep[0]['address'] = $request->address;
                     $rep[0]->save();
-                    return redirect()->back();
+                    return redirect()->back()->with('status','Updated Address Successfully !!');
                 }
             
-
             $data = new address();
             $data->name = $request->name;
             $data->email = $email;
@@ -201,22 +185,105 @@ class customerController extends Controller
             $data->address = $request->address;
             $data->user_id = $user_id;
             $data->save();
-            return redirect('profile');
+            return redirect('profile')->with('status','Address add successfully');
+            }else{
+                return redirect()->back()->with('warning','Please login !!');
+            }
         } catch (QueryException $e) {
-            return redirect()->back()->with('status', 'Database error: ' . $e->getMessage());
+            return redirect()->back()->with('error', 'Database error: ' . $e->getMessage());
         } catch (\Exception $e) {
-            return redirect('/')->with('status', 'An error occurred: ' . $e->getMessage());
+            return redirect('/')->with('error', 'An error occurred: ' . $e->getMessage());
         }
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
+    public function updpass(Request $request)
     {
-        //
+        $user_id = session()->get('id');
+        $countCart = cart::where('user_id',$user_id)->get()->count();
+        $countWish = wishlist::where('user_id',$user_id)->get()->count();
+        return view('updatepass',compact('countCart','countWish'));
+    }
+
+    public function updatepass(Request $request)
+    {
+        try {
+            $user_id = session()->get('id');
+            $user = customer::find($user_id);
+            if(Hash::check($request->oldpass,$user->password)){
+                $user->password = Hash::make($request->newpass);
+                $user->save();
+            }
+            else{
+                return redirect()->back()->with('warning','Your Old Password Is Wrong!!');
+            }
+            Session()->flush();
+            return redirect('/')->with('status','Password Update Successfully !!');  
+        } catch (QueryException $e) {
+            return redirect()->back()->with('error', 'Database error: ' . $e->getMessage());
+        } catch (\Exception $e) {
+            return redirect('/')->with('error', 'An error occurred: ' . $e->getMessage());
+        }
+    }
+
+    public function forgetpass(){
+        try {
+            return view('forget');
+        } catch (QueryException $e) {
+            return redirect()->back()->with('errror', 'Database error: ' . $e->getMessage());
+        } catch (\Exception $e) {
+            return redirect('/')->with('error', 'An error occurred: ' . $e->getMessage());
+        }
+    }
+
+    public function otp(){
+        try {
+            if(session()->get('email')){
+                return view('otp');
+            }
+            return redirect()->back()->with('warning','Enter email id');
+        } catch (QueryException $e) {
+            return redirect()->back()->with('error', 'Database error: ' . $e->getMessage());
+        } catch (\Exception $e) {
+            return redirect('/')->with('error', 'An error occurred: ' . $e->getMessage());
+        }
+    }
+
+    public function verifyotp(Request $request){
+        try {
+            $otp = intval($request->otp);
+            $verify = session()->get('otp');
+            if($otp === $verify){
+                return redirect('reset');
+            }
+            return redirect('forget')->with('warning','Please Re-enter Email Id');
+        } catch (QueryException $e) {
+            return redirect()->back()->with('error', 'Database error: ' . $e->getMessage());
+        } catch (\Exception $e) {
+            return redirect('/')->with('error', 'An error occurred: ' . $e->getMessage());
+        }
+    }
+
+    public function resetpass(){
+        try {
+            return view('resetpass');
+        } catch (QueryException $e) {
+            return redirect()->back()->with('error', 'Database error: ' . $e->getMessage());
+        } catch (\Exception $e) {
+            return redirect('/')->with('error', 'An error occurred: ' . $e->getMessage());
+        }
+    }
+
+    public function updatepassword(Request $request){
+        try{
+            $user_email = session()->get('email');
+            $user = customer::where('email',$user_email)->get();
+            if($request->newpass == $request->repass){
+                $user[0]['password'] = Hash::make($request->newpass);
+                $user[0]->save();
+                return redirect('/')->with('status','Password Update Successfully !!');
+            }
+        }catch (\Exception $e) {
+            return redirect('/')->with('error', 'An error occurred: ' . $e->getMessage());
+        }
     }
 }

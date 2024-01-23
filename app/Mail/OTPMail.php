@@ -9,21 +9,21 @@ use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 
-class ContactMail extends Mailable
+class OTPMail extends Mailable
 {
     use Queueable, SerializesModels;
+
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public $data;
-    public function __construct($data)
+    public $otp;
+    public function __construct($otp)
     {
-        $this->data = $data;
+        $this->otp = $otp;
     }
 
-    
     /**
      * Get the message envelope.
      *
@@ -44,7 +44,7 @@ class ContactMail extends Mailable
     public function content()
     {
         return new Content(
-            view: 'email',
+            view: 'otpmailer',
         );
     }
 

@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Models\product;
 use App\Models\wishlist;
 use App\Models\image;
+use App\Models\address;
+use App\Models\cart;
 
 class productController extends Controller
 {
@@ -23,12 +25,22 @@ class productController extends Controller
     public function create($id)
     {
         try{
+            $user_id = session()->get('id');
             $product = product::where('id',$id)->get();
-            return view('singlepage',compact('product'));
+            $name = $product[0]['name'];
+            
+            $images = image::where('name',$name)->get();
+            $check = image::where('name',$name)->exists();
+            $add = address::where('user_id',$user_id)->exists();
+            $countCart = cart::where('user_id',$user_id)->get()->count();
+            $countWish = wishlist::where('user_id',$user_id)->get()->count();
+
+            return view('singlepage',compact('product','images','add','countCart','countWish'));
+
         } catch (QueryException $e) {
-            return redirect()->back()->with('status', 'Database error: ' . $e->getMessage());
+            return redirect()->back()->with('error', 'Database error: ' . $e->getMessage());
         } catch (\Exception $e) {
-            return redirect('/')->with('status', 'An error occurred: ' . $e->getMessage());
+            return redirect('/')->with('error', 'An error occurred: ' . $e->getMessage());
         }
     }
 
@@ -56,9 +68,10 @@ class productController extends Controller
             if ($request->hasFile('img')) {
                 $product->img = $request->img->move(('images'), $imageName);
             } else {
-                return redirect()->back()->with('status', 'Your image must be in this format: jpeg, png, jpg, gif and not exceed 2MB');
+                return redirect()->back()->with('warning', 'Your image must be in this format: jpeg, png, jpg, gif and not exceed 2MB');
             }
             
+            if($request->file('images')){
             foreach ($request->file('images') as $imagefile) {
                 $photo = new image;
                 $Name = $imagefile->getClientOriginalName();
@@ -66,14 +79,15 @@ class productController extends Controller
                 $photo->img = $imagefile->move(('images'),$Name);
                 $photo->save();
             }
-
+        }
+            
             $product->save();
 
             return redirect('/add')->with('status','Product added successfully!!');
         } catch (QueryException $e) {
-            return redirect()->back()->with('status', 'Database error: ' . $e->getMessage());
+            return redirect()->back()->with('warning', 'Database error: ' . $e->getMessage());
         } catch (\Exception $e) {
-            return redirect()->back()->with('status', $e->getMessage());
+            return redirect()->back()->with('warning', $e->getMessage());
         }
     }
 
@@ -94,9 +108,9 @@ class productController extends Controller
             }
             dd($data);
         } catch (QueryException $e) {
-            return redirect()->back()->with('status', 'Database error: ' . $e->getMessage());
+            return redirect()->back()->with('error', 'Database error: ' . $e->getMessage());
         } catch (\Exception $e) {
-            return redirect('/')->with('status', 'An error occurred: ' . $e->getMessage());
+            return redirect('/')->with('error', 'An error occurred: ' . $e->getMessage());
         }
     }
     
@@ -108,13 +122,15 @@ class productController extends Controller
             $mobile = product::where('category','Mobile')->paginate(9);
             $wish = wishlist::where('user_id',$user_id)->get();
             $count = wishlist::where('user_id',$user_id)->count();
+            $countCart = cart::where('user_id',$user_id)->get()->count();
+            $countWish = wishlist::where('user_id',$user_id)->get()->count();
 
-            return view('mobile',compact('mobile','brand','wish','count'));
+            return view('mobile',compact('mobile','brand','wish','count','countCart','countWish'));
 
         } catch (QueryException $e) {
-            return redirect()->back()->with('status', 'Database error: ' . $e->getMessage());
+            return redirect()->back()->with('error', 'Database error: ' . $e->getMessage());
         } catch (\Exception $e) {
-            return redirect('/')->with('status', 'An error occurred: ' . $e->getMessage());
+            return redirect('/')->with('error', 'An error occurred: ' . $e->getMessage());
         }
     }
 
@@ -126,11 +142,14 @@ class productController extends Controller
             $laptop = product::where('category','Laptop')->paginate(9);
             $wish = wishlist::where('user_id',$user_id)->get();
             $count = wishlist::where('user_id',$user_id)->count();
-            return view('laptop',compact('laptop','brand','wish','count'));
+            $countCart = cart::where('user_id',$user_id)->get()->count();
+            $countWish = wishlist::where('user_id',$user_id)->get()->count();
+
+            return view('laptop',compact('laptop','brand','wish','count','countCart','countWish'));
         } catch (QueryException $e) {
-            return redirect()->back()->with('status', 'Database error: ' . $e->getMessage());
+            return redirect()->back()->with('error', 'Database error: ' . $e->getMessage());
         } catch (\Exception $e) {
-            return redirect('/')->with('status', 'An error occurred: ' . $e->getMessage());
+            return redirect('/')->with('error', 'An error occurred: ' . $e->getMessage());
         }
     }
 
@@ -142,11 +161,14 @@ class productController extends Controller
             $tv = product::where('category','Television & Audio')->paginate(9);
             $wish = wishlist::where('user_id',$user_id)->get();
             $count = wishlist::where('user_id',$user_id)->count();
-            return view('tv',compact('tv','brand','wish','count'));
+            $countCart = cart::where('user_id',$user_id)->get()->count();
+            $countWish = wishlist::where('user_id',$user_id)->get()->count();
+
+            return view('tv',compact('tv','brand','wish','count','countCart','countWish'));
         } catch (QueryException $e) {
-            return redirect()->back()->with('status', 'Database error: ' . $e->getMessage());
+            return redirect()->back()->with('error', 'Database error: ' . $e->getMessage());
         } catch (\Exception $e) {
-            return redirect('/')->with('status', 'An error occurred: ' . $e->getMessage());
+            return redirect('/')->with('error', 'An error occurred: ' . $e->getMessage());
         }
     }
 
@@ -158,11 +180,14 @@ class productController extends Controller
             $cc = product::where('category','Case & Cover')->paginate(9);
             $wish = wishlist::where('user_id',$user_id)->get();
             $count = wishlist::where('user_id',$user_id)->count();
-            return view('cover',compact('cc','brand','wish','count'));
+            $countCart = cart::where('user_id',$user_id)->get()->count();
+            $countWish = wishlist::where('user_id',$user_id)->get()->count();
+
+            return view('cover',compact('cc','brand','wish','count','countCart','countWish'));
         } catch (QueryException $e) {
-            return redirect()->back()->with('status', 'Database error: ' . $e->getMessage());
+            return redirect()->back()->with('error', 'Database error: ' . $e->getMessage());
         } catch (\Exception $e) {
-            return redirect('/')->with('status', 'An error occurred: ' . $e->getMessage());
+            return redirect('/')->with('error', 'An error occurred: ' . $e->getMessage());
         }
     }
 
@@ -174,11 +199,14 @@ class productController extends Controller
             $tab = product::where('category','Tablet')->paginate(9);
             $wish = wishlist::where('user_id',$user_id)->get();
             $count = wishlist::where('user_id',$user_id)->count();
-            return view('tablet',compact('tab','brand','wish','count'));
+            $countCart = cart::where('user_id',$user_id)->get()->count();
+            $countWish = wishlist::where('user_id',$user_id)->get()->count();
+
+            return view('tablet',compact('tab','brand','wish','count','countCart','countWish'));
         } catch (QueryException $e) {
-            return redirect()->back()->with('status', 'Database error: ' . $e->getMessage());
+            return redirect()->back()->with('error', 'Database error: ' . $e->getMessage());
         } catch (\Exception $e) {
-            return redirect('/')->with('status', 'An error occurred: ' . $e->getMessage());
+            return redirect('/')->with('error', 'An error occurred: ' . $e->getMessage());
         }
     }
 
@@ -190,12 +218,14 @@ class productController extends Controller
             $ca = product::where('category','Computer Accessories')->paginate(9);
             $wish = wishlist::where('user_id',$user_id)->get();
             $count = wishlist::where('user_id',$user_id)->count();
+            $countCart = cart::where('user_id',$user_id)->get()->count();
+            $countWish = wishlist::where('user_id',$user_id)->get()->count();
             
-            return view('computer',compact('ca','brand','wish','count'));
+            return view('computer',compact('ca','brand','wish','count','countCart','countWish'));
         } catch (QueryException $e) {
-            return redirect()->back()->with('status', 'Database error: ' . $e->getMessage());
+            return redirect()->back()->with('error', 'Database error: ' . $e->getMessage());
         } catch (\Exception $e) {
-            return redirect('/')->with('status', 'An error occurred: ' . $e->getMessage());
+            return redirect('/')->with('error', 'An error occurred: ' . $e->getMessage());
         }
     }
     
@@ -232,37 +262,6 @@ class productController extends Controller
     public function destroy($id)
     {
         //
-    }
-
-
-    public function filterByBrand(Request $request)
-    {
-        try{
-            $selectedBrands = $request->input('filter');
-            $selectedPrices = $request->input('price');
-        
-            // Fetch products based on selected brands and prices
-            $query = Product::query();
-        
-            if (!empty($selectedBrands)) {
-                $query->whereIn('brand', $selectedBrands);
-            }
-        
-            if (!empty($selectedPrices)) {
-                foreach ($selectedPrices as $priceRange) {
-                    $range = explode('-', $priceRange);
-                    $query->orWhereBetween('price', [(int)$range[0], (int)$range[1]]);
-                }
-            }
-        
-            $filteredProducts = $query->get();
-        
-            return view('your_view_name', ['mobile' => $filteredProducts]);
-        } catch (QueryException $e) {
-            return redirect()->back()->with('status', 'Database error: ' . $e->getMessage());
-        } catch (\Exception $e) {
-            return redirect('/')->with('status', 'An error occurred: ' . $e->getMessage());
-        }
     }
     
 
