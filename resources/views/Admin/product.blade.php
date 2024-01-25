@@ -53,6 +53,7 @@
 							<div class="col-md-12 col-lg-12">
 								<div class="row row-sm">
 									@foreach($product as $key=>$value)
+										@if($value->status)
 										<div class="col-md-6 col-lg-6 col-xl-4 col-sm-6">
 											<div class="card custom-card">
 												<div class="p-0 ht-100p">
@@ -79,6 +80,7 @@
 												</div>
 											</div>
 										</div>
+										@endif
 									@endforeach
 								</div>
 							</div>
