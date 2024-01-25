@@ -1,0 +1,1 @@
+<h1><?php echo e($otp); ?></h1><?php /**PATH E:\practice\e-commerce\resources\views/otpmailer.blade.php ENDPATH**/ ?>

@@ -1,26 +1,21 @@
 <div class="search-hotel border-bottom py-2">
-<h3 class="agileits-sear-head mb-3">Category</h3>
-<form action="/brand" method="get">		
-<div class="left-side py-2">
-<ul>
-<?php $__currentLoopData = $brand; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key=>$value): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-	<li>
-		<input type="checkbox" class="checked" name="filter[]" value="<?php echo e($value['brand']); ?>" id="<?php echo e($value['brand']); ?>" onchange="filter"/>
-		
-		<label class="span" for="<?php echo e($value['brand']); ?>" ><?php echo e($value['brand']); ?></label>
-	</li>
-<?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-</ul>
-</div>
-</form>
-</div>
-						<!-- price -->
-						<div class="range border-bottom py-2">
+	<h3 class="agileits-sear-head mb-3">Category</h3>
+		<form action="/brand" method="get">		
+			<div class="left-side py-2">
+				<ul>
+					<?php $__currentLoopData = $brand; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key=>$value): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+						<li>
+							<input type="checkbox" class="checked" name="filter[]" value="<?php echo e($value['brand']); ?>" id="<?php echo e($value['brand']); ?>" />
+							<label class="span" for="<?php echo e($value['brand']); ?>" ><?php echo e($value['brand']); ?></label>
+						</li>
+					<?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+				</ul>
+			</div>
+		</form>
+	</div>
+					<!-- price -->
+						<div class="range py-2">
 							<h3 class="agileits-sear-head mb-3">Price</h3>
-
-
-
-
 							<div class="w3l-range">
 								<ul>
 								<li>

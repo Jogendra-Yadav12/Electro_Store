@@ -1,11 +1,13 @@
-<?php echo $__env->make('header', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
-<?php echo $__env->make('nav', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
+
+
+<?php $__env->startSection('content'); ?>
 
 <!-- banner-2 -->
 <div class="page-head_agile_info_w3l">
 
 </div>
 <!-- //banner-2 -->
+
 <!-- page -->
 <div class="services-breadcrumb">
     <div class="agile_inner_breadcrumb">
@@ -121,4 +123,5 @@
     </div>
 </div>
 <!-- //testimonials -->
-<?php echo $__env->make('footer', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH E:\practice\e-commerce\resources\views/aboutus.blade.php ENDPATH**/ ?>
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('layouts.app', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH E:\practice\e-commerce\resources\views/aboutus.blade.php ENDPATH**/ ?>

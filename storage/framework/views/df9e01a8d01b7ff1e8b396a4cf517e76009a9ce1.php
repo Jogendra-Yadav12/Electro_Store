@@ -1,5 +1,20 @@
-<?php echo $__env->make('header', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
-<?php echo $__env->make('nav', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
+
+
+<?php $__env->startSection('content'); ?>
+<?php if(Session::has('status')): ?>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            Swal.fire({
+                icon: 'success',
+                title: 'Success !!',
+                text: '<?php echo e(Session::get('status')); ?>',
+                showConfirmButton: false,
+                timer: 2000  // Auto-close after 3 seconds
+            });
+        });
+    </script>
+<?php endif; ?>
 
 <div class="container mt-5">
     <div class="row">
@@ -25,9 +40,8 @@
            <h4>Name : <?php echo e(session()->get('name')); ?></h4>
            <p>Email : <?php echo e(session()->get('mail')); ?></p>
            <hr>
-            <h5>Addresses:</h5>
+            <h5>Address:</h5>
             <ul class="list-group">
-              
                 <li class="list-group-item mt-3">
                 <?php if($double): ?>
                 <form method="post" action="<?php echo e(url('user-address')); ?>">
@@ -56,7 +70,7 @@
                                 </div>
                                 <div class="controls form-group">
                                     <select class="option-w3ls" name="address" required="" value="<?php echo e($user[0]['address']); ?>">
-                                        <option value="<?php echo e($user[0]['address']); ?>">Select Address type</option>
+                                        <option value="<?php echo e($user[0]['address']); ?>"><?php echo e($user[0]['address']); ?></option>
                                         <option value="Office">Office</option>
                                         <option vlaue="Home">Home</option>
                                         <option value="Commercial">Commercial</option>
@@ -117,5 +131,6 @@
       </div>
     </div>
   </div>
+<?php $__env->stopSection(); ?>
 
-<?php echo $__env->make('footer', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH E:\practice\e-commerce\resources\views/useraddress.blade.php ENDPATH**/ ?>
+<?php echo $__env->make('layouts.app', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH E:\practice\e-commerce\resources\views/useraddress.blade.php ENDPATH**/ ?>

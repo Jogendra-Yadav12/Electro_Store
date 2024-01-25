@@ -2,7 +2,7 @@
 <?php echo $__env->make('Admin/nav', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
 <?php echo $__env->make('Admin/sidebar', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
 <?php if(Session::has('status')): ?>
-<div class="container p-2">
+<div class="container px-5">
 	<div class="alert alert-success alert-dismissible">
 		<strong><?php echo e(Session::get('status')); ?></strong>
 		<svg class="float-right" data-bs-dismiss="alert" xmlns="http://www.w3.org/2000/svg" width="40" height="30" cursor="pointer" fill="currentColor" class="bi bi-file-excel btn-close" viewBox="0 0 16 16">
@@ -15,7 +15,7 @@
 		   <!-- MAIN-CONTENT -->
            <div class="main-content side-content pt-0">
                 <div class="main-container container-fluid">
-                    <div class="inner-body"> 
+                    <div class="inner-body">
 						<!-- Page Header -->
 						<div class="page-header">
 							<div>
@@ -45,6 +45,19 @@
 										<div class="form-group">
 											<label class="tx-medium">Email</label>
 											<input type="email" class="form-control" placeholder="Email" name="email" required>
+										</div>
+										<div class="form-group">
+											<label class="tx-medium">Category</label>
+											<select class="form-control select2" name="type" required>
+												<option label="Choose one">
+												</option>
+												<option value="admin">
+													admin
+												</option>
+												<option value="customer">
+													customer
+												</option>
+											</select>
 										</div>
 									</div>
 									<div class="card-footer mb-1">

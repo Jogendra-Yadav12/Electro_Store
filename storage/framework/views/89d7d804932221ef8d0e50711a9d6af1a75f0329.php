@@ -1,12 +1,41 @@
 <?php echo $__env->make('Admin.header', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
 <?php echo $__env->make('Admin.nav', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
 <?php echo $__env->make('Admin.sidebar', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
+
+<?php if(Session::has('status')): ?>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            Swal.fire({
+                icon: 'success',
+                title: 'Success !!',
+                text: '<?php echo e(Session::get('status')); ?>',
+                showConfirmButton: false,
+                timer: 3000  // Auto-close after 3 seconds
+            });
+        });
+    </script>
+<?php endif; ?>
+
+<?php if(Session::has('warning')): ?>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            Swal.fire({
+                icon: 'warning',
+                title: 'Warning!',
+                text: '<?php echo e(Session::get('warning')); ?>',
+                showConfirmButton: false,
+                timer: 3000  // Auto-close after 3 seconds
+            });
+        });
+    </script>
+<?php endif; ?>
+
  <!-- MAIN-CONTENT -->
  <div class="main-content side-content pt-0">
                 <div class="main-container container-fluid">
                     <div class="inner-body">
-
-                        
+						
 						<!-- Page Header -->
 						<div class="page-header">
 							<div>
@@ -30,7 +59,7 @@
 													<div class="product-grid">
 														<div class="product-image">
 															<a href="pdetails/<?php echo e($value->id); ?>" class="image">
-																<img class="pic-1 p-3" style="height:300px;border-radius:2vw;" alt="product-image-1" src="<?php echo e(asset($value->img)); ?>">
+																<img class="pic-1 p-3" style="height:300px;border-radius:2vw;object-fit:contain" alt="product-image-1" src="<?php echo e(asset($value->img)); ?>">
 															</a>
 															<a class="product-like-icon" href="pdetails/<?php echo e($value->id); ?>"><i class="bi bi-ticket-detailed"></i></i></a>
 															<div class="product-link">
@@ -45,13 +74,6 @@
 														<div class="product-content">
 															<h3 class="title"><?php echo e($value->name); ?></h3>
 															<div class="price"><span class="old-price"></span><span class="text-danger">Rs <?php echo e($value->price); ?></span></div>
-															<ul class="rating">
-																<li class="fas fa-star"></li>
-																<li class="fas fa-star"></li>
-																<li class="fas fa-star"></li>
-																<li class="fas fa-star"></li>
-																<li class="far fa-star"></li>
-															</ul>
 														</div>
 													</div>
 												</div>
@@ -61,6 +83,34 @@
 								</div>
 							</div>
 						<!-- End Row -->
+
+						<!-- Navigation -->
+						<nav aria-label="Page navigation">
+							<ul class="pagination justify-content-center">
+							
+								<?php if($product->onFirstPage()): ?>
+									<li class="page-item disabled"><span class="page-link">Previous</span></li>
+								<?php else: ?>
+									<li class="page-item"><a class="page-link" href="<?php echo e($product->previousPageUrl()); ?>" rel="prev">Previous</a></li>
+								<?php endif; ?>
+
+								<?php $__currentLoopData = $product->getUrlRange($product->currentPage(), $product->currentPage()); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $page => $url): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+									<?php if($page == $product->currentPage()): ?>
+										<li class="page-item active"><span class="page-link"><?php echo e($page); ?></span></li>
+									<?php else: ?>
+										<li class="page-item"><a class="page-link" href="<?php echo e($url); ?>"><?php echo e($page); ?></a></li>
+									<?php endif; ?>
+								<?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+
+								<?php if($product->hasMorePages()): ?>
+									<li class="page-item"><a class="page-link" href="<?php echo e($product->nextPageUrl()); ?>" rel="next">Next</a></li>
+								<?php else: ?>
+									<li class="page-item disabled"><span class="page-link">Next</span></li>
+								<?php endif; ?>
+							
+							</ul>
+						</nav>
+						<!-- End Navigation -->
                     </div>
                 </div>
             </div>

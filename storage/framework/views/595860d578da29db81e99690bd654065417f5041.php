@@ -3,15 +3,33 @@
 <?php echo $__env->make('Admin/nav', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
 <?php echo $__env->make('Admin/sidebar', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
 <?php if(Session::has('status')): ?>
-<div class="container px-5">
-	<div class="alert alert-success alert-dismissible">
-		<strong><?php echo e(Session::get('status')); ?></strong>
-		<svg class="float-end" data-bs-dismiss="alert" xmlns="http://www.w3.org/2000/svg" width="40" height="30" cursor="pointer" fill="currentColor" class="bi bi-file-excel btn-close" viewBox="0 0 16 16">
-		<path d="M5.18 4.616a.5.5 0 0 1 .704.064L8 7.219l2.116-2.54a.5.5 0 1 1 .768.641L8.651 8l2.233 2.68a.5.5 0 0 1-.768.64L8 8.781l-2.116 2.54a.5.5 0 0 1-.768-.641L7.349 8 5.116 5.32a.5.5 0 0 1 .064-.704z"/>
-		<path d="M4 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zm0 1h8a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1"/>
-		</svg>
-	</div>
-</div>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            Swal.fire({
+                icon: 'success',
+                title: 'Success!',
+                text: '<?php echo e(Session::get('status')); ?>',
+                showConfirmButton: false,
+                timer: 3000  // Auto-close after 3 seconds
+            });
+        });
+    </script>
+<?php endif; ?>
+
+<?php if(Session::has('warning')): ?>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            Swal.fire({
+                icon: 'warning',
+                title: 'Warning!',
+                text: '<?php echo e(Session::get('warning')); ?>',
+                showConfirmButton: false,
+                timer: 3000  // Auto-close after 3 seconds
+            });
+        });
+    </script>
 <?php endif; ?>
 			<div class="main-content side-content pt-0">
                 <div class="main-container container-fluid">
@@ -81,7 +99,6 @@
 										<div class="p-4 border rounded-6 mb-0 form-group">
 											<div>
 												<input id="demo" type="file" name="img" value="<?php echo e($product[0]['img']); ?>" />
-                                                <img src="<?php echo e(asset($product[0]['img'])); ?>" width="150px" height="100px">
 											</div>
 										</div>
 									</div>

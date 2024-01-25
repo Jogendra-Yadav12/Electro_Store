@@ -1,5 +1,6 @@
-<?php echo $__env->make('header', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
-<?php echo $__env->make('nav', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
+
+
+<?php $__env->startSection('content'); ?>
 
 <div class="container mt-5">
     <div class="row">
@@ -76,11 +77,36 @@
 							</div>
 						</div>
 						<!-- End Row -->
-              <?php else: ?>
-              <li class="list-group-item">
-                  Nothing ordered !!
-                </li>
-             <?php endif; ?>
+						<?php else: ?>
+						<li class="list-group-item">
+							Nothing ordered !!
+							</li>
+						<?php endif; ?>
+			 <!-- Navigation -->
+			 <nav aria-label="Page navigation" class="mt-3">
+							<ul class="pagination justify-content-center">
+								<?php if($order->onFirstPage()): ?>
+									<li class="page-item disabled"><span class="page-link">Previous</span></li>
+								<?php else: ?>
+									<li class="page-item"><a class="page-link" href="<?php echo e($order->previousPageUrl()); ?>" rel="prev">Previous</a></li>
+								<?php endif; ?>
+
+								<?php $__currentLoopData = $order->getUrlRange($order->currentPage(), $order->currentPage()); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $page => $url): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+									<?php if($page == $order->currentPage()): ?>
+										<li class="page-item active"><span class="page-link"><?php echo e($page); ?></span></li>
+									<?php else: ?>
+										<li class="page-item"><a class="page-link" href="<?php echo e($url); ?>"><?php echo e($page); ?></a></li>
+									<?php endif; ?>
+								<?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+
+								<?php if($order->hasMorePages()): ?>
+									<li class="page-item"><a class="page-link" href="<?php echo e($order->nextPageUrl()); ?>" rel="next">Next</a></li>
+								<?php else: ?>
+									<li class="page-item disabled"><span class="page-link">Next</span></li>
+								<?php endif; ?>
+							</ul>
+						</nav>
+						<!-- End Navigation -->
             </ul>
           </div>
         </div>
@@ -88,4 +114,5 @@
     </div>
   </div>
 
-<?php echo $__env->make('footer', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH E:\practice\e-commerce\resources\views/order.blade.php ENDPATH**/ ?>
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('layouts.app', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH E:\practice\e-commerce\resources\views/order.blade.php ENDPATH**/ ?>
