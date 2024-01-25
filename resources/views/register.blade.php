@@ -11,7 +11,7 @@
 				</div>
 
 				<div class="modal-body">
-					<form action="{{url('rotp')}}" method="post" id="registrationForm">
+					<form id="registrationForm">
 						@csrf
 
 						<div class="form-group">
@@ -25,9 +25,16 @@
 						</div>
 
 						<div class="form-group">
-							<label class="col-form-label">Password</label>
+						<label class="col-form-label">Password</label>
+						<div class="input-group">
 							<input type="password" class="form-control" placeholder="Enter password" name="password" id="pass" required="" onchange="validatePassword()">
-							<div class="btn-warning mt-2" id="passError"></div>
+							<div class="input-group-append">
+								<button class="btn btn-secondary" type="button" id="togglePassword">
+									<i class="bi bi-eye" aria-hidden="true"></i>
+								</button>
+							</div>
+						</div>
+						<div class="btn-warning mt-2" id="passError"></div>
 						</div>
 
 						<div class="form-group">
@@ -37,12 +44,11 @@
 						</div>
 
 						<div class="right-w3l">
-							<button type="submit" class="form-control btn-primary" id="registerBtn">Register</button>
+							<button type="submit" class="form-control btn-primary" id="registerBtn" style="cursor:pointer;">Register</button>
 						</div>
 
 						<p class="text-center dont-do mt-3">Do have an account?
-							<a href="#" data-dismiss="modal" data-toggle="modal" data-target="#exampleModal">
-								Log in</a>
+							<a href="#" data-dismiss="modal" data-toggle="modal" data-target="#exampleModal">Log in</a>
 						</p>
 					</form>
 				</div>
@@ -50,15 +56,13 @@
 		</div>
 	</div>
 
-<!-- log in -->
+
+<!-- Verify OTP -->
 <div class="modal fade" id="exampleModal3" tabindex="-1" role="dialog" aria-hidden="true">
 		<div class="modal-dialog">
 			<div class="modal-content" style="border: none;">
 				<div class="modal-header">
 					<h5 class="modal-title text-center">Verify OTP</h5>
-					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-						<span aria-hidden="true">&times;</span>
-					</button>
 				</div>
 				<div class="modal-body">
 					<form action="{{url('customer')}}" method="post">
@@ -80,19 +84,36 @@
 
 <script>
 
-$(document).ready(function () {
+document.getElementById('togglePassword').addEventListener('click', function () {
+        var passwordInput = document.getElementById('pass');
+        var passError = document.getElementById('passError');
+        var icon = this.querySelector('i');
 
-        $("#registerBtn").on("click", function () {
-         
+        if (passwordInput.type === 'password') {
+            passwordInput.type = 'text';
+            icon.classList.remove('bi-eye');
+            icon.classList.add('bi-eye-slash');
+        } else {
+            passwordInput.type = 'password';
+            icon.classList.remove('bi-eye-slash');
+            icon.classList.add('bi-eye');
+        }
+    });
+
+
+$(document).ready(function () {
+	
+        $("#registerBtn").on("click", function (e) {
+			e.preventDefault();
             var formData = $("#registrationForm").serialize();
 
             $.ajax({
                 type: "POST",
-                url: $("#registrationForm").attr("action"),
+                url: "{{url('rotp')}}",
                 data: formData,
                 dataType: "json",
                 success: function (response) {
-					$("exampleModal2").modal('hide');
+					$("#exampleModal2").modal('hide');
                     $("#exampleModal3").modal('show');   
                 },
                 error: function (xhr, status, error) {
@@ -102,13 +123,16 @@ $(document).ready(function () {
         });
     });
 
+
 	function validatePassword() {
         var passwordInput = document.getElementById('pass');
         var passwordError = document.getElementById('passwordError');
         var password = passwordInput.value;
         if (password.length < 8) {
             passError.innerHTML = ' Password must be at least 8 characters long.';
-        }
+        }else{
+			passError.innerHTML = '';
+		}
     }
 
 	function validatePasswordMatch() {
@@ -122,6 +146,8 @@ $(document).ready(function () {
 	
 			if (password !== password1) {
             	passwordMatchError.innerHTML = 'Passwords do not match.';
+			}else{
+				passwordMatchError.innerHTML = '';
 			}
         
     }

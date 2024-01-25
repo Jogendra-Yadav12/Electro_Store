@@ -45,7 +45,7 @@
                     </div>
                 </div>
                 <div class="row mb-3 text-center">
-                    <label class="col-sm-3 col-form-label">Quantity of Product:</label>
+                    <label class="col-sm-3 col-form-label">Quantity:</label>
                     <div class="col-sm-9">
                         <p class="form-control-static">X {{$data[0]['quantity']}}</p>
                         <input type="hidden" name="quantity" value="">

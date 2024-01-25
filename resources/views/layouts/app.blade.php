@@ -38,6 +38,7 @@
 	<link href="http://fonts.googleapis.com/css?family=Lato:100,100i,300,300i,400,400i,700,700i,900,900i&amp;subset=latin-ext" rel="stylesheet">
 	<link href="http://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i&amp;subset=cyrillic,cyrillic-ext,greek,greek-ext,latin-ext,vietnamese"
 	    rel="stylesheet">
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 	<!-- //web fonts -->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -162,7 +163,7 @@ if(typeof _bsa !== 'undefined' && _bsa) {
 						<!-- search -->
 						<div class="col-10 agileits_search">
 							<form class="form-inline" action="{{url('search')}}" method="GET">
-								<input class="form-control mr-sm-2" type="search" name="search" placeholder="Enter Product Name" id="search">
+								<input class="form-control mr-sm-2" type="search" name="search" placeholder="Search" id="search">
 								<button class="btn my-2 my-sm-0" type="search">Search</button>
 							</form>
 						</div>
@@ -247,54 +248,12 @@ if(typeof _bsa !== 'undefined' && _bsa) {
 				<!-- //footer second section -->
 			</div>
 		</div>
-
-		<!-- footer fourth section -->
-		<div class="agile-sometext py-md-5 py-sm-4 py-3">
-			<div class="container">
-
-				<!-- payment -->
-				<div class="sub-some child-momu mt-4">
-					<h5 class="font-weight-bold mb-3">Payment Method</h5>
-					<ul>
-						<li>
-							<img src="{{asset('asset/images/pay2.png')}}" alt="">
-						</li>
-						<li>
-							<img src="{{asset('asset/images/pay5.png')}}" alt="">
-						</li>
-						<li>
-							<img src="{{asset('asset/images/pay1.png')}}" alt="">
-						</li>
-						<li>
-							<img src="{{asset('asset/images/pay4.png')}}" alt="">
-						</li>
-						<li>
-							<img src="{{asset('asset/images/pay6.png')}}" alt="">
-						</li>
-						<li>
-							<img src="{{asset('asset/images/pay3.png')}}" alt="">
-						</li>
-						<li>
-							<img src="{{asset('asset/images/pay7.png')}}" alt="">
-						</li>
-						<li>
-							<img src="{{asset('asset/images/pay8.png')}}" alt="">
-						</li>
-						<li>
-							<img src="{{asset('asset/images/pay9.png')}}" alt="">
-						</li>
-					</ul>
-				</div>
-				<!-- //payment -->
-			</div>
-		</div>
-		<!-- //footer fourth section (text) -->
 		<!-- footer third section -->
 		<div class="w3l-middlefooter-sec">
 			<div class="container py-md-5 py-sm-4 py-3">
 				<div class="row footer-info w3-agileits-info">
 					<!-- footer categories -->
-					<div class="col-md-3 col-sm-6 footer-grids">
+					<div class="col-md-4 col-sm-6 footer-grids">
 						<h3 class="text-white font-weight-bold mb-3">Categories</h3>
 						<ul>
 							<li class="mb-3">
@@ -319,7 +278,7 @@ if(typeof _bsa !== 'undefined' && _bsa) {
 					</div>
 					<!-- //footer categories -->
 					<!-- quick links -->
-					<div class="col-md-3 col-sm-6 footer-grids mt-sm-0 mt-4">
+					<div class="col-md-4 col-sm-6 footer-grids mt-sm-0 mt-4">
 						<h3 class="text-white font-weight-bold mb-3">Quick Links</h3>
 						<ul>
 							<li class="mb-3">
@@ -342,7 +301,7 @@ if(typeof _bsa !== 'undefined' && _bsa) {
 							</li>
 						</ul>
 					</div>
-					<div class="col-md-3 col-sm-6 footer-grids mt-md-0 mt-4">
+					<div class="col-md-4 col-sm-6 footer-grids mt-md-0 mt-4">
 						<h3 class="text-white font-weight-bold mb-3">Get in Touch</h3>
 						<ul>
 							<li class="mb-3">
@@ -360,42 +319,6 @@ if(typeof _bsa !== 'undefined' && _bsa) {
 								<a href="https://p.w3layouts.com/cdn-cgi/l/email-protection#bfdac7ded2cfd3daffd2ded6d391dcd0d2"> mail <span class="__cf_email__" data-cfemail="fccebc99849d918c9099d29f9391">[email&#160;protected]</span></a>
 							</li>
 						</ul>
-					</div>
-					<div class="col-md-3 col-sm-6 footer-grids w3l-agileits mt-md-0 mt-4">
-						<!-- newsletter -->
-						<h3 class="text-white font-weight-bold mb-3">Newsletter</h3>
-						<p class="mb-3">Free Delivery on your first order!</p>
-						<form action="#" method="post">
-							<div class="form-group">
-								<input type="email" class="form-control" placeholder="Email" name="email" required="">
-								<input type="submit" value="Go">
-							</div>
-						</form>
-						<!-- //newsletter -->
-						<!-- social icons -->
-						<div class="footer-grids  w3l-socialmk mt-3">
-							<h3 class="text-white font-weight-bold mb-3">Follow Us on</h3>
-							<div class="social">
-								<ul>
-									<li>
-										<a class="icon fb" href="#">
-											<i class="fab fa-facebook-f"></i>
-										</a>
-									</li>
-									<li>
-										<a class="icon tw" href="#">
-											<i class="fab fa-twitter"></i>
-										</a>
-									</li>
-									<li>
-										<a class="icon gp" href="#">
-											<i class="fab fa-google-plus-g"></i>
-										</a>
-									</li>
-								</ul>
-							</div>
-						</div>
-						<!-- //social icons -->
 					</div>
 				</div>
 				<!-- //quick links -->

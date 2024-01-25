@@ -60,13 +60,13 @@
 						@if(session()->get('mail'))
 						<li class="nav-item mr-lg-2 mb-lg-0 mb-2">
 							<a class="nav-link" href="/wishlist">Wishlist
-							<span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-										@if(!$countWish)
-										0
-										@else
-										{{$countWish}}
-										@endif	
-									</span>
+							<span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" style="color:white">
+								@if(!$countWish)
+									0
+								@else
+									{{$countWish}}
+								@endif	
+							</span>
 							</a>
 						</li>
 						@endif
@@ -75,4 +75,4 @@
 			</nav>
 		</div>
 	</div>
-	<!-- //navigation -->
+<!-- //navigation -->

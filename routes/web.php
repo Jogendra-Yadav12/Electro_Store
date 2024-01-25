@@ -40,10 +40,12 @@ Route::get('/contact',function(){
 
     return view('contact',compact('countCart','countWish'));
 });
+
 Route::post('/mail', [App\Http\Controllers\contactController::class,'sendEmail']);
 
 
 // Customer Home Page
+Route::get('/certificate', [App\Http\Controllers\homeController::class, 'generateCertificate']);
 Route::get('/', [App\Http\Controllers\homeController::class,'index']);
 
 
@@ -64,7 +66,6 @@ Route::get('/otp',[App\Http\Controllers\customerController::class,'otp']);
 Route::get('/reset',[App\Http\Controllers\customerController::class,'resetpass']);
 Route::post('/reset',[App\Http\Controllers\customerController::class,'updatepassword']);
 Route::post('/rotp', [App\Http\Controllers\contactController::class,'rotp']);
-
 
 
 // Search route
@@ -165,4 +166,8 @@ Route::get('/terms',function(){
 Route::get('/logout',function(){
     Session::flush();
     return redirect('/')->with('status','Logout successfully !!');
+});
+
+Route::get('index',function(){
+    return view('index');
 });

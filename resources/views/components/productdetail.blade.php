@@ -183,7 +183,7 @@
 								@if ($product->onFirstPage())
 									<li class="page-item disabled"><span class="page-link">Previous</span></li>
 								@else
-									<li class="page-item"><a class="page-link" href="{{ $product->previousPageUrl() }}" rel="prev">Previous</a></li>
+									<li class="page-item"><a class="page-link" href="{{ $product->previousPageUrl() }}" rel="prev">Prev</a></li>
 								@endif
 
 								@foreach ($product->getUrlRange($product->currentPage(), $product->currentPage()) as $page => $url)
@@ -205,7 +205,7 @@
 	</div>
 	<!-- //top products -->
 	
-
+	</div>
 
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 	<script>

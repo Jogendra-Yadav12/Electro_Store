@@ -348,7 +348,6 @@
                 }
             });
 
-
          var SITEURL = '{{URL::to(' ')}}';
          $.ajaxSetup({
            headers: {

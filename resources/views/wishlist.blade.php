@@ -98,7 +98,7 @@
                             <td class="invert-image">
                                     <img src="{{asset($value['img'])}}" alt="" style="height:150px;width:150px" class="img-responsive">
                             </td>     
-                            <td class="invert">{{$value['name']}}
+                            <td class="invert">{{$value['p_name']}}
                             </td>
                             <td>
                             <input type="text" style="width:100px;border:none;"  class="container form-control" value="{{$value['price']}}" readonly>

@@ -13,12 +13,19 @@
 						@csrf
 						<div class="form-group">
 							<label class="col-form-label">Email</label>
-							<input type="email" class="form-control" placeholder=" " name="email" id="email" required="" onchange="validateEmail()">
+							<input type="email" class="form-control" placeholder="Enter Email" name="email" id="email" required="" onchange="validateEmail()">
 							<div id="emailError" class="btn-warning mt-3"></div>
 						</div>
 						<div class="form-group">
 							<label class="col-form-label">Password</label>
-							<input type="password" class="form-control" placeholder=" " name="password" id="password" required="" onchange="validatePassword()">
+							<div class="input-group">
+							<input type="password" class="form-control" placeholder="Enter password" name="password" id="password" required="" onchange="validatePassword()">
+							<div class="input-group-append">
+								<button class="btn btn-secondary" type="button" id="toggle">
+									<i class="bi bi-eye" aria-hidden="true"></i>
+								</button>
+							</div>
+						</div>
 							<div class="btn-warning mt-2"><span id="passwordError"></span></div>
 						</div>
 						<a href="/forget">Forget Password ?</a>
@@ -35,6 +42,23 @@
 		</div>
 	</div>
 	<script>
+
+document.getElementById('toggle').addEventListener('click', function () {
+        var passwordInput = document.getElementById('password');
+        var passError = document.getElementById('passError');
+        var icon = this.querySelector('i');
+
+        if (passwordInput.type === 'password') {
+            passwordInput.type = 'text';
+            icon.classList.remove('bi-eye');
+            icon.classList.add('bi-eye-slash');
+        } else {
+            passwordInput.type = 'password';
+            icon.classList.remove('bi-eye-slash');
+            icon.classList.add('bi-eye');
+        }
+    });
+
 	function validateEmail() {
 
         var emailInput = document.getElementById('email');
