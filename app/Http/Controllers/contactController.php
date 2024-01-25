@@ -52,8 +52,11 @@ class ContactController extends Controller
 
         public function rotp(Request $request){
             $check = customer::where('email',$request->email)->exists();
+            if($check === true){
+                return redirect('/')->with('warning','email already Exists!');
+            }
+
             if($request->password === $request->repass){
-                if($check === false){
                 session::put('gmail',$request->email);
                 session::put('rname',$request->name);
                 session::put('rpass',$request->password);
@@ -63,8 +66,6 @@ class ContactController extends Controller
                 Mail::to($email)->send(new OTPMail($otp));
                 return response()->json([], 204);
             }
-            return redirect('/')->with('warning','email already Exists!');
-        }
         return redirect('/')->with('warning','Password does not match');
     }
     }

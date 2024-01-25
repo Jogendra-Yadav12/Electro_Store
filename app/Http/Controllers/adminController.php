@@ -17,7 +17,7 @@ class adminController extends Controller
     public function addproduct()
     {
         try{
-            if (session()->get('mail') && session()->get('mail') === 'fireboyaj12@gmail.com') {
+            if (session()->get('mail') && session()->get('type') === 'admin') {
                 return view('Admin.addproduct');
             } elseif (session()->get('mail')) {
                 return redirect('/')->with('warning', 'Unauthorized User !!');
@@ -32,7 +32,7 @@ class adminController extends Controller
 
     public function adduser(){
         try{
-            if(session()->get('mail') and session()->get('mail')=='fireboyaj12@gmail.com'){
+            if(session()->get('mail') and session()->get('type')=='admin'){
                 return view('Admin.adduser');
             }elseif(session()->get('mail')){
                 return redirect('/')->with('warning','Unautherized User !!');
@@ -49,7 +49,7 @@ class adminController extends Controller
     public function store(Request $request)
     {
         try {
-            if(session()->get('mail') && session()->get('mail') === 'fireboyaj12@gmail.com') {
+            if(session()->get('mail') && session()->get('type') === 'admin') {
                 $cus = customer::where("email",$request->email)->exists();
             if($cus){
                 return redirect()->back()->with('warning','Email is already eixsts!!');
@@ -76,7 +76,7 @@ class adminController extends Controller
     public function user()
     {
         try {
-            if (session()->get('mail') && session()->get('mail') === 'fireboyaj12@gmail.com') {
+            if (session()->get('mail') && session()->get('type') === 'admin') {
                 $user = customer::paginate(8);
                 static $x = 1;
                 return view('Admin.user', compact('user', 'x'));
@@ -94,7 +94,7 @@ class adminController extends Controller
 
     public function product(){
         try{
-            if(session()->get('mail') and session()->get('mail')=='fireboyaj12@gmail.com'){
+            if(session()->get('mail') and session()->get('type')=='admin'){
                 $product = product::paginate(6);
                 return view('Admin.product',compact('product'));
             }

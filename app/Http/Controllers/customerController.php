@@ -89,25 +89,27 @@ class customerController extends Controller
             foreach($user as $key=>$value){
                 $userid = $value['id'];
                 $name = $value['name'];
+                $type = $value['type'];
                 if($value['status'] === 1){
                     if($email==$value['email'] and Hash::check($password,$value['password']) and $value['type']=='admin'){
                         session()->put('mail',$email);
                         session()->put('name',$name);
                         session()->put('id',$userid);
+                        session()->put('type',$type);
                         return redirect('/user');
                     }
                     if($email==$value['email'] and Hash::check($password,$value['password']) and $value['type']=='customer'){
                         session()->put('mail',$email);
                         session()->put('name',$name);
                         session()->put('id',$userid);
+                        session()->put('type',$type);
                         return redirect('/');
                     }
             }else{
                 return redirect('/')->with('warning','Your Account Has Blocked !!');
                 }
             }
-        return redirect('/')->with('warning','Please Enter Correct Email and Password');
-            
+            return redirect('/')->with('warning','Please Enter Correct Email and Password');
         } catch (QueryException $e) {
             return redirect()->back()->with('error', 'Database error: ' . $e->getMessage());
         } catch (\Exception $e) {
@@ -121,7 +123,7 @@ class customerController extends Controller
             $user_id = session()->get('id');
             $search = $request->input('search');
             
-            $data = product::select("name", "id","price","img")->where('name', 'LIKE', '%'. $search . '%')->get();
+            $data = product::select("name", "id","price","img")->where('name', 'LIKE', '%'. $search . '%')->orWhere('brand', 'LIKE', '%'. $search . '%')->get();
             $count = product::select("name", "id","price","img")->where('name', 'LIKE', '%'. $search . '%')->get()->count();
             $countWish = wishlist::where('user_id',$user_id)->get()->count();
             $countCart = cart::where('user_id',$user_id)->get()->count();
