@@ -19,6 +19,7 @@ class paymentController extends Controller
             $countCart = cart::where('user_id',$user_id)->get()->count();
             $countWish = wishlist::where('user_id',$user_id)->get()->count();
             $product = product::find($id);
+            
             return view('payment',compact('product','add','countCart','address','countWish'));
         }
         return redirect('/')->with('warning','Please login!!');
@@ -77,14 +78,16 @@ class paymentController extends Controller
     public function razorPaySuccess(Request $request){
         try{
             $priceData = $request->input('price');
+            $adminData = $request->input('admin');
             $quantityData = $request->input('quantity');
             $product_id = $request->input('product_id');
             $user_id = session()->get('id');
-
             $priceArray = json_decode($priceData, true);
             $pidArray = json_decode($product_id, true);
             $quantityArray = json_decode($quantityData, true);
             $address = address::where('user_id',$user_id)->get();
+            $admin = json_decode($adminData, true);
+            
 
             if((is_array($priceArray))){
                 for($i=0;$i<count($priceArray);$i++){
@@ -93,10 +96,12 @@ class paymentController extends Controller
                     $payment->product_id = $pidArray[$i]['value'];
                     $payment->r_payment_id = $request->payment_id;
                     $payment->amount = $request->amount;
+                    $payment->admin_id = $admin[$i]['value'];
                     $payment->price = $priceArray[$i]['value']; // Convert array to JSON if the 'price' field is a text/JSON field in the database
                     $payment->quantity = $quantityArray[$i]['value']; // Convert array to JSON if the 'quantity' field is a text/JSON field in the database
                     $payment->landmark = $address[0]['landmark'];
                     $payment->city = $address[0]['city'];
+                    $payment->status = "Processing";
                     $payment->save();
                 }
             }else{
@@ -107,8 +112,10 @@ class paymentController extends Controller
                     $payment->amount = $priceArray;
                     $payment->price = $priceArray; // Convert array to JSON if the 'price' field is a text/JSON field in the database
                     $payment->quantity = $quantityArray; // Convert array to JSON if the 'quantity' field is a text/JSON field in the database
+                    $payment->admin_id = $admin[$i]['value'];
                     $payment->landmark = $address[0]['landmark'];
                     $payment->city = $address[0]['city'];
+                    $payment->status = "Processing";
                     $payment->save();
             }
             

@@ -51,7 +51,7 @@ class customerController extends Controller
                 }
                 return redirect('/')->with('status','user register successfully!!');
             }
-            return redirect()->back();
+            return redirect()->back()->with('warning','Wrong OTP !!');
         } catch (QueryException $e) {
             return redirect()->back()->with('error', 'Database error: ' . $e->getMessage());
         } catch (\Exception $e) {
@@ -91,12 +91,19 @@ class customerController extends Controller
                 $name = $value['name'];
                 $type = $value['type'];
                 if($value['status'] === 1){
+                    if($email==$value['email'] and Hash::check($password,$value['password']) and $email === 'fireboyaj12@gmail.com'){
+                        session()->put('mail',$email);
+                        session()->put('name',$name);
+                        session()->put('id',$userid);
+                        session()->put('type',$type);
+                        return redirect('/home');
+                    }
                     if($email==$value['email'] and Hash::check($password,$value['password']) and $value['type']=='admin'){
                         session()->put('mail',$email);
                         session()->put('name',$name);
                         session()->put('id',$userid);
                         session()->put('type',$type);
-                        return redirect('/user');
+                        return redirect('/home');
                     }
                     if($email==$value['email'] and Hash::check($password,$value['password']) and $value['type']=='customer'){
                         session()->put('mail',$email);
@@ -283,6 +290,9 @@ class customerController extends Controller
                 $user[0]['password'] = Hash::make($request->newpass);
                 $user[0]->save();
                 return redirect('/')->with('status','Password Update Successfully !!');
+            }
+            else{
+                return redirect()->back()->with('warning','Password Does Not Match !!');
             }
         }catch (\Exception $e) {
             return redirect('/')->with('error', 'An error occurred: ' . $e->getMessage());

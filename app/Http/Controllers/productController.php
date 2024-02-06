@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Models\product;
 use App\Models\wishlist;
@@ -22,19 +22,20 @@ class productController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    
     public function create($id)
     {
         try{
+            
             $user_id = session()->get('id');
             $product = product::where('id',$id)->get();
             $name = $product[0]['name'];
-            
             $images = image::where('name',$name)->get();
             $check = image::where('name',$name)->exists();
             $add = address::where('user_id',$user_id)->exists();
             $countCart = cart::where('user_id',$user_id)->get()->count();
             $countWish = wishlist::where('user_id',$user_id)->get()->count();
-
+            
             return view('singlepage',compact('product','images','add','countCart','countWish'));
 
         } catch (QueryException $e) {
@@ -57,13 +58,16 @@ class productController extends Controller
             $request->validate([
                 'img' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
             ]);
-            $imageName = $request->img->getClientOriginalName();
+            // str_random(28)
+            $imageName = Str::uuid()->toString();
             $product = new product;
             $product->name = $request->name;
             $product->category = $request->category;
             $product->price = $request->price;
             $product->brand = $request->brand;
             $product->description = $request->des;
+            $product->status = 1;
+            $product->user_id = session()->get('id');
             
             if ($request->hasFile('img')) {
                 $product->img = $request->img->move(('images'), $imageName);
@@ -74,13 +78,12 @@ class productController extends Controller
             if($request->file('images')){
             foreach ($request->file('images') as $imagefile) {
                 $photo = new image;
-                $Name = $imagefile->getClientOriginalName();
+                $Name = Str::uuid()->toString();
                 $photo->name = $request->name;
                 $photo->img = $imagefile->move(('images'),$Name);
                 $photo->save();
             }
-        }
-            
+        }        
             $product->save();
 
             return redirect('/add')->with('status','Product added successfully!!');
@@ -119,7 +122,7 @@ class productController extends Controller
         try{
             $user_id = session()->get('id');
             $brand = product::select('brand')->where('category','Mobile')->distinct()->get();
-            $mobile = product::where('category','Mobile')->paginate(9);
+            $mobile = product::where('category','Mobile')->where('status',1)->paginate(9);
             $wish = wishlist::where('user_id',$user_id)->get();
             $count = wishlist::where('user_id',$user_id)->count();
             $countCart = cart::where('user_id',$user_id)->get()->count();
@@ -139,7 +142,7 @@ class productController extends Controller
         try{
             $user_id = session()->get('id');
             $brand = product::select('brand')->where('category','Laptop')->distinct()->get();
-            $laptop = product::where('category','Laptop')->paginate(9);
+            $laptop = product::where('category','Laptop')->where('status',1)->paginate(9);
             $wish = wishlist::where('user_id',$user_id)->get();
             $count = wishlist::where('user_id',$user_id)->count();
             $countCart = cart::where('user_id',$user_id)->get()->count();
@@ -158,7 +161,7 @@ class productController extends Controller
         try{
             $user_id = session()->get('id');
             $brand = product::select('brand')->where('category','Television & Audio')->distinct()->get();
-            $tv = product::where('category','Television & Audio')->paginate(9);
+            $tv = product::where('category','Television & Audio')->where('status',1)->paginate(9);
             $wish = wishlist::where('user_id',$user_id)->get();
             $count = wishlist::where('user_id',$user_id)->count();
             $countCart = cart::where('user_id',$user_id)->get()->count();
@@ -177,7 +180,7 @@ class productController extends Controller
         try{
             $user_id = session()->get('id');
             $brand = product::select('brand')->where('category','Case & Cover')->distinct()->get();
-            $cc = product::where('category','Case & Cover')->paginate(9);
+            $cc = product::where('category','Case & Cover')->where('status',1)->paginate(9);
             $wish = wishlist::where('user_id',$user_id)->get();
             $count = wishlist::where('user_id',$user_id)->count();
             $countCart = cart::where('user_id',$user_id)->get()->count();
@@ -196,7 +199,7 @@ class productController extends Controller
         try{
             $user_id = session()->get('id');
             $brand = product::select('brand')->where('category','Tablet')->distinct()->get();
-            $tab = product::where('category','Tablet')->paginate(9);
+            $tab = product::where('category','Tablet')->where('status',1)->paginate(9);
             $wish = wishlist::where('user_id',$user_id)->get();
             $count = wishlist::where('user_id',$user_id)->count();
             $countCart = cart::where('user_id',$user_id)->get()->count();
@@ -215,7 +218,7 @@ class productController extends Controller
         try{
             $user_id = session()->get('id');
             $brand = product::select('brand')->where('category','Computer Accessories')->distinct()->get();
-            $ca = product::where('category','Computer Accessories')->paginate(9);
+            $ca = product::where('category','Computer Accessories')->where('status',1)->paginate(9);
             $wish = wishlist::where('user_id',$user_id)->get();
             $count = wishlist::where('user_id',$user_id)->count();
             $countCart = cart::where('user_id',$user_id)->get()->count();

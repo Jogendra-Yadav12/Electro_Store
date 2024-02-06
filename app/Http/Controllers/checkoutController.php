@@ -20,13 +20,15 @@ class checkoutController extends Controller
     {
         try{
             if(session()->get('mail')){
-                $user_id= session()->get('id');
-                $add = address::where('user_id',$user_id)->exists();
-                $product = cart::where('user_id',$user_id)->get();
-                $countCart = cart::where('user_id',$user_id)->get()->count();
-                $countWish = wishlist::where('user_id',$user_id)->get()->count();
-                $address = address::where('user_id',$user_id)->get();
-                $check = address::where('user_id',$user_id)->exists();
+                $user = session()->get('id');
+                $add = address::where('user_id',$user)->exists();
+                $product = cart::where('user_id',$user)->get();
+                $countCart = cart::where('user_id',$user)->get()->count();
+                $countWish = wishlist::where('user_id',$user)->get()->count();
+                $address = address::where('user_id',$user)->get();
+                $check = address::where('user_id',$user)->exists();
+                $admin = product::where('p_id');
+                
                 return view('checkout',compact('product','countCart','add','address','check','countWish'));
             }else{
                 return redirect('/')->with('warning','Please login!!');
@@ -125,7 +127,6 @@ class checkoutController extends Controller
                     $rep=cart::find($d[0]['id']);
                     $rep->quantity = $c;
                     $rep->price = $p * $c;
-                    // dd($rep);
                     $rep->save();
                     return redirect('checkout');
                 }
@@ -136,6 +137,7 @@ class checkoutController extends Controller
                     $cart->price = $value['price'];
                     $cart->quantity = 1;
                     $cart->user_id = $user_id;
+                    $cart->admin_id = $value['user_id'];
                     $cart->p_id = $id['id'];
                     $cart->save();
                 }

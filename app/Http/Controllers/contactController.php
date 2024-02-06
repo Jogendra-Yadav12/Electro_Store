@@ -53,7 +53,7 @@ class ContactController extends Controller
         public function rotp(Request $request){
             $check = customer::where('email',$request->email)->exists();
             if($check === true){
-                return redirect('/')->with('warning','email already Exists!');
+                return response()->json(['status' => 'Email'], 200);
             }
 
             if($request->password === $request->repass){
@@ -64,8 +64,8 @@ class ContactController extends Controller
                 $otp = rand(100000, 999999);
                 Session::put('rotp', $otp);
                 Mail::to($email)->send(new OTPMail($otp));
-                return response()->json([], 204);
+                return response()->json(['status' => 'otp'], 200);
             }
-        return redirect('/')->with('warning','Password does not match');
+            return response()->json(['status' => 'Password'], 200);
     }
     }

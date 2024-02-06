@@ -13,33 +13,42 @@ use App\Models\cart;
 use App\Models\wishlist;
 
 
-
 class orderController extends Controller
 {
     public function index(){
         try{
-            $order = payment::paginate(5);
-            // $orders = payment::join('product','payments.product_id','=','product.id')
-            // ->select('payments.*','product.img','product.name')->get();
-            
-            // $dataorder = Checkout::join('product', 'checkout.p_id', '=', 'product.id')
-            //     ->where('checkout.user_id', $email)
-            //     ->select('checkout.*', 'product.img', 'product.name')
-            //     ->get();
-            // dd($orders);
-           $data = [];
+            $id = session()->get('id');
+            // all orders display in super-admin panel
+            if($id == 24){ 
+                $count = payment::count();
+                $order = payment::paginate(5);
+                $data = [];
+                    for($i=0;$i<count($order);$i++){
+                            $id = intval($order[$i]['product_id']);
+                            if(!empty($id)){
+                                $img = product::select('name','img')->where('id',$id)->get();
+                                array_push($data,$img[0]['img']); 
+                            }
+                        }
+                        static $x = 0;
+                        static $y = 1;
+                    return view('Admin.orders',compact('order','x','y','data','count'));
+            }
+
+            // particular admin product data
+            $order = payment::where('admin_id',$id)->paginate(5);
+            $count = payment::where('admin_id',$id)->count();
+            $data = [];
                for($i=0;$i<count($order);$i++){
                     $id = intval($order[$i]['product_id']);
                     if(!empty($id)){
                         $img = product::select('name','img')->where('id',$id)->get();
-                        array_push($data,$img[0]['img']);
-                       
+                        array_push($data,$img[0]['img']); 
                     }
                 }
-               
                 static $x = 0;
                 static $y = 1;
-            return view('Admin.orders',compact('order','x','y','data'));
+            return view('Admin.orders',compact('order','x','y','data','count'));
         } catch (QueryException $e) {
             return redirect()->back()->with('error', 'Database error: ' . $e->getMessage());
         } catch (\Exception $e) {
@@ -52,8 +61,8 @@ class orderController extends Controller
     public function customerOrder(){
         try{
             if(session()->get('id')){
-                $orders = null;
                 $user_id = session()->get('id');
+                $orders = $order = payment::where('user_id',$user_id)->count();
                 $order = payment::where('user_id',$user_id)->paginate(8);
                 $countCart = cart::where('user_id',$user_id)->get()->count();
                 $countWish = wishlist::where('user_id',$user_id)->get()->count();
@@ -80,15 +89,14 @@ class orderController extends Controller
 
     public function invoice($id){
         try{
+
             $data = payment::where('id',$id)->get(); // payment data
             $address = address::where('user_id',session()->get('id'))->get(); // user data
-            
             $id = intval($data[0]['product_id']);
             $img = product::select('name','img')->where('id',$id)->get();
             $countCart = cart::where('user_id',session()->get('id'))->get()->count();
             $countWish = wishlist::where('user_id',session()->get('id'))->get()->count();
-            
-           
+
             return view('invoice',compact('data','address','img','countCart','countWish'));
         } catch (QueryException $e) {
             return redirect()->back()->with('error', 'Database error: ' . $e->getMessage());
@@ -99,14 +107,13 @@ class orderController extends Controller
 
     public function Admininvoice($id){
         try{
-            $data = payment::where('id',$id)->get(); // payment data
-            $address = address::where('user_id',session()->get('id'))->get(); // user data
-            $name = intval($data[0]['user_id']);
-            $id = intval($data[0]['product_id']);
-            $cus = customer::where('id',$name)->get();
-            
-            $img = product::select('name','img')->where('id',$id)->get();
-            return view('Admin.paymentslip',compact('data','address','img','cus'));
+
+            $data = payment::find($id); // payment data
+            $i = intval($data['user_id']);
+            $address = address::where('user_id',$i)->get(); // user data
+            $p_id = intval($data['product_id']);
+            $img = product::select('name','img')->where('id',$p_id)->get();
+            return view('Admin.paymentslip',compact('data','address','img'));
         } catch (QueryException $e) {
             return redirect()->back()->with('error', 'Database error: ' . $e->getMessage());
         } catch (\Exception $e) {
@@ -118,9 +125,7 @@ class orderController extends Controller
             $data = payment::where('id',$id)->get(); // payment data
             $address = address::where('user_id',session()->get('id'))->get(); // user data
             $id = intval($data[0]['product_id']);
-            $img = product::select('name','img')->where('id',$id)->get();   
-            // $pdf =PDF::loadView('pdf',compact('data','address','img'));
-            // return $pdf->download('Bill.pdf');
+            $img = product::select('name','img')->where('id',$id)->get();
             return view('pdf',compact('data','address','img'));
     }
 }
