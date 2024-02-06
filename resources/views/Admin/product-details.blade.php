@@ -11,7 +11,7 @@
 							<div>
 								<h2 class="main-content-title tx-24 mg-b-5">Product-Details</h2>
 								<ol class="breadcrumb">
-									<li class="breadcrumb-item"><a href="javascript:void(0);">Ecommerce</a></li>
+									<li class="breadcrumb-item"><a href="javascript:void(0);">E-store</a></li>
 									<li class="breadcrumb-item active" aria-current="page">Product-Details</li>
 								</ol>
 							</div>
@@ -51,17 +51,8 @@
 											<div class="col-xl-6 col-lg-12 col-md-12">
 												<div class="mt-4 mb-4">
                                                     <h4 class="mt-1 mb-3">{{$product->name}}</h4>
-
-                                                    <p class="text-muted float-start me-3">
-                                                        <span class="fe fe-star text-warning"></span>
-                                                        <span class="fe fe-star text-warning"></span>
-                                                        <span class="fe fe-star text-warning"></span>
-                                                        <span class="fe fe-star text-warning"></span>
-                                                        <span class="fe fe-star"></span>
-                                                    </p>
-                                                    <p class="text-muted mb-4">( 135 Customers Review )</p>
-													<h6 class="text-success text-uppercase">20 % Off</h6>
-													<h5 class="mb-2">Price : <span class="text-muted me-2"><del></del></span> <b>Rs {{$product->price}}</b></h5>
+                                                    
+													<h5 class="mb-2">Price :- <span class="text-muted me-2"><del></del></span> <b>Rs {{ number_format($product->price, 0, '', ',')}}</b></h5>
 													<p class="tx-13 text-muted">FREE SHIPPING on above Purchase of <b>Rs. 500</b> </p>
 													<h6 class="mt-4 fs-16">Description</h6>
 													<p>{{$product->description}}</p>

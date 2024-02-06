@@ -1,7 +1,7 @@
-
 @include('Admin/header')
 @include('Admin/nav')
 @include('Admin/sidebar')
+
 @if (Session::has('status'))
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
     <script>
@@ -16,6 +16,7 @@
         });
     </script>
 @endif
+
 @if (Session::has('error'))
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
     <script>
@@ -30,6 +31,7 @@
         });
     </script>
 @endif
+
 @if (Session::has('warning'))
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
     <script>
@@ -44,6 +46,7 @@
         });
     </script>
 @endif
+
 		<!-- MAIN-CONTENT -->
         <div class="main-content side-content pt-0">
                 <div class="main-container container-fluid">
@@ -53,13 +56,13 @@
 							<div>
 								<h2 class="main-content-title tx-24 mg-b-5">Orders</h2>
 								<ol class="breadcrumb">
-									<li class="breadcrumb-item"><a href="javascript:void(0);">Ecommerce</a></li>
+									<li class="breadcrumb-item"><a href="javascript:void(0);">E-store</a></li>
 									<li class="breadcrumb-item active" aria-current="page">Orders</li>
 								</ol>
 							</div>
 						</div>
 						<!-- End Page Header -->
-
+						
 						<!-- Row -->
 						<div class="row row-sm">
 							<div class="col-md-12 col-lg-12">
@@ -79,26 +82,60 @@
 														<th>ID</th>
 														<th>Product</th>
 														<th>Payment Id</th>
+														<th>Status</th>
 														<th>Total Price</th>
 														<th>Details</th>
+														<th>Action</th>
 													</tr>
 												</thead>
 												<tbody>
-                                                 @foreach($order as $key=>$value)
+												@if($count > 0)
+                                                 	@foreach($order as $key=>$value)
 														<tr class="border-bottom">
 														<td>{{$y}}</td>
 														<td><img src="{{$data[$x]}}" alt="" style="height:100px;width:80px" class="img-responsive"></td>
 														<td>{{$value['r_payment_id']}}</td>
-														<td>{{$value['quantity'] * $value['price']}}</td>
+														<td> 
+														<select class="select2" id="{{$value['id']}}" required>
+															<option value="{{$value['status']}}">
+																{{$value['status']}}
+															</option>
+															<option value="Processing">
+																Processing
+															</option>
+															<option value="Packed">
+																Packed
+															</option>
+															<option value="On the way">
+																On the way
+															</option>
+															<option value="Delivered">
+																Delivered
+															</option>
+														</select>		
+														</td>
+														<td>{{ number_format(($value['quantity'] * $value['price']), 0, '', ',') }}</td>
 														<td>
 															<div class="button-list">
 															<a href="adminorderview/{{$value['id']}}"><button class="btn btn-secondary">View</button></a>	
 															</div>
 														</td>
+														<td>
+														<div class="button-list">
+															<form method="POST" action="status/{{$value['id']}}">
+															@csrf
+															<input type="hidden" value="{{$value['status']}}" name="order_id{{$value['id']}}" id="order_input_{{$value['id']}}">
+															<button class="btn btn-secondary">Update</button>
+	                                                          </form>
+															</div>
+														</td>
 														</tr>
 														<input type="hidden" value="{{$x++}}">
 														<input type="hidden" value="{{$y++}}">
-                                                    @endforeach
+                                                    	@endforeach
+														@else
+															<tr><td colspan="7" style="text-align: center;padding:20px"> <h1> No Orders In A List </h1></td></tr>
+														@endif
 												</tbody>
 											</table>
 										</div>
@@ -132,13 +169,21 @@
 							</ul>
 						</nav>
 						<!-- End Navigation -->
-
                     </div>
                 </div>
             </div>
             <!-- END MAIN-CONTENT -->
+			<script>
+				$(document).ready(function () {
+				$('.select2').change(function () {
+					var selectedValue = $(this).val();
+					var selectId = $(this).attr('id');
+					$('input[name="order_id' + selectId + '"]').val(selectedValue);
+					console.log("Selected value for " + selectId + ":", selectedValue);
+				});
+			});
+			</script>
             <!-- END MAIN-CONTENT -->
 	@include('Admin/footer')
 
-
-			<!-- accept="image/jpg, image/jpeg, image/png, text/html, application/zip, text/css, text/js" multiple -->
+<!-- accept="image/jpg, image/jpeg, image/png, text/html, application/zip, text/css, text/js" multiple -->

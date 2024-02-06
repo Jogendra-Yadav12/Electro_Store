@@ -24,11 +24,7 @@
 						</div>
 					</div>
 					<div class="main-header-center">
-						<div class="responsive-logo">
-							<a href="index.html"><img src="{{asset('admin/img/brand/logo.png')}}" class="mobile-logo" alt="logo"></a>
-							<a href="index.html"><img src="{{asset('admin/img/brand/logo-light.png')}}" class="mobile-logo-dark"
-									alt="logo"></a>
-						</div>
+						
 					</div>
 					<div class="main-header-right">
 						<button class="navbar-toggler navresponsive-toggler" type="button" data-bs-toggle="collapse"
@@ -52,8 +48,7 @@
 										</a>
 									</div>
 									<!-- Theme-Layout -->
-									
-					
+
 									<!-- Profile -->
 									<div class="dropdown main-profile-menu">
 										<a class="d-flex" href="javascript:void(0);">
@@ -63,18 +58,11 @@
 										</svg>
 										</a>
 										<div class="dropdown-menu">
-											<!-- <div class="header-navheading">
-												<h6 class="main-notification-title">Sonia Taylor</h6>
-												<p class="main-notification-text">Web Designer</p>
-											</div> -->
-											<!-- <a class="dropdown-item border-top" href="profile.html">
-												<i class="fe fe-user"></i> My Profile
+											<a class="dropdown-item border-top" href="#">
+												<i class="fe fe-user"></i> {{session()->get('name')}}
 											</a>
-											<a class="dropdown-item" href="profile.html">
-												<i class="fe fe-edit"></i> Edit Profile
-											</a>
-											<a class="dropdown-item" href="profile.html">
-												<i class="fe fe-settings"></i> Account Settings
+											<!-- <a class="dropdown-item" href="/forget">
+												<i class="fe fe-settings"></i> Reset Password
 											</a> -->
 											<a class="dropdown-item" href="/logout">
 												<i class="fe fe-power"></i> Sign Out

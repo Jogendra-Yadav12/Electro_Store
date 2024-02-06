@@ -6,7 +6,7 @@
         <h1 class="mt-3">Payment Bill</h1>
         <div class="card custom-card">
             <div class="card-body col-md-12 col-lg-12">
-                <h5 class="card-title">Invoice Details <p class="float-end text-muted small">Customer Name:- {{$cus[0]['name']}} </p></h5>
+                <h5 class="card-title">Invoice Details <p class="float-end text-muted small">Customer Name:- {{$address[0]['name']}} </p></h5>
                 <hr>
 				<div class="row">
 			<div class="col-sm-9">
@@ -21,14 +21,14 @@
                 <div class="row mb-3 text-center">
                     <label class="col-sm-3 col-form-label">Price:</label>
                     <div class="col-sm-9">
-                        <p class="form-control-static">Rs. {{$data[0]['price']}}</p>
+                        <p class="form-control-static">Rs.  {{$data['price']}}</p>
                         <input type="hidden" name="price" value="">
                     </div>
                 </div>
                 <div class="row mb-3 text-center">
                     <label class="col-sm-3 col-form-label">Quantity of Product:</label>
                     <div class="col-sm-9">
-                        <p class="form-control-static">X {{$data[0]['quantity']}}</p>
+                        <p class="form-control-static">X {{$data['quantity']}}</p>
                         <input type="hidden" name="quantity" value="">
                     </div>
                 </div>
@@ -42,7 +42,7 @@
                 <div class="row mb-3 text-center">
                     <label class="col-sm-3 col-form-label">Timing :</label>
                     <div class="col-sm-9">
-                        <p class="form-control-static">{{$data[0]['created_at']}}</p>
+                        <p class="form-control-static">{{$data['created_at']}}</p>
                         <input type="hidden" name="date" value="">
                     </div>
                 </div>
@@ -58,7 +58,7 @@
                 <div class="row mb-3 text-center">
                     <label class="col-sm-3 col-form-label">Total Amount:</label>
                     <div class="col-sm-9">
-                        <p class="form-control-static">Rs. {{ $data[0]['quantity'] * $data[0]['price']}}</p>
+                        <p class="form-control-static">Rs. {{$data['quantity'] * $data['price']}}</p>
                         <input type="hidden" name="price" value="">
                     </div>
                 </div>

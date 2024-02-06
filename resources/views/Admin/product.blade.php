@@ -11,7 +11,7 @@
                 title: 'Success !!',
                 text: '{{ Session::get('status') }}',
                 showConfirmButton: false,
-                timer: 3000  // Auto-close after 3 seconds
+                timer: 2000  // Auto-close after 3 seconds
             });
         });
     </script>
@@ -25,7 +25,7 @@
                 title: 'Warning!',
                 text: '{{ Session::get('warning') }}',
                 showConfirmButton: false,
-                timer: 3000  // Auto-close after 3 seconds
+                timer: 2000  // Auto-close after 3 seconds
             });
         });
     </script>
@@ -41,19 +41,24 @@
 							<div>
 								<h2 class="main-content-title tx-24 mg-b-5">Products</h2>
 								<ol class="breadcrumb">
-									<li class="breadcrumb-item"><a href="javascript:void(0);">Ecommerce</a></li>
+									<li class="breadcrumb-item"><a href="javascript:void(0);">E-store</a></li>
 									<li class="breadcrumb-item active" aria-current="page">Products</li>
 								</ol>
 							</div>
+							<div class="float-right px-5">
+								<a href="/add"><button class="btn btn-primary">Add Product</button></a>
+							</div>
 						</div>
+						
 						<!-- End Page Header -->
 
 						<!-- Row -->
 						<div class="row row-sm container">
 							<div class="col-md-12 col-lg-12">
 								<div class="row row-sm">
+									@if($count>0)
 									@foreach($product as $key=>$value)
-										@if($value->status)
+										@if($value->status )
 										<div class="col-md-6 col-lg-6 col-xl-4 col-sm-6">
 											<div class="card custom-card">
 												<div class="p-0 ht-100p">
@@ -67,9 +72,7 @@
 																<a href="product/{{$value->id}}">
 																	<i class="bi bi-pencil-fill"></i>
 																</a>
-																<a href="/removeproduct/{{$value->id}}">
-																	<i class="bi bi-trash"></i>
-																</a>
+																<a href="" data-bs-toggle="modal" data-bs-target="#staticBack{{$value->id}}"><i class="bi bi-trash"></i></a>
 															</div>
 														</div>
 														<div class="product-content">
@@ -80,12 +83,34 @@
 												</div>
 											</div>
 										</div>
+											<!-- Modal -->
+											<div class="modal fade" id="staticBack{{$value->id}}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+													<div class="modal-dialog">
+														<div class="modal-content">
+														<div class="modal-header">
+															<h5 class="modal-title" id="staticBackdropLabel">Warning !!</h5>
+															<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+														</div>
+														<div class="modal-body">
+															Are you sure. You want to delete !!
+														</div>
+														<div class="modal-footer">
+															<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+															<a href="removeproduct/{{$value->id}}"><button type="button" class="btn btn-primary">OK</button></a>
+														</div>
+														</div>
+													</div>
+													</div>
 										@endif
-									@endforeach
+							@endforeach
+							@else
+								<h1 style="text-align:center;padding:20px">No Product Added</h1>
+								@endif
 								</div>
 							</div>
-						<!-- End Row -->
 
+						<!-- End Row -->
+						@if($count > 6)
 						<!-- Navigation -->
 						<nav aria-label="Page navigation">
 							<ul class="pagination justify-content-center">
@@ -113,9 +138,11 @@
 							</ul>
 						</nav>
 						<!-- End Navigation -->
+						@endif
                     </div>
                 </div>
             </div>
+	</div>
             <!-- END MAIN-CONTENT -->
 		
 @include('Admin.footer')

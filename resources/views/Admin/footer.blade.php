@@ -1,15 +1,15 @@
 <!-- FOOTER -->
-            
+
 <div class="main-footer text-center">
-				<div class="container">
-					<div class="row row-sm">
-						<div class="col-md-12">
-							<span>Copyright © 2023 <a href="#">Electo Store</a>. Designed by <a href="https://riveyrainfotech.com/">Riveyra Infotech Pvt.</a> All rights reserved.</span>
-						</div>
-					</div>
-				</div>
+	<div class="container">
+		<div class="row row-sm">
+			<div class="col-md-12">
+				<span>Copyright © 2023 <a href="/">Electo Store</a>. Designed by <a href="https://riveyrainfotech.com/">Riveyra Infotech Pvt.</a> All rights reserved.</span>
 			</div>
-            <!-- END FOOTER -->
+		</div>
+	</div>
+</div>
+<!-- END FOOTER -->
 
         </div>
         <!-- END PAGE -->
@@ -68,8 +68,5 @@
         <script src="{{asset('admin/switcher/js/switcher.js')}}"></script>
 
         <!-- END SCRIPTS -->
-
     </body>
-
-<!-- Mirrored from php.spruko.com/spruha/spruha/pages/index.php by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 07 Dec 2023 08:50:50 GMT -->
 </html>

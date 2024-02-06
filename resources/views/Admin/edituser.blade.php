@@ -36,9 +36,9 @@
 						<!-- Page Header -->
 						<div class="page-header">
 							<div>
-								<h2 class="main-content-title tx-24 mg-b-5">Add User</h2>
+								<h2 class="main-content-title tx-24 mg-b-5">Update User</h2>
 								<ol class="breadcrumb">
-									<li class="breadcrumb-item"><a href="javascript:void(0);">Ecommerce</a></li>
+									<li class="breadcrumb-item"><a href="javascript:void(0);">Estore</a></li>
 									<li class="breadcrumb-item active" aria-current="page">Update User</li>
 								</ol>
 							</div>
@@ -50,7 +50,6 @@
 							<div class="col-lg-12 col-md-12 col-md-12">
 								<form class="card custom-card" action="../upduser/{{$address[0]['id']}}" method="POST" enctype="multipart/form-data">
                                     @csrf
-                                    
 									<div class="card-body">
 										<div class="form-group">
 											<label class="tx-medium">User Name</label>
@@ -64,7 +63,7 @@
 											<label class="tx-medium">Category</label>
 											<select class="form-control " name="type" required>
 												<option label="{{$address[0]['type']}}">
-													{{$address[0]['type']}}
+												{{$address[0]['type']}}
 												</option>
 												<option value="admin">
 													admin
@@ -82,10 +81,10 @@
 							</div>
 						</div>
 						<!-- End Row -->
-
-
                     </div>
                 </div>
             </div>
+			
             <!-- END MAIN-CONTENT -->
+
 			@include('Admin/footer')

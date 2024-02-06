@@ -1,17 +1,17 @@
+
 @include('Admin/header')
 @include('Admin/nav')
 @include('Admin/sidebar')
-
 @if (Session::has('status'))
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             Swal.fire({
                 icon: 'success',
-                title: 'Success !!',
+                title: 'Success!',
                 text: '{{ Session::get('status') }}',
                 showConfirmButton: false,
-                timer: 2000  // Auto-close after 3 seconds
+                timer: 3000  // Auto-close after 3 seconds
             });
         });
     </script>
@@ -23,7 +23,7 @@
         document.addEventListener('DOMContentLoaded', function() {
             Swal.fire({
                 icon: 'error',
-                title: 'Error !!',
+                title: 'Error !',
                 text: '{{ Session::get('error') }}',
                 showConfirmButton: false,
                 timer: 2000  // Auto-close after 3 seconds
@@ -38,10 +38,10 @@
         document.addEventListener('DOMContentLoaded', function() {
             Swal.fire({
                 icon: 'warning',
-                title: 'Warning !!',
+                title: 'Warning!',
                 text: '{{ Session::get('warning') }}',
                 showConfirmButton: false,
-                timer: 2000  // Auto-close after 3 seconds
+                timer: 3000  // Auto-close after 3 seconds
             });
         });
     </script>
@@ -54,10 +54,10 @@
 						<!-- Page Header -->
 						<div class="page-header">
 							<div>
-								<h2 class="main-content-title tx-24 mg-b-5">Users</h2>
+								<h2 class="main-content-title tx-24 mg-b-5">Customers</h2>
 								<ol class="breadcrumb">
 									<li class="breadcrumb-item"><a href="javascript:void(0);">E-store</a></li>
-									<li class="breadcrumb-item active" aria-current="page">Users</li>
+									<li class="breadcrumb-item active" aria-current="page">Customers</li>
 								</ol>
 							</div>
 						</div>
@@ -65,12 +65,12 @@
 
 						<!-- Row -->
 						<div class="row row-sm">
-							<div class="col-md-12 col-lg-9">
+							<div class="col-md-12 col-lg-12">
 								<div class="card custom-card">
-									<div class="card-header  border-bottom-0 pb-0">
+									<div class="card-header border-bottom-0 pb-0">
 										<div>
 											<div class="d-flex">
-												<label class="main-content-label my-auto pt-2">All Users</label>
+												<label class="main-content-label my-auto pt-2">All Customers</label>
 											</div>
 										</div>
 									</div>
@@ -115,23 +115,23 @@
                                                         <input type="hidden" value="{{$x += 1}}">
 
 														<!-- Modal -->
-														<div class="modal fade" id="staticBackdrop{{$value->id}}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-														<div class="modal-dialog">
-															<div class="modal-content">
-															<div class="modal-header">
-																<h5 class="modal-title" id="staticBackdropLabel">Warning !!</h5>
-																<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-															</div>
-															<div class="modal-body">
-																Are you sure. You want to delete !!
-															</div>
-															<div class="modal-footer">
-																<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-																<a href="removeuser/{{$value->id}}"><button type="button" class="btn btn-primary">OK</button></a>
-															</div>
-															</div>
+													<div class="modal fade" id="staticBackdrop{{$value->id}}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+													<div class="modal-dialog">
+														<div class="modal-content">
+														<div class="modal-header">
+															<h5 class="modal-title" id="staticBackdropLabel">Warning !!</h5>
+															<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+														</div>
+														<div class="modal-body">
+															Are you sure. You want to delete !!
+														</div>
+														<div class="modal-footer">
+															<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+															<a href="removeuser/{{$value->id}}"><button type="button" class="btn btn-primary">OK</button></a>
 														</div>
 														</div>
+													</div>
+													</div>
                                                     @endforeach
 												</tbody>
 											</table>
@@ -139,38 +139,15 @@
 									</div>
 								</div>
 							</div>
-							<div class="col-lg-3 col-md-12 col-md-12">
-								<form class="card custom-card" action="{{url('add_user')}}" method="POST" enctype="multipart/form-data">
-                                    @csrf
-									<div class="card-body">
-										<div class="form-group">
-											<label class="tx-medium">User Name</label>
-											<input type="text" class="form-control" placeholder="Name" name="name" required>
-										</div>
-										<div class="form-group">
-											<label class="tx-medium">Password</label>
-											<input type="password" class="form-control" placeholder="Password" name="password" id="passwordInput" required minlength="8" maxlength="20" oninput="validatePassword()">
-											<div id="passwordError" style="color: red;"></div>
-										</div>
-										<div class="form-group">
-											<label class="tx-medium">Email</label>
-											<input type="email" class="form-control" placeholder="Email" name="email" required>
-										</div>
-										<div class="form-group">
-											<label class="tx-medium">Category</label>
-											<input type="email" class="form-control" placeholder="Type" name="type" value="admin" required readonly>
-										</div>
-									</div>
-									<div class="card-footer mb-1">
-										<button class="btn btn-primary">Add User</button>
-										<button class="btn btn-danger">Cancel</button>
-									</div>
-								</form>
-							</div>
 						</div>
 						<!-- End Row -->
-						<!-- Navigation -->
-						<nav aria-label="Page navigation">
+                    </div>
+                </div>
+            </div>
+	</div>
+            <!-- END MAIN-CONTENT -->
+			<!-- Navigation -->
+			<nav aria-label="Page navigation">
 							<ul class="pagination justify-content-center">
 								@if ($user->onFirstPage())
 									<li class="page-item disabled"><span class="page-link">Previous</span></li>
@@ -194,27 +171,7 @@
 							</ul>
 						</nav>
 						<!-- End Navigation -->
-
-                    </div>
-                </div>
-            </div>
             <!-- END MAIN-CONTENT -->
-            <!-- END MAIN-CONTENT -->
-
-			
-<script>
-  function validatePassword() {
-    var passwordInput = document.getElementById("passwordInput");
-    var passwordError = document.getElementById("passwordError");
-
-    if (passwordInput.value.length < 8 || passwordInput.value.length > 20) {
-      passwordError.textContent = "Password must be between 8 and 20 characters.";
-    } else {
-      passwordError.textContent = "";
-    }
-  }
-</script>
-
 	@include('Admin/footer')
 
 
