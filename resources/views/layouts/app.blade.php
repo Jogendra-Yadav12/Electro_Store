@@ -3,6 +3,7 @@
 <!-- Mirrored from p.w3layouts.com/demos_new/template_demo/28-08-2018/electro_store-demo_Free/1204782700/web/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 19 Dec 2023 12:09:42 GMT -->
 <!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
 <head>
+	<!-- hryrki and modules in pdf -->
 	<title>Electro Store</title>
 	<!-- Meta tag Keywords -->
 	<meta name="viewport" content="width=device-width, initial-scale=1">
@@ -113,23 +114,28 @@ if(typeof _bsa !== 'undefined' && _bsa) {
 							<i class="fas fa-phone mr-2"></i> 894 234 5678
 						</li>
 						@if(!session()->get('mail'))
-						<li class="text-center border-right text-white">
-							<a href="#" data-toggle="modal" data-target="#exampleModal" class="text-white">
-								<i class="fas fa-sign-in-alt mr-2"></i> Log In </a>
-						</li>
-						<li class="text-center text-white">
-							<a href="/register" data-toggle="modal" data-target="#exampleModal2" class="text-white">
-								<i class="fas fa-sign-out-alt mr-2"></i>Register </a>
-						</li>
+							<li class="text-center border-right text-white">
+								<a href="#" data-toggle="modal" data-target="#exampleModal" class="text-white">
+									<i class="fas fa-sign-in-alt mr-2"></i> Log In </a>
+							</li>
+							<li class="text-center text-white">
+								<a href="/register" data-toggle="modal" data-target="#exampleModal2" class="text-white">
+									<i class="fas fa-sign-out-alt mr-2"></i> Register </a>
+							</li>
 						@else
-						<li class="text-center border-right text-white">
-							<a href="/logout" class="text-white">
+							<li class="text-center border-right text-white">
+								<a href="/logout" class="text-white">
 								<i class="fas fa-sign-in-alt mr-2"></i> Log Out </a>
-						</li>
-						<li class="text-center text-white">
-							<a href="/profile" class="text-white">
-								 {{session()->get('name')}} </a>
-						</li>
+							</li>
+							<li class="text-center text-white">
+								@if(session()->get('type') === "admin")
+									<a href="/home" class="text-white">
+										{{session()->get('name')}} </a>
+								@else
+									<a href="/profile" class="text-white">
+										{{session()->get('name')}} </a>
+								</li>
+								@endif
 						@endif
 					</ul>
 					<!-- //header lists -->
@@ -324,6 +330,7 @@ if(typeof _bsa !== 'undefined' && _bsa) {
 				<!-- //quick links -->
 			</div>
 		</div>
+
 		<!-- //footer third section -->
 	</footer>
 	<!-- //footer -->
@@ -335,6 +342,7 @@ if(typeof _bsa !== 'undefined' && _bsa) {
 				<a href="https://riveyrainfotech.com/" target="_blank">Riveyra Infotech Pvt.</a>
 			</p>
 		</div>
+	</div>
 	</div>
 	<!-- //copyright -->
 
