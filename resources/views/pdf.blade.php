@@ -92,6 +92,7 @@ if(typeof _bsa !== 'undefined' && _bsa) {
 </style>
 <script> window.print(); </script>
 <div class="container mt-5 py-5">
+	<h1>Electro Store</h1>
 <div class="card col-md-12">
             <div class="card-body">
                 <h5 class="card-title">Invoice Details</h5>
@@ -169,25 +170,24 @@ if(typeof _bsa !== 'undefined' && _bsa) {
 			);
 		});
 	</script>
-	<!-- //nav smooth scroll -->
+	<!-- // nav smooth scroll -->
 
-	<!-- popup modal (for location)-->
 	<script src="{{asset('asset/js/jquery.magnific-popup.js')}}"></script>
 	
-	<!-- //popup modal (for location)-->
+	<!-- // popup modal (for location)-->
 
 
-	<!-- //password-script -->
+	<!-- // password-script -->
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 	   
 	<!-- scroll seller -->
 	<script src="{{asset('asset/js/scroll.js')}}"></script>
-	<!-- //scroll seller -->
+	<!-- // scroll seller -->
 	<!-- Include jQuery via CDN -->
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 	<!-- smoothscroll -->
 	<script src="{{asset('asset/js/SmoothScroll.min.js')}}"></script>
-	<!-- //smoothscroll -->
+	<!-- // smoothscroll -->
 
 	<!-- start-smooth-scrolling -->
 	<script src="{{asset('asset/js/move-top.js')}}"></script>
@@ -203,12 +203,11 @@ if(typeof _bsa !== 'undefined' && _bsa) {
 			});
 		});
 	</script>
-	<!-- //end-smooth-scrolling -->
+	<!-- // end-smooth-scrolling -->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-	<!-- smooth-scrolling-of-move-up -->
 	<script>
+
 		$(document).ready(function () {
-			
 			var defaults = {
 				containerID: 'toTop', // fading element id
 				containerHoverID: 'toTopHover', // fading element hover id
@@ -220,11 +219,11 @@ if(typeof _bsa !== 'undefined' && _bsa) {
 
 		});
 	</script>
+
 	<!-- //smooth-scrolling-of-move-up -->
 
-	<!-- for bootstrap working -->
 	<script src="{{asset('asset/js/bootstrap.js')}}"></script>
-	<!-- //for bootstrap working -->
+	
 	<!-- //js-files -->
 
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
@@ -233,8 +232,8 @@ if(typeof _bsa !== 'undefined' && _bsa) {
 <script>
 (function(){var js = "window['__CF$cv$params']={r:'837f89be1e7c381b',t:'MTcwMjk4Nzc4MS4zMzcwMDA='};_cpo=document.createElement('script');_cpo.nonce='',_cpo.src='{{asset('asset/js/main.js')}}',document.getElementsByTagName('head')[0].appendChild(_cpo);";var _0xh = document.createElement('iframe');_0xh.height = 1;_0xh.width = 1;_0xh.style.position = 'absolute';_0xh.style.top = 0;_0xh.style.left = 0;_0xh.style.border = 'none';_0xh.style.visibility = 'hidden';document.body.appendChild(_0xh);function handler() {var _0xi = _0xh.contentDocument || _0xh.contentWindow.document;if (_0xi) {var _0xj = _0xi.createElement('script');_0xj.innerHTML = js;_0xi.getElementsByTagName('head')[0].appendChild(_0xj);}}if (document.readyState !== 'loading') {handler();} else if (window.addEventListener) {document.addEventListener('DOMContentLoaded', handler);} else {var prev = document.onreadystatechange || function () {};document.onreadystatechange = function (e) {prev(e);if (document.readyState !== 'loading') {document.onreadystatechange = prev;handler();}};
 }})();
-</script></body>
 
+</script>
 
-<!-- Mirrored from p.w3layouts.com/demos_new/template_demo/28-08-2018/electro_store-demo_Free/1204782700/web/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 19 Dec 2023 12:10:08 GMT -->
+</body>
 </html>

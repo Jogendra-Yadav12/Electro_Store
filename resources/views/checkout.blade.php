@@ -26,7 +26,7 @@
                 title: 'Warning!',
                 text: '{{ Session::get('warning') }}',
                 showConfirmButton: false,
-                timer: 2000  // Auto-close after 3 seconds
+                timer: 20000  // Auto-close after 3 seconds
             });
         });
     </script>
@@ -131,6 +131,7 @@
                             <input type="text" style="width:100px;border:none;"  class="container total-{{ $x }} form-control" value="{{$value['price']}}" readonly>
                             </td> -->
                             <input type="hidden" name="p_id[]" class="ghi" value="{{$i}}">
+                            <input type="hidden" name="admin_id[]" value="{{$value['admin_id']}}">
                             <td class="invert">
                                 <div class="rem">
                                    
@@ -145,7 +146,6 @@
                         </tr>
                             @php
                             $amount+=$value['price'];
-
                             $x++;
                             @endphp
                         @endforeach
@@ -356,9 +356,10 @@
          }); 
          $('body').on('click', '.buy_now', function(e){
            var totalAmount = $("#abc").val();
+           var adminData = $('input[name="admin_id[]"]').serializeArray();
            var priceData = $('input[name="price[]"]').serializeArray();
            var quantityData = $('input[name="quantity[]"]').serializeArray();
-           var product_id =  $('input[name="p_id[]"]').serializeArray();;
+           var product_id =  $('input[name="p_id[]"]').serializeArray();
 
            var options = {
            "key": "rzp_test_nC5kxY1iKaQcLp",
@@ -368,7 +369,7 @@
            "image": "//www.tutsmake.com/wp-content/uploads/2018/12/cropped-favicon-1024-1-180x180.png",
              "handler": function (response){
              
-               window.location.href = '/paysuccess?payment_id='+response.razorpay_payment_id+'&product_id='+JSON.stringify(product_id)+'&amount='+totalAmount+'&price='+JSON.stringify(priceData)+'&quantity='+JSON.stringify(quantityData);
+               window.location.href = '/paysuccess?payment_id='+response.razorpay_payment_id+'&product_id='+JSON.stringify(product_id)+'&amount='+totalAmount+'&admin='+JSON.stringify(adminData)+'&price='+JSON.stringify(priceData)+'&quantity='+JSON.stringify(quantityData);
             },
           "prefill": {
                "contact": '9988665544',

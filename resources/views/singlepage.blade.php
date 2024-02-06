@@ -50,15 +50,12 @@
 				<div class="col-lg-7 single-right-left simpleCart_shelfItem">
 					<h3 class="mb-3">{{$value->name}}</h3>
 					<p class="mb-3">
-						<span class="item_price">Rs. {{$value->price}}</span>
-						<del class="mx-2 font-weight-light"></del><br>
+						<span class="item_price">Rs. {{number_format($value->price, 0, '', ',')}}</span>
+						<del class="mx-2 font-weight-light"></del><br><br>
 						<label>Free delivery</label>
 					</p>
 					<div class="single-infoagile">
 						<ul>
-							<li class="mb-3">
-								Cash on Delivery Eligible.
-							</li>
 							<li class="mb-3">
 								Shipping Speed to Delivery.
 							</li>

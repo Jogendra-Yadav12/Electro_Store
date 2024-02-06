@@ -81,9 +81,9 @@
 		</div>
 	</div>
 
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 
 <script>
-
 document.getElementById('togglePassword').addEventListener('click', function () {
         var passwordInput = document.getElementById('pass');
         var passError = document.getElementById('passError');
@@ -102,19 +102,29 @@ document.getElementById('togglePassword').addEventListener('click', function () 
 
 
 $(document).ready(function () {
-	
-        $("#registerBtn").on("click", function (e) {
+        $("#registerBtn").on("click",function(e){
 			e.preventDefault();
             var formData = $("#registrationForm").serialize();
-
             $.ajax({
                 type: "POST",
                 url: "{{url('rotp')}}",
                 data: formData,
                 dataType: "json",
                 success: function (response) {
-					$("#exampleModal2").modal('hide');
-                    $("#exampleModal3").modal('show');   
+					if(response.status === "otp"){
+						$("#exampleModal2").modal('hide');
+						$("#exampleModal3").modal('show');  
+					}
+
+					else if(response.status === "Email"){
+							Swal.fire({
+								icon: 'warning',
+								title: 'Warning!',
+								text: 'Email Already Exists!!',
+								showConfirmButton: false,
+								timer: 2000  // Auto-close after 3 seconds
+							});
+					}
                 },
                 error: function (xhr, status, error) {
                     console.error(xhr.responseText);

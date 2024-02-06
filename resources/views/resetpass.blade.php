@@ -44,6 +44,21 @@
 	
 </head>
 <body>
+
+@if(Session::has('warning'))
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            Swal.fire({
+                icon: 'warning',
+                title: 'Warning!',
+                text: '{{ Session::get('warning') }}',
+                showConfirmButton: false,
+                timer: 2000  // Auto-close after 3 seconds
+            });
+        });
+    </script>
+@endif
 <div class="d-flex align-items-center justify-content-center mt-5 py-5">
 <div class=" mt-5">
         <div class="card">
@@ -64,11 +79,12 @@
                                 </div>
                                         <div class="controls">
                                             <strong>New Password</strong>
-                                            <input type="password" placeholder="New Password" name="newpass" required="" >
+                                            <input type="password" placeholder="New Password" name="newpass" id="newpass" required onchange="validateForm()">
+                                            <span id="error-mes"></span>
                                         </div>
                                         <div class="controls">
                                             <strong>Re-enter Password</strong>
-                                            <input type="password" placeholder="Re-enter Password" name="repass" required="" >
+                                            <input type="password" placeholder="Re-enter Password" name="repass" required>
                                         </div>
                                     </div>
                                 </div>
@@ -79,11 +95,29 @@
                         </div>
                         </div>
                     </form>
-                   
                 </li>
             </ul>
           </div>
         </div>
     </div>
+    <script>
+    function validateForm() {
+        var newPassword = document.getElementById('newpass').value;
+        var errorMessage = document.getElementById('error-mes');
+
+        // Basic validation for a minimum length
+        if (newPassword.length < 8) {
+            errorMessage.textContent = 'Password less than 8 characters.';
+        } else {
+            errorMessage.textContent = ''; 
+        }
+
+        document.getElementById('newpass').addEventListener('input', function () {
+        var errorMessage = document.getElementById('error-mes');
+        errorMessage.textContent = '';
+    });
+    }
+
+</script>
 </body>
 </html>

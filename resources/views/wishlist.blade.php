@@ -55,7 +55,7 @@
 <!---728x90--->
 
 <!-- checkout page -->
-<div class="privacy py-sm-5 py-4">
+<div class="privacy ">
     <div class="container py-xl-4 py-lg-2">
         <!-- tittle heading -->
         <h3 class="tittle-w3l text-center mb-lg-5 mb-sm-4 mb-3">
@@ -101,7 +101,7 @@
                             <td class="invert">{{$value['p_name']}}
                             </td>
                             <td>
-                            <input type="text" style="width:100px;border:none;"  class="container form-control" value="{{$value['price']}}" readonly>
+                            <input type="text" style="width:100px;border:none;"  class="container form-control" value="{{number_format($value->price, 0, '', ',')}}" readonly>
                             </td>
                             <td>
                             <div class="rem">

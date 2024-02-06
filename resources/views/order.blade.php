@@ -16,8 +16,8 @@
                     <a href="/customerOrder">Orders</a>
                 </li>
             </ul>
-        </div>
-      <div class="col-md-9">
+    	</div>
+      	<div class="col-md-9">
         <div class="card">
           <div class="card-header">
             <h3 class="card-title text-center">Order List</h3>
@@ -26,8 +26,7 @@
            <h4>Name : {{session()->get('name')}}</h4>
            <p>Email : {{session()->get('mail')}}</p>
            <hr>
-            
-              @if($order)
+              @if($orders > 0)
                 <li class="list-group-item">
                 <div class="row row-sm">
 							<div class="col-md-12 col-lg-12">
@@ -48,6 +47,7 @@
 														<th>Product</th>
 														<th>Quantity</th>
 														<th>Price</th>
+														<th>Status</th>
 														<th>Sub_Total</th>
 														<th>Details</th>
 													</tr>
@@ -58,8 +58,9 @@
 														<td>{{$y}}</td>
 														<td><img src="{{$data[$x]}}" alt="" style="height:100px;width:80px" class="img-responsive"></td>
 														<td>{{$value['quantity']}}</td>
-														<td>{{$value['price']}}</td>
-														<td>{{$value['quantity'] * $value['price']}}</td>
+														<td>{{number_format($value['price'], 0, '', ',')}}</td>
+														<td>{{$value['status']}}</td>
+														<td>{{ number_format(($value['quantity'] * $value['price']), 0, '', ',')}}</td>
 														<td>
 															<div class="button-list">
 															<a href="orderview/{{$value['id']}}"><button class="btn btn-secondary">View</button></a>	

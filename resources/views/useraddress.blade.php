@@ -96,7 +96,8 @@
                                 </div>
                                 <input type="hidden" class="form-control"  name="email" value="{{session()->get('mail')}}">
                                         <div class="controls">
-                                            <input type="text" class="form-control" placeholder="Mobile Number" name="number" required="" >
+                                            <input type="text" class="form-control" placeholder="Mobile Number" name="number" id="number" onchange="validateNumber()" required>
+                                            <span id="error-message" class="error"></span>
                                         </div>
                                     </div>
                                     <div class="w3_agileits_card_number_grid_right form-group">
@@ -131,4 +132,26 @@
       </div>
     </div>
   </div>
+
+
+  <script>
+    function validateNumber() {
+        var numberInput = document.getElementById('number');
+        var errorMessage = document.getElementById('error-message');
+
+        // Regular expression for a simple mobile number format
+        var mobileNumberRegex = /^\d{10}$/;
+
+        if (!mobileNumberRegex.test(numberInput.value)) {
+            errorMessage.textContent = 'Please enter a valid 10-digit mobile number.';
+            numberInput.focus();
+        } else {
+            errorMessage.textContent = '';
+        }
+        document.getElementById('number').addEventListener('input', function () {
+        var errorMessage = document.getElementById('error-message');
+        errorMessage.textContent = '';
+    });
+    }
+</script>
 @endsection

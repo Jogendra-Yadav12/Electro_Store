@@ -73,7 +73,9 @@
 							</div>
 						</div>
 						<!-- //third section -->
+						
 						<x-product :product="$laptop" title="Laptops" :wish="$wish" :count="$count" />
+
 						<!-- fourth section -->
 						<x-product :product="$tv" title="TV & Audio" :wish="$wish" :count="$count" />
 						<!-- //fourth section -->
