@@ -16,8 +16,10 @@ use App\Models\wishlist;
 */
 
 // Admin
+Route::get('/home',[App\Http\Controllers\adminController::class,'index']);
 Route::get('/active/{id}',[App\Http\Controllers\adminController::class,'active']);
 Route::get('/user',[App\Http\Controllers\adminController::class,'user']);
+Route::get('/customer',[App\Http\Controllers\adminController::class,'customer']);
 Route::get('/update/{id}',[App\Http\Controllers\adminController::class,'upduser']);
 Route::post('/upduser/{id}',[App\Http\Controllers\adminController::class,'updated']);
 Route::get('/product',[App\Http\Controllers\adminController::class,'product']);
@@ -30,6 +32,7 @@ Route::get('/add',[App\Http\Controllers\adminController::class,'addproduct']);
 Route::get('/adduser',[App\Http\Controllers\adminController::class,'adduser']);
 Route::post('/add_user',[App\Http\Controllers\adminController::class,'store']);
 Route::post('/addproduct',[App\Http\Controllers\productController::class,'store']);
+Route::post('/status/{id}',[App\Http\Controllers\adminController::class,'updateStatus']);
 
 
 // Contact Page
@@ -147,7 +150,6 @@ Route::get('/privacy',function(){
     $user_id = session()->get('id');
     $countCart = cart::where('user_id',$user_id)->get()->count();
     $countWish = wishlist::where('user_id',$user_id)->get()->count();
-
     return view('privacy',compact('countCart','countWish'));
 });
 
@@ -168,6 +170,6 @@ Route::get('/logout',function(){
     return redirect('/')->with('status','Logout successfully !!');
 });
 
-Route::get('index',function(){
-    return view('index');
-});
+Route::get('/back',function(){
+    return redirect()->back();
+})->name('back');
