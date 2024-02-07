@@ -158,6 +158,11 @@
                     <a href="/" role="button" class="btn btn-sm btn-primary float-left">Continue Shopping</a>
                 </div>
                 </div>
+                @elseif($product[0]['user_id'] === 0)
+                    <div class="checkout-right-basket">
+                        <a href="/" role="button" class="btn btn-sm btn-primary float-left">Please Login</a>
+                    </div>
+                    </div>
                 @elseif(!$add)
                 <div class="checkout-right-basket">
                     <a data-bs-toggle="modal" href="#exampleModalToggle" role="button" class="btn btn-sm btn-primary float-left">Order Now</a>
