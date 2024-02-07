@@ -74,11 +74,12 @@ if(typeof _bsa !== 'undefined' && _bsa) {
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src='https://www.googletagmanager.com/gtag/js?id=G-98H8KRKT85'></script>
 <script>
+	
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
-
   gtag('config', 'G-98H8KRKT85');
+
 </script>
 
 <meta name="robots" content="noindex">
@@ -90,25 +91,19 @@ if(typeof _bsa !== 'undefined' && _bsa) {
   box-sizing: border-box;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
 }
-
 </style>
-
-
 	<!-- top-header -->
 	<div class="agile-main-top">
 		<div class="container-fluid">
 			<div class="row main-top-w3l py-2">
 				<div class="col-lg-4 header-most-top">
-					
 				</div>
 				<div class="col-lg-8 header-right mt-lg-0 mt-2">
 					<!-- header lists -->
 					<ul>
 					<li class="text-center border-right text-white">
-							
 						</li>
 					<li class="text-center border-right text-white">
-							
 						</li>
 						<li class="text-center border-right text-white">
 							<i class="fas fa-phone mr-2"></i> 894 234 5678
@@ -174,7 +169,6 @@ if(typeof _bsa !== 'undefined' && _bsa) {
 							</form>
 						</div>
 						<!-- //search -->
-						@if(session()->get('mail'))
 						<!-- cart details -->
 						<div class="col-2 top_nav_right text-center mt-sm-0 mt-2">
 							<div class="wthreecartaits wthreecartaits2 cart cart box_1">
@@ -192,7 +186,6 @@ if(typeof _bsa !== 'undefined' && _bsa) {
 							</div>
 						</div>
 						<!-- //cart details -->
-						@endif
 					</div>
 				</div>
 			</div>
