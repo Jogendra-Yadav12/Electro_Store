@@ -37,6 +37,13 @@ Route::post('/status/{id}',[App\Http\Controllers\adminController::class,'updateS
 
 // Contact Page
 Route::get('/contact',function(){
+    if(!session()->get('id')){
+        $user_id = 0;
+    $countCart = cart::where('user_id',$user_id)->get()->count();
+    $countWish = wishlist::where('user_id',$user_id)->get()->count();
+
+    return view('contact',compact('countCart','countWish'));
+    }
     $user_id = session()->get('id');
     $countCart = cart::where('user_id',$user_id)->get()->count();
     $countWish = wishlist::where('user_id',$user_id)->get()->count();
@@ -117,6 +124,13 @@ Route::get('/pdf/{id}',[App\Http\Controllers\orderController::class, 'pdf']);
 
 // About Page
 Route::get('/about',function(){
+    if(!session()->get('id')){
+        $user_id = 0;
+    $countCart = cart::where('user_id',$user_id)->get()->count();
+    $countWish = wishlist::where('user_id',$user_id)->get()->count();
+
+    return view('aboutus',compact('countCart','countWish'));
+    }
     $user_id = session()->get('id');
     $countCart = cart::where('user_id',$user_id)->get()->count();
     $countWish = wishlist::where('user_id',$user_id)->get()->count();
