@@ -11,7 +11,18 @@ class homeController extends Controller
 {
     public function index()
     {   
-        
+        if(!session()->get('id')){
+            $user_id = 0;
+            $count = wishlist::where('user_id',$user_id)->count();
+            $wish = wishlist::where('user_id',$user_id)->get();
+            $mobile = product::where('category','Mobile')->where('status',1)->limit(3)->get();
+            $tv = product::where('category','Television & Audio')->where('status',1)->limit(3)->get();
+            $laptop = product::where('category','Laptop')->where('status',1)->limit(3)->get();
+            $countCart = cart::where('user_id',$user_id)->get()->count();
+            $countWish = wishlist::where('user_id',$user_id)->get()->count();
+            
+            return view('welcome',compact('mobile','tv','laptop','wish','count','countCart','countWish'));
+        }
         $user_id = session()->get('id');
         $count = wishlist::where('user_id',$user_id)->count();
         $wish = wishlist::where('user_id',$user_id)->get();

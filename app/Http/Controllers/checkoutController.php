@@ -27,11 +27,16 @@ class checkoutController extends Controller
                 $countWish = wishlist::where('user_id',$user)->get()->count();
                 $address = address::where('user_id',$user)->get();
                 $check = address::where('user_id',$user)->exists();
-                $admin = product::where('p_id');
                 
                 return view('checkout',compact('product','countCart','add','address','check','countWish'));
             }else{
-                return redirect('/')->with('warning','Please login!!');
+                $add = address::where('user_id',0)->exists();
+                $product = cart::where('user_id',0)->get();
+                $countCart = cart::where('user_id',0)->get()->count();
+                $countWish = wishlist::where('user_id',0)->get()->count();
+                $address = address::where('user_id',0)->get();
+                $check = address::where('user_id',0)->exists();
+                return view('checkout',compact('product','countCart','add','address','check','countWish'));
             }
         } catch (QueryException $e) {
             return redirect()->back()->with('status', 'Database error: ' . $e->getMessage());
@@ -145,7 +150,19 @@ class checkoutController extends Controller
                 return redirect('checkout')->with('status','Product Add Into Cart Successfully !!');
 
             }else{
-                return redirect('/')->with('warning','Please login!!');
+                $cart = new cart;
+                $item = product::find($id);
+                foreach($item as $key=>$value){
+                    $cart->name = $value['name'];
+                    $cart->img = $value['img'];
+                    $cart->price = $value['price'];
+                    $cart->quantity = 1;
+                    $cart->user_id = 0;
+                    $cart->admin_id = $value['user_id'];
+                    $cart->p_id = $id['id'];
+                    $cart->save();
+                }
+                return redirect('checkout')->with('status','Product Add to Cart');
             }
         } catch (QueryException $e) {
             return redirect()->back()->with('status', 'Database error: ' . $e->getMessage());

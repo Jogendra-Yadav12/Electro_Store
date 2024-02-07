@@ -110,6 +110,7 @@ class customerController extends Controller
                         session()->put('name',$name);
                         session()->put('id',$userid);
                         session()->put('type',$type);
+                        cart::where('user_id',0)->delete();
                         return redirect('/');
                     }
             }else{
@@ -127,13 +128,21 @@ class customerController extends Controller
     public function autocomplete(Request $request)
     {   
         try{
-            $user_id = session()->get('id');
-            $search = $request->input('search');
-            
-            $data = product::select("name", "id","price","img")->where('name', 'LIKE', '%'. $search . '%')->orWhere('brand', 'LIKE', '%'. $search . '%')->get();
-            $count = product::select("name", "id","price","img")->where('name', 'LIKE', '%'. $search . '%')->get()->count();
-            $countWish = wishlist::where('user_id',$user_id)->get()->count();
-            $countCart = cart::where('user_id',$user_id)->get()->count();
+            if(!session()->get('id')){
+                $user_id = 0;
+                $search = $request->input('search');
+                $data = product::select("name", "id","price","img")->where('name', 'LIKE', '%'. $search . '%')->orWhere('brand', 'LIKE', '%'. $search . '%')->get();
+                $count = product::select("name", "id","price","img")->where('name', 'LIKE', '%'. $search . '%')->get()->count();
+                $countWish = wishlist::where('user_id',$user_id)->get()->count();
+                $countCart = cart::where('user_id',$user_id)->get()->count();
+            }else{
+                $user_id = session()->get('id');
+                $search = $request->input('search');
+                $data = product::select("name", "id","price","img")->where('name', 'LIKE', '%'. $search . '%')->orWhere('brand', 'LIKE', '%'. $search . '%')->get();
+                $count = product::select("name", "id","price","img")->where('name', 'LIKE', '%'. $search . '%')->get()->count();
+                $countWish = wishlist::where('user_id',$user_id)->get()->count();
+                $countCart = cart::where('user_id',$user_id)->get()->count();
+            }
             if($search==null){
                 return redirect()->back();
             }
