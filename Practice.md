@@ -109,3 +109,52 @@ define('DB_HOST', 'localhost');
 define('DB_USER', 'username');
 define('DB_PASS', 'password');
 define('DB_NAME', 'database_name');
+
+
+
+
+
+query sring data
+
+<?php
+// Define your routes
+$routes = [
+    '/' => 'HomeController@index',
+    '/users' => 'UserController@index',
+    '/users/add' => 'UserController@add',
+    '/users/edit' => 'UserController@edit',
+    // Add more routes as needed
+];
+
+// Get the current route from the URL
+$route = $_SERVER['REQUEST_URI'];
+
+// Check if the route exists in the defined routes
+if (array_key_exists($route, $routes)) {
+    // Extract the controller and action from the route
+    list($controllerName, $actionName) = explode('@', $routes[$route]);
+
+    // Require the controller file
+    require_once 'controllers/' . $controllerName . '.php';
+
+    // Create an instance of the controller
+    $controller = new $controllerName();
+
+    // Call the action method
+    $controller->$actionName();
+} elseif (strpos($route, '/users/edit') === 0) {
+    // Route for editing user
+    $parts = explode('=', $route);
+    $id = isset($parts[1]) ? $parts[1] : null;
+    if ($id) {
+        require_once 'controllers/UserController.php';
+        $controller = new UserController();
+        $controller->edit($id);
+    } else {
+        echo "Invalid route";
+    }
+} else {
+    // Handle 404 - Route not found
+    echo "404 Not Found";
+}
+?>
