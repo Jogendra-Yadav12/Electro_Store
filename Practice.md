@@ -194,7 +194,7 @@ class ControllerExtensionModuleBgRemove extends Controller {
             $image_data = isset($this->request->post['image_data']) ? base64_decode($this->request->post['image_data']) : '';
 
             if (!empty($image_data)) {
-                $api_key = BG_REMOVE_API_KEY;
+                $api_key = "WfafpyXqHugLWaychm8emSgZ";
                 $url = 'https://api.remove.bg/v1.0/removebg';
                 $headers = array(
                     'X-Api-Key: ' . $api_key
