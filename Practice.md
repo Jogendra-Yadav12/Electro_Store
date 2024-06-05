@@ -1,3 +1,158 @@
+Structure
+
+app/
+  addons/
+    quick_invoice_print/
+      addon.xml
+      func.php
+      init.php
+      controllers/
+        backend/
+          quick_invoice_print.php
+      schemas/
+        permissions/
+          admin.post.php
+        menu/
+          menu.post.php
+      designs/
+        backend/
+          templates/
+            addons/
+              quick_invoice_print/
+                views/
+                  quick_invoice_print/
+                    print_invoice.tpl
+                    
+
+// Addon xml file
+
+<?xml version="1.0"?>
+<addon scheme="2.1" version="1.0">
+    <id>quick_invoice_print</id>
+    <name>Quick Invoice Print</name>
+    <description>Add-on for quick printing invoices</description>
+    <version>1.0</version>
+    <compatibility>
+        <core_version>4.0.1</core_version>
+    </compatibility>
+    <settings></settings>
+</addon>
+
+
+// init.php
+
+<?php
+if (!defined('BOOTSTRAP')) { die('Access denied'); }
+
+fn_register_hooks(
+    'dispatch_before_display'
+);
+
+// Create menu.post.php
+
+<?php
+$schema['central']['orders']['items']['quick_invoice_print'] = array(
+    'href' => 'quick_invoice_print.manage',
+    'position' => 900,
+    'subitems' => array(
+        'print_invoice' => array(
+            'href' => 'quick_invoice_print.print_invoice',
+            'position' => 100
+        ),
+    ),
+);
+
+return $schema;
+
+// admin.post.php 
+
+<?php
+$schema['quick_invoice_print'] = array(
+    'permissions' => 'manage_orders',
+);
+
+return $schema;
+
+// Backend Controller
+
+<?php
+if (!defined('BOOTSTRAP')) { die('Access denied'); }
+
+use Tygh\Registry;
+
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    // Handle any POST requests here
+}
+
+if ($mode == 'print_invoice') {
+    $order_id = $_REQUEST['order_id'];
+    $order_info = fn_get_order_info($order_id);
+
+    Tygh::$app['view']->assign('order_info', $order_info);
+    Tygh::$app['view']->display('addons/quick_invoice_print/views/quick_invoice_print/print_invoice.tpl');
+
+    exit;
+}
+
+
+// Print_invoice.tpl
+
+{include file="common/subheader.tpl" title="Print Invoice"}
+
+<div id="invoice">
+    <h1>Invoice</h1>
+    <p>Order ID: {$order_info.order_id}</p>
+    <p>Customer: {$order_info.firstname} {$order_info.lastname}</p>
+    <p>Total: {$order_info.total}</p>
+    <!-- Add more order details as needed -->
+</div>
+
+<script type="text/javascript">
+    window.onload = function() {
+        window.print();
+    };
+</script>
+
+
+//  design/backend/templates/addons/quick_invoice_print/hooks/orders/
+
+{** 
+ * Hook to add a print invoice button to the order details page
+ *}
+<li>
+    <a class="btn" href="{url controller="quick_invoice_print" mode="print_invoice" order_id=$order_info.order_id}" target="_blank">
+        Print Invoice
+    </a>
+</li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 // Controller
 
 <?php
