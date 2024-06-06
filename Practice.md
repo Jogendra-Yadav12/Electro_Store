@@ -80,19 +80,40 @@ if (!defined('BOOTSTRAP')) { die('Access denied'); }
 
 use Tygh\Registry;
 
+class QuickInvoicePrintController
+{
+    public function __construct()
+    {
+        // Initialization code
+    }
+
+    public function handleRequest($mode)
+    {
+        if ($mode == 'print_invoice') {
+            $this->printInvoice();
+        }
+    }
+
+    private function printInvoice()
+    {
+        $order_id = $_REQUEST['order_id'];
+        $order_info = fn_get_order_info($order_id);
+
+        Tygh::$app['view']->assign('order_info', $order_info);
+        Tygh::$app['view']->display('addons/quick_invoice_print/views/quick_invoice_print/print_invoice.tpl');
+
+        exit;
+    }
+}
+
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // Handle any POST requests here
 }
 
-if ($mode == 'print_invoice') {
-    $order_id = $_REQUEST['order_id'];
-    $order_info = fn_get_order_info($order_id);
+$mode = Registry::get('runtime.mode');
+$controller = new QuickInvoicePrintController();
+$controller->handleRequest($mode);
 
-    Tygh::$app['view']->assign('order_info', $order_info);
-    Tygh::$app['view']->display('addons/quick_invoice_print/views/quick_invoice_print/print_invoice.tpl');
-
-    exit;
-}
 
 
 // Print_invoice.tpl
