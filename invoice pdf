@@ -15,11 +15,6 @@ $row=$select->fetch(PDO::FETCH_OBJ);
 
 
 
-
-
-
-
-
 $pdf = new FPDF ('P','mm',array(80,145));
 
 $pdf->AddPage();
@@ -91,8 +86,6 @@ $pdf->Cell(12,5,'TOTAL',1,1,'C');
 $select=$pdo->prepare("select * from table_invoice_details where invoice_id=$id");
 $select->execute();
 //$item=$select->fetch(PDO::FETCH_OBJ)
-    
-    
     while($item=$select->fetch(PDO::FETCH_OBJ)){
         
      $pdf->SetX(7);   
