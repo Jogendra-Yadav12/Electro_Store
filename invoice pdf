@@ -218,3 +218,42 @@ $pdf->Cell(75,3,'Contact at : +92 3222563301',0,1,'');
 
 $pdf->Output();
 ?>
+
+
+
+
+
+
+
+
+
+
+
+On button give the onclick event
+
+like :-  <button onclick="print('print')">Print</button>
+
+
+
+
+
+<div id="print">
+include slip template
+</div>
+
+
+ function print(el){
+        var data = '<input type="button" id="printPageButton" class="printPage" style="display:block; width:100%; border:none; backgouund: color #008b80; padding:14px 28px; font-size:16px; cursor:pointer; text-align:center;" value="Print Recipt" 
+        on click="windor.print()">';
+
+        data += document.getElementById(el).innerHTML;
+        myRecipt = window.open("","mywin","left=150,top=130,width=400,height=800");
+        myRecipt.screnX = 0;
+        myRecipt.screnY = 0;
+        my.Recipt.document.write(data);
+        myRecipt.document.title = "Print Recipt";
+        myRecipt.focus();
+        setTimeout(()=>{
+            mtRecipt.close();
+        },8000);
+    }
