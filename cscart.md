@@ -1,3 +1,13 @@
+'custom_print' => [
+'name'     => ['template' => 'custom_print'],
+'dispatch' => '',
+'data'     => [
+    'action_class' => '',
+    'onclick' => 'printSelectedOrders();', // Custom JavaScript function call
+],
+'position' => 50,
+],
+
 Step 2: Create an Endpoint to Fetch Order Data
 Modify your your_addon.php file to handle fetching the order data and returning it as a JSON response.
 
@@ -50,13 +60,14 @@ Create a JavaScript file (e.g., order_printer.js) and add the following code:
 
 import EscPosEncoder from 'path/to/esc-pos-encoder.esm.js';
 
-function fetchOrderDetails(orderId) {
-    return fetch('index.php?dispatch=your_addon.get_order_details', {
+// Function to fetch order details
+function fetchOrderDetails(orderIds) {
+    return fetch('index.php?dispatch=your_addon.print_invoices', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded',
         },
-        body: `order_id=${orderId}`
+        body: `order_ids[]=${orderIds.join('&order_ids[]=')}`
     })
     .then(response => response.json())
     .then(data => {
@@ -68,44 +79,62 @@ function fetchOrderDetails(orderId) {
     });
 }
 
-function printOrder(orderId) {
-    fetchOrderDetails(orderId)
-    .then(orderInfo => {
-        let encoder = new EscPosEncoder();
+// Function to print orders
+function printOrders(orderIds) {
+    fetchOrderDetails(orderIds)
+    .then(ordersInfo => {
+        ordersInfo.forEach(orderInfo => {
+            let encoder = new EscPosEncoder();
 
-        let result = encoder
-            .initialize()
-            .text(`Order #${orderInfo.order_id}`)
-            .newline()
-            .text(`Date: ${new Date(orderInfo.timestamp * 1000).toLocaleString()}`)
-            .newline()
-            .text('Items:')
-            .newline();
-
-        orderInfo.products.forEach(product => {
-            result.text(`${product.product}`)
+            let result = encoder
+                .initialize()
+                .text(`Order #${orderInfo.order_id}`)
                 .newline()
-                .text(`Qty: ${product.amount}  Price: $${product.price}`)
+                .text(`Date: ${new Date(orderInfo.timestamp * 1000).toLocaleString()}`)
+                .newline()
+                .text('Items:')
                 .newline();
+
+            orderInfo.products.forEach(product => {
+                result.text(`${product.product}`)
+                    .newline()
+                    .text(`Qty: ${product.amount}  Price: $${product.price}`)
+                    .newline();
+            });
+
+            result.text(`Total: $${orderInfo.total}`)
+                .newline()
+                .qrcode(`https://yourstore.com/order/${orderInfo.order_id}`)
+                .encode();
+
+            // Send `result` to your printer
+            console.log(result);
+            // You need to send the encoded data to your ESC/POS printer using appropriate method
         });
-
-        result.text(`Total: $${orderInfo.total}`)
-            .newline()
-            .qrcode(`https://yourstore.com/order/${orderInfo.order_id}`)
-            .encode();
-
-        // Send `result` to your printer
-        console.log(result);
-        // You need to send the encoded data to your ESC/POS printer using appropriate method
-
     })
     .catch(error => {
         console.error('Error fetching order details:', error);
     });
 }
 
-// Example usage
-printOrder(123);
+// Function to handle the click event and get selected order IDs
+function printSelectedOrders() {
+    // Collect selected order IDs from checkboxes
+    let selectedOrderIds = [];
+    document.querySelectorAll('input[name="order_ids[]"]:checked').forEach((checkbox) => {
+        selectedOrderIds.push(checkbox.value);
+    });
+
+    if (selectedOrderIds.length > 0) {
+        printOrders(selectedOrderIds);
+    } else {
+        alert('No orders selected');
+    }
+}
+
+// Expose the function to the global scope
+window.printSelectedOrders = printSelectedOrders;
+
 
 
 Step 4: Include the JavaScript in Your CS-Cart Template
@@ -113,8 +142,3 @@ Include the order_printer.js script in the appropriate CS-Cart template file whe
 
 <script src="path/to/order_printer.js"></script>
 
-
-Step 5: Trigger the Print Function
-You can trigger the printOrder function on any event, such as clicking a button.
-
-<button onclick="printOrder(123)">Print Order</button>
